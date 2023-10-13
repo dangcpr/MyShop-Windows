@@ -32,18 +32,18 @@
                 <TextBlock Text="Please log into your portal" FontSize="20px" Foreground="#706E78" Margin="0 10px 0 0"/>
             </StackPanel>
             <StackPanel Width="400px" HorizontalAlignment="Left">
-                <TextBox VerticalAlignment="Center" materialDesign:HintAssist.Hint="Username"
-                         FontSize="20px" Width="400px" Margin="0 0 0 50px"
-                         IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
+                <TextBox Name="usernameInput" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Username"
+                         FontSize="20px" Width="400px" Margin="0 0 0 50px"                     
                          Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-                <PasswordBox x:Name="FloatingPasswordBox"
+                <PasswordBox Name="passwordInput"
                           FontSize="20px" Width="400px"
                           materialDesign:HintAssist.Hint="Password"
                           Style="{StaticResource MaterialDesignOutlinedPasswordBox}" />
                 <TextBlock Text="Forget Password?" Foreground="#8E8CFF" FontWeight="Bold" FontSize="15px"
                            HorizontalAlignment="Right" Margin="0 25px 0 25px"/>
                 <Button Width="400px" Content="Login" FontSize="20px"
-                        Height="40px" Background="#8E8CFF" BorderThickness="0"/>
+                        Height="40px" Background="#8E8CFF" BorderThickness="0"
+                        Click="handleLoginAccount"/>
             </StackPanel>
         </StackPanel>
         
