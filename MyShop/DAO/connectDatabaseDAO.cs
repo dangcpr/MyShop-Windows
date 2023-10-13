@@ -21,7 +21,13 @@ namespace MyShop.DAO
 {
     class connectDatabaseDAO
     {
-        public static string cntStr = @"Server=localhost;Port=5432;User id=postgres;Password=123;Database=MyShop";
+        public static string host = "localhost";
+        public static string port = "5432";
+        public static string user = "postgres";
+        public static string pass = "123";
+        public static string db = "MyShop";
+
+        public static string cntStr = $@"Server={host};Port={port};User id={user};Password={pass};Database={db}";
 
         public static NpgsqlConnection iConnect { get; set; }
 

@@ -8,8 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="assets\icons\dashboard.png" />
     <None Remove="assets\login-cover.png" />
     <None Remove="assets\logo.png" />
+    <None Remove="assets\user.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,8 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="assets\icons\dashboard.png" />
     <Resource Include="assets\login-cover.png" />
     <Resource Include="assets\logo.png" />
+    <Resource Include="assets\user.png" />
   </ItemGroup>
 
 </Project>

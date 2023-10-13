@@ -67,3 +67,12 @@ D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\MyShop.csproj.Fody.
 D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\MyShop.csproj.Fody.RuntimeCopyLocal.cache
 D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\Dashboard.g.cs
 D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\Dashboard.baml
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\UserControls\DashboardUC.g.cs
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\UserControls\DashboardUC.baml
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\UserControls\ManageItemsUC.g.cs
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\UserControls\ManageItemsUC.baml
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\UserControls\OrdersUC.g.cs
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\UserControls\OrdersUC.baml
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\UserControls\ReportsUC.g.cs
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\UserControls\ReportsUC.baml

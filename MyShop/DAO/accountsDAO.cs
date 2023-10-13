@@ -1,18 +1,25 @@
-﻿using Npgsql;
+﻿using MyShop.Classes;
+using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
+using static MyShop.Classes.Accounts;
 using static MyShop.DAO.connectDatabaseDAO;
 
 namespace MyShop.DAO
 {
-    class accountsDAO
+    class accountsDAO: INotifyPropertyChanged
     {
+        public static Accounts userAccount { get; set; }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public async Task<bool> checkLoginAccount(string username, string password)
         {
             try
@@ -34,6 +41,8 @@ namespace MyShop.DAO
                 {
                     if (account.username == username && account.password == password)
                     {
+                        userAccount = new Accounts();
+                        userAccount.username = username;
                         return true;
                     }
                 }
@@ -42,7 +51,7 @@ namespace MyShop.DAO
             }
             catch
             {
-                MessageBox.Show("Something wrong :(");
+                MessageBox.Show("Something wrong :(", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }

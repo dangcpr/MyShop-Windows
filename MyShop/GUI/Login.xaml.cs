@@ -28,8 +28,8 @@ namespace MyShop.GUI
     /// </summary>
     public partial class Login : Window
     {
-        private MyShop.DAO.connectDatabaseDAO dbDAO = null;
-        private MyShop.DAO.accountsDAO accountsDAO = null;
+        private MyShop.DAO.connectDatabaseDAO dbDAO;
+        private MyShop.DAO.accountsDAO accountsDAO;
 
         public Login()
         {
@@ -70,15 +70,15 @@ namespace MyShop.GUI
                         this.Hide();
                     }
                     else
-                    {
-                        MessageBox.Show("Login failed");
+                    {                  
+                        MessageBox.Show("Login failed", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
             catch
             {
-                MessageBox.Show("Something wrong :(");
-            }               
+                MessageBox.Show("Something wrong :(", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
