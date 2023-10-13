@@ -4,9 +4,53 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyShop.GUI"
+        
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
         mc:Ignorable="d"
-        Title="MyShop Login" Height="450" Width="800">
+        Title="MyShop Login" Height="720" Width="1280">
     <Grid>
-        <TextBlock Text="Ahihi" d:Text="Ahihi"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3.5*" />
+            <ColumnDefinition Width="2.5*" />
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="720"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel  Grid.Column="0" Grid.Row="0" Orientation="Vertical" Width="500" Margin="0 80px 0 100px">
+            <Image Source="/assets/logo.png" Width="230px" HorizontalAlignment="Left"/>
+            <StackPanel Margin="0 30px 0 30px">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Hey, Hello" FontSize="30px" Foreground="#706E78" FontWeight="Bold"/>
+                    <TextBlock Text="👋" FontSize="30px" Foreground="Gold" FontWeight="Bold" Margin="10px 0 0 0"/>                             
+                </StackPanel>
+                <TextBlock Text="Please log into your portal" FontSize="20px" Foreground="#706E78" Margin="0 10px 0 0"/>
+            </StackPanel>
+            <StackPanel Width="400px" HorizontalAlignment="Left">
+                <TextBox VerticalAlignment="Center" materialDesign:HintAssist.Hint="Username"
+                         FontSize="20px" Width="400px" Margin="0 0 0 50px"
+                         IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                <PasswordBox x:Name="FloatingPasswordBox"
+                          FontSize="20px" Width="400px"
+                          materialDesign:HintAssist.Hint="Password"
+                          Style="{StaticResource MaterialDesignOutlinedPasswordBox}" />
+                <TextBlock Text="Forget Password?" Foreground="#8E8CFF" FontWeight="Bold" FontSize="15px"
+                           HorizontalAlignment="Right" Margin="0 25px 0 25px"/>
+                <Button Width="400px" Content="Login"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                        ToolTip="MaterialDesignFlatMidButton" />
+            </StackPanel>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right">
+            <Image Source="/assets/login-cover.png" Height="720"/>
+        </StackPanel>
     </Grid>
 </Window>

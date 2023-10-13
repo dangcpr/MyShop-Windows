@@ -8,14 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="assets\login-cover.png" />
+    <None Remove="assets\logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="assets\" />
     <Folder Include="BUS\" />
     <Folder Include="DAO\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\login-cover.png" />
+    <Resource Include="assets\logo.png" />
   </ItemGroup>
 
 </Project>
