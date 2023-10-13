@@ -12,4 +12,10 @@
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="assets\" />
+    <Folder Include="BUS\" />
+    <Folder Include="DAO\" />
+  </ItemGroup>
+
 </Project>
