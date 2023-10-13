@@ -11,18 +11,18 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         
         mc:Ignorable="d"
-        Title="MyShop Login" Height="720" Width="1280">
+        Title="MyShop Login" Height="680" Width="1024">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3.5*" />
-            <ColumnDefinition Width="2.5*" />
+            <ColumnDefinition Width="3.0*" />
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="720"/>
+            <RowDefinition Height="680"/>
         </Grid.RowDefinitions>
 
-        <StackPanel  Grid.Column="0" Grid.Row="0" Orientation="Vertical" Width="500" Margin="0 80px 0 100px">
+        <StackPanel  Grid.Column="0" Grid.Row="0" Orientation="Vertical" Width="400" Margin="0 80px 0 100px">
             <Image Source="/assets/logo.png" Width="230px" HorizontalAlignment="Left"/>
             <StackPanel Margin="0 30px 0 30px">
                 <StackPanel Orientation="Horizontal">
@@ -42,15 +42,13 @@
                           Style="{StaticResource MaterialDesignOutlinedPasswordBox}" />
                 <TextBlock Text="Forget Password?" Foreground="#8E8CFF" FontWeight="Bold" FontSize="15px"
                            HorizontalAlignment="Right" Margin="0 25px 0 25px"/>
-                <Button Width="400px" Content="Login"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                        Style="{StaticResource MaterialDesignFlatMidBgButton}"
-                        ToolTip="MaterialDesignFlatMidButton" />
+                <Button Width="400px" Content="Login" FontSize="20px"
+                        Height="40px" Background="#8E8CFF" BorderThickness="0"/>
             </StackPanel>
         </StackPanel>
         
         <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right">
-            <Image Source="/assets/login-cover.png" Height="720"/>
+            <Image Source="/assets/login-cover.png" Height="680" />
         </StackPanel>
     </Grid>
 </Window>
