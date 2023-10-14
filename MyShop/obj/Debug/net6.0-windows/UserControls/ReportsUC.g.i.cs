@@ -53,7 +53,7 @@ namespace MyShop.UserControls {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MyShop;component/usercontrols/reportsuc.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/MyShop;V1.0.0.0;component/usercontrols/reportsuc.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\UserControls\ReportsUC.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
