@@ -26,7 +26,7 @@ namespace MyShop.DAO
             {
                 NpgsqlConnection connection = connectDB();
 
-                var dataTable = getDataTable(connection, "select * from accounts");
+                var dataTable = getDataTable(connection, "select * from \"account\"");
 
                 var accountList = new List<MyShop.Classes.Accounts>();
 
