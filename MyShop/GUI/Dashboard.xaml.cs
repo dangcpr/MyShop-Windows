@@ -16,6 +16,12 @@ using System.Windows.Shapes;
 
 using static MyShop.Classes.Accounts;
 using static MyShop.DAO.accountsDAO;
+using static MyShop.DAO.productDAO;
+using static MyShop.BUS.productBUS;
+using static MyShop.BUS.orderBUS;
+using static MyShop.Classes.MyModel;
+using static MyShop.UserControls.DashboardUC;
+using System.Runtime.CompilerServices;
 
 namespace MyShop.GUI
 {
@@ -30,17 +36,80 @@ namespace MyShop.GUI
         }
 
         MyShop.Classes.Accounts _user;
+        MyShop.BUS.accountsBUS _accountsBUS;
+
+        List<MyShop.Classes.Product> _productList;
+        MyShop.BUS.productBUS _productBUS;
+
+        List<MyShop.Classes.Order> _monthOrderList;
+        List<MyShop.Classes.Order> _weekOrderList;
+        List<MyShop.Classes.Order> _preMonthOrderList;
+        List<MyShop.Classes.Order> _preWeekOrderList;
+        MyShop.BUS.orderBUS _orderBUS;
 
         private void handleDashboardLoaded(object sender, RoutedEventArgs e)
         {
-            var username = accountsDAO.userAccount.username;
+            var _myModel = new MyShop.Classes.MyModel();
 
-            _user = new MyShop.Classes.Accounts
+            _accountsBUS = new MyShop.BUS.accountsBUS();
+            bool checkAccoutBUS = _accountsBUS.checkAccountsBUS();
+
+            _productBUS = new MyShop.BUS.productBUS();
+            bool checkProductBus = _productBUS.checkProductInSale();
+
+            _orderBUS = new MyShop.BUS.orderBUS();
+            bool checkOrderBUS = _orderBUS.checkOrderMonth();
+
+            if(checkAccoutBUS == true)
             {
-                username = username,
-            };
+                var username = accountsDAO.userAccount.username;
+                _myModel.username = username;
+            }
 
-            this.DataContext = _user;
+            if (checkProductBus == true)
+            {
+                _productList = MyShop.DAO.productDAO.getProductList();
+                _myModel.count_product = _productList.Count();
+            }
+
+            if(checkOrderBUS == true)
+            {
+                _monthOrderList = MyShop.DAO.orderDAO.getOrderList("month");
+                _myModel.count_order_month = _monthOrderList.Count();
+
+                _weekOrderList = MyShop.DAO.orderDAO.getOrderList("week");
+                _myModel.count_order_week = _weekOrderList.Count();
+
+                _preMonthOrderList = MyShop.DAO.orderDAO.getOrderList("preMonth");
+                _myModel.count_change_order_month = _monthOrderList.Count() - _preMonthOrderList.Count();
+                if(_myModel.count_change_order_month < 0) 
+                {
+                    _myModel.count_change_order_month = _myModel.count_change_order_month * (-1);
+                    _myModel.image_change_order_month = "../assets/icons/decrease.png";
+                }
+                else
+                {
+                    _myModel.image_change_order_month = "../assets/icons/increase.png";
+                }
+
+                _preWeekOrderList = MyShop.DAO.orderDAO.getOrderList("preWeek");
+                _myModel.count_change_order_week = _weekOrderList.Count() - _preWeekOrderList.Count();
+                if (_myModel.count_change_order_week < 0)
+                {
+                    _myModel.count_change_order_week = _myModel.count_change_order_week * (-1);
+                    _myModel.iamge_change_order_week = "../assets/icons/decrease.png";
+                }
+                else
+                {
+                    _myModel.iamge_change_order_week = "../assets/icons/increase.png";
+                }
+            }
+
+            //this.DataContext = _user;
+            //this.DataContext = _productList;
+            //this.DataContext = _product;
+            //this.DataContext = _order;
+            this.DataContext = _myModel;
         }
 
         private void handleDashboardSizeChanged(object sender, SizeChangedEventArgs e)
@@ -93,8 +162,13 @@ namespace MyShop.GUI
                 _user = null;
                 var loginScreen = new Login();
                 loginScreen.Show();
-                this.Hide();
+                this.Close();
             }
+        }
+
+        private void DashboardUC_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

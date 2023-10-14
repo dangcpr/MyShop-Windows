@@ -24,5 +24,15 @@ namespace MyShop.UserControls
         {
             InitializeComponent();
         }
+
+        private void PieChart_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SearchBoxUC_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

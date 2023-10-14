@@ -67,7 +67,7 @@ namespace MyShop.GUI
                         //MessageBox.Show("Login Successfully");
                         var dashboardScreen = new Dashboard();
                         dashboardScreen.Show();
-                        this.Hide();
+                        this.Close();
                     }
                     else
                     {                  

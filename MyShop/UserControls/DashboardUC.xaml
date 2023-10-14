@@ -7,21 +7,119 @@
              xmlns:local="clr-namespace:MyShop.UserControls"
              xmlns:uc="clr-namespace:MyShop.UserControls"
 
-             
+             Background="#dedede"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"       
-             
-             mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="1080" Width="1080">
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d" d:DesignWidth="1080" Width="1080" Height="733">
     <Grid Margin="40">
-        <StackPanel Orientation="Vertical">
-            <WrapPanel Width="900" MinWidth="400" HorizontalAlignment="Center" Background="Red">
-                <StackPanel DockPanel.Dock="Left" Orientation="Vertical">
+        <WrapPanel Orientation="Vertical" Height="653" VerticalAlignment="Top">
+            <WrapPanel Width="900" MinWidth="400" HorizontalAlignment="Center" Orientation="Horizontal">
+                <StackPanel Width="200" DockPanel.Dock="Left" Orientation="Vertical">
                     <TextBlock Text="Dashboard" FontSize="30px" FontWeight="Bold"/>
                     <TextBlock Text="{Binding username}" Foreground="#79747E"
                                FontSize="20px" d:Text="Nguyễn Văn A"/>
                 </StackPanel>
-                <uc:SearchBoxUC Margin="200 0 0 0" VerticalAlignment="Center"/>
+                <uc:SearchBoxUC Width="500" Margin="200 0 0 0" VerticalAlignment="Center" Loaded="SearchBoxUC_Loaded"/>
             </WrapPanel>
-        </StackPanel>
+            <Grid MaxWidth="{Binding ActualWidth, ElementName=myStackPanel}" HorizontalAlignment="Center" Margin ="0 40 0 0" Width="900" MinWidth="400">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Name="saleBorder" Grid.Column ="0" CornerRadius="15" Background="White" Margin="30 10 30 10">
+                    <StackPanel Height="99">
+                        <TextBlock Margin="14 12 14 0" TextWrapping="Wrap" FontSize="18" Text="Number of products for sale" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                        <TextBlock Name="numberOfProductForSale" Margin="14 4 14 12" TextWrapping="Wrap" FontSize="20" d:Text="8" Text="{Binding count_product}" Foreground="#8E8CFF" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+                <Border Name="mouthBorder" Grid.Column ="1"  CornerRadius="15" Background="White" Margin="30 10 30 10">
+                    <StackPanel Height="99">
+                        <TextBlock Margin="14 12 14 0" TextWrapping="Wrap" FontSize="18" Text="Number of new orders in the month" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Name="newOrderMouth" Margin="14 4 15 12" TextWrapping="Wrap" FontSize="20" d:Text="8" Text="{Binding count_order_month}" Foreground="#8E8CFF" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold" />
+                            <StackPanel Orientation ="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                <Image Width="20" Height="35" d:Source ="../assets/icons/increase.png" Source="{Binding image_change_order_month}" Name="monthOrderImage"/>
+                                <TextBlock VerticalAlignment="Center" Name="changeMonthNumber" Margin="14 4 14 12" TextWrapping="Wrap" FontSize="20" d:Text="8" Text="{Binding count_change_order_month}" Foreground="#8E8CFF" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                            </StackPanel>
+
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                <Border Name="weekBorder" Grid.Column ="2"  CornerRadius="15" Background="White" Margin="30 10 30 10">
+                    <StackPanel Height="99">
+                        <TextBlock Margin="14 12 14 0" TextWrapping="Wrap" FontSize="18" Text="Number of new orders in the week" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Name="newOrderWeek" Margin="14 4 15 12" TextWrapping="Wrap" FontSize="20" d:Text="8" Text="{Binding count_order_week}" Foreground="#8E8CFF" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                            <StackPanel Orientation ="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                <Image Width="20" Height="35" d:Source="../assets/icons/increase.png" Source="{Binding iamge_change_order_week}"/>
+                                <TextBlock VerticalAlignment="Center" Name="changeWeekNumber" Margin="14 4 14 12" TextWrapping="Wrap" FontSize="20" d:Text="8" Text="{Binding count_change_order_week}" Foreground="#8E8CFF" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                            </StackPanel>
+
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Grid MaxWidth="{Binding ActualWidth, ElementName=myStackPanel}" HorizontalAlignment="Center" Margin ="0 20 0 0" Width="900" MinWidth="400">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column ="0" CornerRadius="15" Background="White" Margin="30 10 30 10">
+                    <StackPanel Height="190">
+                        <TextBlock Margin="14 12 14 0" TextWrapping="Wrap" FontSize="18" Text="% of product types sold" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+
+                        <lvc:PieChart SeriesColors="{Binding SeriesColors, Mode=OneWay}"
+                          LegendLocation="Bottom"
+                          Series="{Binding Series}"
+                          StartingRotationAngle="0" Height="150" Loaded="PieChart_Loaded"  />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column ="1"  CornerRadius="15" Background="White" Margin="30 10 30 10">
+                    <StackPanel Height="190">
+                        <TextBlock Margin="14 12 14 0" TextWrapping="Wrap" FontSize="18" Text="Sales speed" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                        <lvc:PieChart SeriesColors="{Binding SeriesColors, Mode=OneWay}"
+                          LegendLocation="Bottom"
+                          Series="{Binding Series}"
+                          StartingRotationAngle="0" Height="150"  />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Grid MaxWidth="{Binding ActualWidth, ElementName=myStackPanel}" HorizontalAlignment="Center" Margin ="0 20 0 0" Width="900" MinWidth="400">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column ="0" CornerRadius="15" Background="White" Margin="30,10,30,10" Grid.ColumnSpan="2">
+                    <StackPanel Height="99">
+                        <TextBlock Margin="14 12 14 0" TextWrapping="Wrap" FontSize="18" Text="Top 5 Products" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                        <TextBlock Margin="14 4 14 12" TextWrapping="Wrap" FontSize="20" Text="8" Foreground="#8E8CFF" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </WrapPanel>
     </Grid>
 </UserControl>
