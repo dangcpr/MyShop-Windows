@@ -32,10 +32,10 @@
                 <TextBlock Text="Please log into your portal" FontSize="20px" Foreground="#706E78" Margin="0 10px 0 0"/>
             </StackPanel>
             <StackPanel Width="400px" HorizontalAlignment="Left">
-                <TextBox Name="usernameInput" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Username"
+                <TextBox Name="usernameInput" Text="minhtrifit" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Username"
                          FontSize="20px" Width="400px" Margin="0 0 0 50px"                     
                          Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-                <PasswordBox Name="passwordInput"
+                <PasswordBox Name="passwordInput" Password="123"
                           FontSize="20px" Width="400px"
                           materialDesign:HintAssist.Hint="Password"
                           Style="{StaticResource MaterialDesignOutlinedPasswordBox}" />

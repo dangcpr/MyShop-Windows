@@ -8,96 +8,108 @@
         xmlns:uc="clr-namespace:MyShop.UserControls"
         
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanMinimize"
         
         Loaded="handleDashboardLoaded"
         
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"       
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"      
+        
+        SizeChanged="handleDashboardSizeChanged"
         
         mc:Ignorable="d"
         Title="MyShop Dashboard" Height="720" Width="1280">
     <Grid>
-        <StackPanel>
-            <materialDesign:Card Height="720">
+        <DockPanel>
+            <materialDesign:Card>
                 <TabControl materialDesign:NavigationRailAssist.ShowSelectionBackground="True"
                             SnapsToDevicePixels="True"
                             Style="{StaticResource MaterialDesignNavigationRailTabControl}"
                             TabStripPlacement="Left">
                     <materialDesign:NavigationRailAssist.FloatingContent>
-                        <StackPanel Margin="0 50px 0 50px">
-                            <Image Source="/assets/logo.png" Width="160px"/>
+                        <StackPanel>
+                            <StackPanel Name="dashboardNavTop" Margin="0 50px 0 50px">
+                            <Image Name="dashboardLogo" Source="/assets/logo.png" Width="160px"/>
                             <StackPanel Margin="0 50px 0 0">
-                                <StackPanel Margin="0 10px 0 0" Orientation="Vertical" VerticalAlignment="Center">
-                                    <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0 10px 0 0" Orientation="Vertical">
+                                    <StackPanel Width="200" Orientation="Vertical">
                                         <Image Width="50px" Source="/assets/user.png"/>
-                                        <TextBlock Name="dashboardUsername" Text="{Binding username}" d:Text="Nguyễn Văn A"
-                                                   FontSize="20px" FontWeight="Bold" Margin="10px 0 0 0" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding username}" d:Text="Nguyễn Văn A" HorizontalAlignment="Center"
+                                           FontSize="20px" FontWeight="Bold" Margin="0 10px 0 0" VerticalAlignment="Center"/>
                                     </StackPanel>
-                                    <StackPanel Orientation="Vertical" Margin="0 30px 0 0">
-                                        <Button Width="auto" Height="40px" Background="#8E8CFF"
-                                                BorderThickness="0" Click="handleLogout">
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 30px 0 0">
+                                        <Button Width="150" Height="40px" Background="#8E8CFF"
+                                        BorderThickness="0" Click="handleLogout">
                                             <StackPanel Orientation="Horizontal"
-                                                    HorizontalAlignment="Center" Width="auto" Height="auto">
-                                            <materialDesign:PackIcon Width="20px" Height="20px" FontWeight="Bold"
-                                                                     VerticalAlignment="Center" Kind="Logout"/>
-                                            <TextBlock Text="Log out" FontSize="20px" FontWeight="Bold" Margin="10px 0 0 0" />
-                                        </StackPanel>
+                                            HorizontalAlignment="Center" Width="auto" Height="auto">
+                                                <materialDesign:PackIcon Width="20px" Height="20px" FontWeight="Bold"
+                                                             VerticalAlignment="Center" Kind="Logout"/>
+                                                <TextBlock Text="Log out" FontSize="20px" FontWeight="Bold" Margin="10px 0 0 0" />
+                                            </StackPanel>
                                         </Button>
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
+                            <StackPanel Name="dashboardNavTopMobile" Margin="0 50px 0 50px">
+                                <Image Source="/assets/logo-mobile.png" Width="48"/>
+                                <Image Width="50px" Margin="0 50px 0 30px" Source="/assets/user.png"/>
+                                <Button HorizontalAlignment="Center" IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                        ToolTip="MaterialDesignFloatingActionMiniButton" Click="handleLogout">
+                                    <materialDesign:PackIcon Kind="Logout" Height="24" Width="24" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
                     </materialDesign:NavigationRailAssist.FloatingContent>
-                    <TabItem Width="250px" Background="#8E8CFF">
+                    <TabItem Name="tab1" Width="250" Background="#8E8CFF">
                         <TabItem.Header>
-                            <StackPanel Orientation="Horizontal" Width="200" Height="auto">
+                            <StackPanel Name="tab1Icon" Margin="30px 0 0 0" Orientation="Horizontal" Width="200" Height="auto">
                                 <materialDesign:PackIcon Width="20px" Height="20px"
-                                     VerticalAlignment="Center" Kind="ViewDashboard"/>
-                                <TextBlock Text="Dashboard" FontSize="20px" Margin="10px 0 0 0" />
+                             VerticalAlignment="Center" Kind="ViewDashboard"/>
+                                <TextBlock Name="tab1Name" Text="Dashboard" FontSize="20px" Margin="10px 0 0 0" />
                             </StackPanel>
                         </TabItem.Header>
-                        <StackPanel Margin="16">
-                            <uc:DashboardUC Margin="16" />
+                        <StackPanel Background="#dedede">
+                            <uc:DashboardUC />
                         </StackPanel>
                     </TabItem>
-                    <TabItem Width="250px" Background="#8E8CFF">
+                    <TabItem Name="tab2" Width="250" Background="#8E8CFF">
                         <TabItem.Header>
-                            <StackPanel Orientation="Horizontal" Width="200" Height="auto">
+                            <StackPanel Name="tab2Icon" Margin="30px 0 0 0" Orientation="Horizontal" Width="200" Height="auto">
                                 <materialDesign:PackIcon Width="20px" Height="20px"
-                                     VerticalAlignment="Center" Kind="ArchiveSettings"/>
-                                <TextBlock Text="Manage Items" FontSize="20px" Margin="10px 0 0 0" />
+                             VerticalAlignment="Center" Kind="ArchiveSettings"/>
+                                <TextBlock Name="tab2Name" Text="Manage Items" FontSize="20px" Margin="10px 0 0 0" />
                             </StackPanel>
                         </TabItem.Header>
-                        <StackPanel Margin="16">
-                            <uc:ManageItemsUC Margin="16" />
+                        <StackPanel Background="#dedede">
+                            <uc:ManageItemsUC />
                         </StackPanel>
                     </TabItem>
-                    <TabItem Width="250px" Background="#8E8CFF">
+                    <TabItem Name="tab3" Width="250" Background="#8E8CFF">
                         <TabItem.Header>
-                            <StackPanel Orientation="Horizontal" Width="200" Height="auto">
+                            <StackPanel Name="tab3Icon" Margin="30px 0 0 0" Orientation="Horizontal" Width="200" Height="auto">
                                 <materialDesign:PackIcon Width="20px" Height="20px"
-                                     VerticalAlignment="Center" Kind="Cart"/>
-                                <TextBlock Text="Orders" FontSize="20px" Margin="10px 0 0 0" />
+                             VerticalAlignment="Center" Kind="Cart"/>
+                                <TextBlock Name="tab3Name" Text="Orders" FontSize="20px" Margin="10px 0 0 0" />
                             </StackPanel>
                         </TabItem.Header>
-                        <StackPanel Margin="16">
-                            <uc:OrdersUC Margin="16" />
+                        <StackPanel Background="#dedede">
+                            <uc:OrdersUC />
                         </StackPanel>
                     </TabItem>
-                    <TabItem Width="250px" Background="#8E8CFF">
+                    <TabItem Name="tab4" Width="250" Background="#8E8CFF">
                         <TabItem.Header>
-                            <StackPanel Orientation="Horizontal" Width="200" Height="auto">
+                            <StackPanel Name="tab4Icon" Margin="30px 0 0 0" Orientation="Horizontal" Width="200" Height="auto">
                                 <materialDesign:PackIcon Width="20px" Height="20px"
-                                     VerticalAlignment="Center" Kind="ChartBarStacked"/>
-                                <TextBlock Text="Reports" FontSize="20px" Margin="10px 0 0 0" />
+                             VerticalAlignment="Center" Kind="ChartBarStacked"/>
+                                <TextBlock Name="tab4Name" Text="Reports" FontSize="20px" Margin="10px 0 0 0" />
                             </StackPanel>
                         </TabItem.Header>
-                        <StackPanel Margin="16">
-                            <uc:ReportsUC Margin="16" />
+                        <StackPanel Background="#D9D9D9">
+                            <uc:ReportsUC />
                         </StackPanel>
                     </TabItem>
                 </TabControl>
             </materialDesign:Card>
-        </StackPanel>
+        </DockPanel>
     </Grid>
 </Window>

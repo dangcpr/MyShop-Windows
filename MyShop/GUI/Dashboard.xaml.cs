@@ -43,6 +43,41 @@ namespace MyShop.GUI
             this.DataContext = _user;
         }
 
+        private void handleDashboardSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            // Mobile view
+            if (e.PreviousSize != new Size() && e.PreviousSize.Width < 864)
+            {
+                dashboardNavTop.Visibility = Visibility.Collapsed;
+                dashboardNavTopMobile.Visibility = Visibility.Visible;
+
+                tab1Name.Visibility = Visibility.Collapsed;
+                tab2Name.Visibility = Visibility.Collapsed;
+                tab3Name.Visibility = Visibility.Collapsed;
+                tab4Name.Visibility = Visibility.Collapsed;
+
+                tab1.Width = 100;
+                tab2.Width = 100;
+                tab3.Width = 100;
+                tab4.Width = 100;
+            }
+            else
+            {
+                dashboardNavTop.Visibility = Visibility.Visible;
+                dashboardNavTopMobile.Visibility = Visibility.Collapsed;
+
+                tab1Name.Visibility = Visibility.Visible;
+                tab2Name.Visibility = Visibility.Visible;
+                tab3Name.Visibility = Visibility.Visible;
+                tab4Name.Visibility = Visibility.Visible;
+
+                tab1.Width = 250;
+                tab2.Width = 250;
+                tab3.Width = 250;
+                tab4.Width = 250;
+            }
+        }
+
         private void handleChange(object sender, RoutedEventArgs e)
         {
             _user.username = "Nguyễn Văn A";
@@ -53,13 +88,13 @@ namespace MyShop.GUI
             var confirm = MessageBox.Show("Do you can to log out?", "Confirmation",
                 MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
-            if(confirm == MessageBoxResult.Yes)
+            if (confirm == MessageBoxResult.Yes)
             {
                 _user = null;
                 var loginScreen = new Login();
                 loginScreen.Show();
                 this.Hide();
-            }          
+            }
         }
     }
 }

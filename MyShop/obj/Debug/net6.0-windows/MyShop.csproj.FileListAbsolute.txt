@@ -76,3 +76,5 @@ D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\UserControls\Orders
 D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\UserControls\OrdersUC.baml
 D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\UserControls\ReportsUC.g.cs
 D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\UserControls\ReportsUC.baml
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\UserControls\SearchBoxUC.g.cs
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\UserControls\SearchBoxUC.baml
