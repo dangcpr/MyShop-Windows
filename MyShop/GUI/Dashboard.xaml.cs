@@ -50,10 +50,16 @@ namespace MyShop.GUI
 
         private void handleLogout(object sender, RoutedEventArgs e)
         {
-            _user = null;
-            var loginScreen = new Login();
-            loginScreen.Show();
-            this.Hide();
+            var confirm = MessageBox.Show("Do you can to log out?", "Confirmation",
+                MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+
+            if(confirm == MessageBoxResult.Yes)
+            {
+                _user = null;
+                var loginScreen = new Login();
+                loginScreen.Show();
+                this.Hide();
+            }          
         }
     }
 }

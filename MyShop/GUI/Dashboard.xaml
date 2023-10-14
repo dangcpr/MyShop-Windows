@@ -27,21 +27,20 @@
                         <StackPanel Margin="0 50px 0 50px">
                             <Image Source="/assets/logo.png" Width="160px"/>
                             <StackPanel Margin="0 50px 0 0">
-                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                <StackPanel Margin="0 10px 0 0" Orientation="Vertical" VerticalAlignment="Center">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Width="50px" Source="/assets/user.png"/>
                                         <TextBlock Name="dashboardUsername" Text="{Binding username}" d:Text="Nguyễn Văn A"
                                                    FontSize="20px" FontWeight="Bold" Margin="10px 0 0 0" VerticalAlignment="Center"/>
                                     </StackPanel>
-                                    <StackPanel Orientation="Vertical" Margin="0 50px 0 0">
-                                        <Button Width="100px" Margin="0 0 0 30px" Content="Change" Click="handleChange"/>
-                                        <Button Style="{x:Null}" Width="auto" Height="auto"
-                                                Background="White" BorderThickness="0" Click="handleLogout">
+                                    <StackPanel Orientation="Vertical" Margin="0 30px 0 0">
+                                        <Button Width="auto" Height="40px" Background="#8E8CFF"
+                                                BorderThickness="0" Click="handleLogout">
                                             <StackPanel Orientation="Horizontal"
                                                     HorizontalAlignment="Center" Width="auto" Height="auto">
-                                            <materialDesign:PackIcon Width="20px" Height="20px" Foreground="#8E8CFF" FontWeight="Bold"
+                                            <materialDesign:PackIcon Width="20px" Height="20px" FontWeight="Bold"
                                                                      VerticalAlignment="Center" Kind="Logout"/>
-                                            <TextBlock Text="Log out" FontSize="20px" Foreground="#8E8CFF" FontWeight="Bold" Margin="10px 0 0 0" />
+                                            <TextBlock Text="Log out" FontSize="20px" FontWeight="Bold" Margin="10px 0 0 0" />
                                         </StackPanel>
                                         </Button>
                                     </StackPanel>
