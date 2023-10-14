@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <None Remove="assets\icons\dashboard.png" />
+    <None Remove="assets\icons\decrease.png" />
+    <None Remove="assets\icons\increase.png" />
     <None Remove="assets\login-cover.png" />
     <None Remove="assets\logo-mobile.png" />
     <None Remove="assets\logo.png" />
@@ -24,10 +26,16 @@
 
   <ItemGroup>
     <Resource Include="assets\icons\dashboard.png" />
+    <Resource Include="assets\icons\decrease.png" />
+    <Resource Include="assets\icons\increase.png" />
     <Resource Include="assets\login-cover.png" />
     <Resource Include="assets\logo-mobile.png" />
     <Resource Include="assets\logo.png" />
     <Resource Include="assets\user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="assets\products\" />
   </ItemGroup>
 
 </Project>
