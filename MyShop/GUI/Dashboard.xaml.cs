@@ -34,13 +34,16 @@ namespace MyShop.GUI
         {
             InitializeComponent();      
         }
-
+        
+        // BUS Implement
         MyShop.Classes.Accounts _user;
         MyShop.BUS.accountsBUS _accountsBUS;
 
         List<MyShop.Classes.Product> _productList;
         MyShop.BUS.productBUS _productBUS;
 
+        // Model Implement
+        MyShop.Classes.MyModel _myModel;
         List<MyShop.Classes.Order> _monthOrderList;
         List<MyShop.Classes.Order> _weekOrderList;
         List<MyShop.Classes.Order> _preMonthOrderList;
@@ -49,7 +52,8 @@ namespace MyShop.GUI
 
         private void handleDashboardLoaded(object sender, RoutedEventArgs e)
         {
-            var _myModel = new MyShop.Classes.MyModel();
+            //var _myModel = new MyShop.Classes.MyModel();
+            _myModel = new MyShop.Classes.MyModel();
 
             _accountsBUS = new MyShop.BUS.accountsBUS();
             bool checkAccoutBUS = _accountsBUS.checkAccountsBUS();
@@ -97,18 +101,14 @@ namespace MyShop.GUI
                 if (_myModel.count_change_order_week < 0)
                 {
                     _myModel.count_change_order_week = _myModel.count_change_order_week * (-1);
-                    _myModel.iamge_change_order_week = "../assets/icons/decrease.png";
+                    _myModel.image_change_order_week = "../assets/icons/decrease.png";
                 }
                 else
                 {
-                    _myModel.iamge_change_order_week = "../assets/icons/increase.png";
+                    _myModel.image_change_order_week = "../assets/icons/increase.png";
                 }
             }
 
-            //this.DataContext = _user;
-            //this.DataContext = _productList;
-            //this.DataContext = _product;
-            //this.DataContext = _order;
             this.DataContext = _myModel;
         }
 

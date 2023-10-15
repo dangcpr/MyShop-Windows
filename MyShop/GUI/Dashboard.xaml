@@ -31,7 +31,7 @@
                             <StackPanel Margin="0 50px 0 0">
                                 <StackPanel Margin="0 10px 0 0" Orientation="Vertical">
                                     <StackPanel Width="200" Orientation="Vertical">
-                                        <Image Width="50px" Source="/assets/user.png"/>
+                                        <Image Width="80px" Source="/assets/user.png"/>
                                         <TextBlock Text="{Binding username}" d:Text="Nguyễn Văn A" HorizontalAlignment="Center"
                                            FontSize="20px" FontWeight="Bold" Margin="0 10px 0 0" VerticalAlignment="Center"/>
                                     </StackPanel>

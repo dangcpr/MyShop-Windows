@@ -23,7 +23,7 @@ namespace MyShop.Classes
 
         public string image_change_order_month { get; set; }
 
-        public string iamge_change_order_week { get; set; }
+        public string image_change_order_week { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
     }
