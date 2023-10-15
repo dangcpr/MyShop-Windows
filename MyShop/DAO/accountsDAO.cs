@@ -9,8 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
+using BCrypt.Net;
+
 using static MyShop.Classes.Accounts;
 using static MyShop.DAO.connectDatabaseDAO;
+using System.Diagnostics;
 
 namespace MyShop.DAO
 {
@@ -52,6 +55,58 @@ namespace MyShop.DAO
             catch
             {
                 MessageBox.Show("Something wrong :(", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        public static bool checkExistAccount(string username)
+        {
+            try
+            {
+                NpgsqlConnection connection = connectDB();
+
+                var dataTable = getDataTable(connection, "select * from \"account\"");
+
+                var accountList = new List<MyShop.Classes.Accounts>();
+
+                accountList = (from DataRow dr in dataTable.Rows
+                               select new MyShop.Classes.Accounts()
+                               {
+                                   username = dr["username"].ToString(),
+                               }).ToList();
+
+                foreach (var account in accountList)
+                {
+                    if (account.username == username) return true;
+                }
+
+                return false;
+            }
+            catch
+            {
+                MessageBox.Show("Something wrong :(", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            return false;
+        }
+
+        public static bool createAccount(string username, string password, string name)
+        {
+            try
+            {
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+
+                //bool isPasswordMatch = BCrypt.Net.BCrypt.Verify("123", hashedPassword);
+
+                string queryStr = $"INSERT INTO account(username, password, fullname, role,avatar, create_at, modify_at)\r\n\tVALUES ('{username}', '{hashedPassword}', '{name}', 'admin', null, '10/15/2023', '10/15/2023');";
+
+                ExecutePSQLQuery(queryStr);
+
+                return true;
+            }
+            catch
+            {
                 return false;
             }
         }

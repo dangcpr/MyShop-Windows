@@ -18,6 +18,8 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
+using BCrypt.Net;
+
 using static MyShop.BUS.connectDatabaseBUS;
 using static MyShop.BUS.accountsBUS;
 
@@ -64,7 +66,19 @@ namespace MyShop.GUI
 
         private void handleLoginLoaded(object sender, RoutedEventArgs e)
         {
-            // Code here..
+            MyShop.BUS.accountsBUS accBUS = new MyShop.BUS.accountsBUS();
+
+            var checkAccountsBUS = accBUS.checkAccountsBUS();
+
+            if (checkAccountsBUS == true)
+            {
+                bool isExist = checkExistAccount("minhtrifit");
+
+                Debug.WriteLine(isExist);
+
+                // Auto create account with hashed password
+                if (isExist == false) createAccount("minhtrifit", "123", "Lê Minh Trí");
+            }           
         }
 
         private async void handleLoginAccount(object sender, RoutedEventArgs e)
@@ -94,7 +108,7 @@ namespace MyShop.GUI
                     // Password check
                     foreach (var acccount in res.accountList)
                     {
-                        if (acccount.username == username && acccount.password == password)
+                        if (acccount.username == username && BCrypt.Net.BCrypt.Verify(password, acccount.password))
                         {
                             checkLogin = true;
                         }
