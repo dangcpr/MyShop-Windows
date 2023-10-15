@@ -8,6 +8,8 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
         
+        Icon="/assets/logo-mobile.png"
+        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         
         mc:Ignorable="d"

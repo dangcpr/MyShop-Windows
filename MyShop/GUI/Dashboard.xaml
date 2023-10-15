@@ -7,6 +7,8 @@
         
         xmlns:uc="clr-namespace:MyShop.UserControls"
         
+        Icon="/assets/logo-mobile.png"    
+        
         WindowStartupLocation="CenterScreen"
         
         Loaded="handleDashboardLoaded"
@@ -68,7 +70,7 @@
                                 <TextBlock Name="tab1Name" Text="Dashboard" FontSize="20px" Margin="10px 0 0 0" />
                             </StackPanel>
                         </TabItem.Header>
-                        <StackPanel Background="#dedede">
+                        <StackPanel Background="#ededed">
                             <uc:DashboardUC Loaded="DashboardUC_Loaded" HorizontalAlignment="Center" />
                         </StackPanel>
                     </TabItem>
@@ -80,7 +82,7 @@
                                 <TextBlock Name="tab2Name" Text="Manage Items" FontSize="20px" Margin="10px 0 0 0" />
                             </StackPanel>
                         </TabItem.Header>
-                        <StackPanel Background="#dedede">
+                        <StackPanel Background="#ededed">
                             <uc:ManageItemsUC />
                         </StackPanel>
                     </TabItem>
@@ -92,7 +94,7 @@
                                 <TextBlock Name="tab3Name" Text="Orders" FontSize="20px" Margin="10px 0 0 0" />
                             </StackPanel>
                         </TabItem.Header>
-                        <StackPanel Background="#dedede">
+                        <StackPanel Background="#ededed">
                             <uc:OrdersUC />
                         </StackPanel>
                     </TabItem>
@@ -104,7 +106,7 @@
                                 <TextBlock Name="tab4Name" Text="Reports" FontSize="20px" Margin="10px 0 0 0" />
                             </StackPanel>
                         </TabItem.Header>
-                        <StackPanel Background="#D9D9D9">
+                        <StackPanel Background="#ededed">
                             <uc:ReportsUC />
                         </StackPanel>
                     </TabItem>
