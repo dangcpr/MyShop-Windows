@@ -1,5 +1,23 @@
 > # MyShop Project Documentation
 
-## Config Project
+## Main App Config
 
-`Go to folder: DAO/connectDatabaseDAO.cs`
+`Go to folder: ./MyShop/DAO/connectDatabaseDAO.cs`
+
+## Server Config
+
+`Go to folder: ./server/config/dbConfig.js`
+
+## Server Run
+
+**Run with default command**
+
+```php
+
+cd server
+
+npm install
+
+npm run dev
+
+```
