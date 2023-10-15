@@ -69,7 +69,7 @@
                             </StackPanel>
                         </TabItem.Header>
                         <StackPanel Background="#dedede">
-                            <uc:DashboardUC Loaded="DashboardUC_Loaded" />
+                            <uc:DashboardUC Loaded="DashboardUC_Loaded" HorizontalAlignment="Center" />
                         </StackPanel>
                     </TabItem>
                     <TabItem Name="tab2" Width="250" Background="#8E8CFF">

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,17 @@ namespace MyShop.UserControls
         public DashboardUC()
         {
             InitializeComponent();
+        }
+
+        private void handleDashboardUCSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            // Mobile view
+            if (e.PreviousSize != new Size() && e.PreviousSize.Width < 864)
+            {
+            }
+            else
+            {
+            }
         }
 
         private void PieChart_Loaded(object sender, RoutedEventArgs e)
