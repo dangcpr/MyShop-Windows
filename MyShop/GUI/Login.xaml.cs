@@ -62,21 +62,9 @@ namespace MyShop.GUI
             }           
         }
 
-        private async void handleLoginLoaded(object sender, RoutedEventArgs e)
+        private void handleLoginLoaded(object sender, RoutedEventArgs e)
         {
-            //string jsonStrRes = await GetAccountData();
-
-            //var options = new JsonSerializerOptions
-            //    {
-            //        PropertyNameCaseInsensitive = true,
-            //    };
-
-            //var res = System.Text.Json.JsonSerializer.Deserialize<RootObject>(jsonStrRes, options);
-
-            //foreach (var acccount in res.accountList)
-            //{
-            //    Debug.WriteLine(acccount.username);
-            //}
+            // Code here..
         }
 
         private async void handleLoginAccount(object sender, RoutedEventArgs e)
@@ -106,7 +94,10 @@ namespace MyShop.GUI
                     // Password check
                     foreach (var acccount in res.accountList)
                     {
-                        if (acccount.password == password) checkLogin = true;
+                        if (acccount.username == username && acccount.password == password)
+                        {
+                            checkLogin = true;
+                        }
                     }
 
                     if (checkLogin == true)

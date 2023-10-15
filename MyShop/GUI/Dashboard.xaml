@@ -11,6 +11,8 @@
         
         WindowStartupLocation="CenterScreen"
         
+        ResizeMode="CanMinimize" 
+        
         Loaded="handleDashboardLoaded"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"      
