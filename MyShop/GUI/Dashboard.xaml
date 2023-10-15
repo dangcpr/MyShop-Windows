@@ -18,7 +18,7 @@
         SizeChanged="handleDashboardSizeChanged"
         
         mc:Ignorable="d"
-        Title="MyShop Dashboard" Height="720" Width="1280">
+        Title="MyShop Dashboard" Height="750" Width="1280">
     <Grid>
         <DockPanel>
             <materialDesign:Card>

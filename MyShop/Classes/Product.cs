@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace MyShop.Classes
 {
-    public class Product : INotifyPropertyChanged
-    {
+	public class Product : INotifyPropertyChanged
+	{
 		public int product_id { get; set; }
 
 		public string name { get; set; }
@@ -30,6 +30,17 @@ namespace MyShop.Classes
 		public DateTime create_at { get; set; }
 
 		public DateTime modify_at { get; set; }
+
+		public event PropertyChangedEventHandler? PropertyChanged;
+	}
+
+	public class ProductSpeedStats : INotifyPropertyChanged
+	{
+		public int category_id { get; set; }
+
+		public string name { get; set; }
+
+		public long in_num_cat { get; set; }		
 
         public event PropertyChangedEventHandler? PropertyChanged;
     }

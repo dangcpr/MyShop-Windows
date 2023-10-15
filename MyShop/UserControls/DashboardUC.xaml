@@ -5,13 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              
              xmlns:local="clr-namespace:MyShop.UserControls"
-             xmlns:uc="clr-namespace:MyShop.UserControls"
-             
-             SizeChanged="handleDashboardUCSizeChanged"             
+             xmlns:uc="clr-namespace:MyShop.UserControls"                         
+                        
+             Loaded="handleDashboardUCLoaded"
 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"       
-             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-             mc:Ignorable="d" d:DesignWidth="1080" Height="733">
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"           
+             
+             mc:Ignorable="d" d:DesignWidth="1080" Height="750">
     <Grid>
         <StackPanel Orientation="Vertical" MinHeight="720">
             <Grid HorizontalAlignment="Center" Margin ="0 20 0 0" Width="900" MinWidth="400">
@@ -80,7 +81,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Name="newOrderWeek" Margin="14 4 15 12" TextWrapping="Wrap" FontSize="20" d:Text="8" Text="{Binding count_order_week}" Foreground="#8E8CFF" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
                             <StackPanel Orientation ="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
-                                <Image Width="20" Height="35" d:Source="../assets/icons/increase.png" Source="{Binding iamge_change_order_week}"/>
+                                <Image Width="20" Height="35" d:Source="../assets/icons/increase.png" Source="{Binding image_change_order_week}"/>
                                 <TextBlock VerticalAlignment="Center" Name="changeWeekNumber" Margin="14 4 14 12" TextWrapping="Wrap" FontSize="20" d:Text="8" Text="{Binding count_change_order_week}" Foreground="#8E8CFF" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
                             </StackPanel>
 
@@ -100,22 +101,47 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column ="0" CornerRadius="15" Background="White" Margin="30 10 30 10">
-                    <StackPanel Height="190">
-                        <TextBlock Margin="14 12 14 0" TextWrapping="Wrap" FontSize="18" Text="% of product types sold" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
-
-                        <lvc:PieChart SeriesColors="{Binding SeriesColors, Mode=OneWay}"
-                          LegendLocation="Bottom"
-                          Series="{Binding Series}"
-                          StartingRotationAngle="0" Height="150" Loaded="PieChart_Loaded"  />
+                    <StackPanel MinHeight="200">
+                        <TextBlock Margin="14 12 14 10" TextWrapping="Wrap" FontSize="18"
+                                   Text="% of product types sold" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                        <lvc:PieChart x:Name="myPieChart" StartingRotationAngle="0" LegendLocation="Bottom" Height="150"/>
                     </StackPanel>
                 </Border>
                 <Border Grid.Column ="1"  CornerRadius="15" Background="White" Margin="30 10 30 10">
-                    <StackPanel Height="190">
-                        <TextBlock Margin="14 12 14 0" TextWrapping="Wrap" FontSize="18" Text="Sales speed" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
-                        <lvc:PieChart SeriesColors="{Binding SeriesColors, Mode=OneWay}"
-                          LegendLocation="Bottom"
-                          Series="{Binding Series}"
-                          StartingRotationAngle="0" Height="150"  />
+                    <StackPanel MinHeight="200">
+                        <TextBlock Margin="14 12 14 10" TextWrapping="Wrap" FontSize="18"
+                                   Text="Sales speed" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                        <lvc:CartesianChart Height="150" Margin="20 10 20 20">
+                            <lvc:CartesianChart.Series>
+                                <lvc:LineSeries Values="{Binding speedStats}"
+                                                StrokeThickness="2" 
+                                                Stroke="#1C8FC5" Fill="#c7ebfc" 
+                                                LineSmoothness="1" 
+                                                PointGeometrySize="15"/>
+                            </lvc:CartesianChart.Series>
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis IsMerged="True">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator StrokeThickness="1" StrokeDashArray="2">
+                                            <lvc:Separator.Stroke>
+                                                <SolidColorBrush Color="#404F56" />
+                                            </lvc:Separator.Stroke>
+                                        </lvc:Separator>
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis IsMerged="True">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator StrokeThickness="1.5" StrokeDashArray="4">
+                                            <lvc:Separator.Stroke>
+                                                <SolidColorBrush Color="#404F56" />
+                                            </lvc:Separator.Stroke>
+                                        </lvc:Separator>
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
                     </StackPanel>
                 </Border>
             </Grid>

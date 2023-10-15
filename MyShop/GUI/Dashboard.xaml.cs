@@ -22,6 +22,10 @@ using static MyShop.BUS.orderBUS;
 using static MyShop.Classes.MyModel;
 using static MyShop.UserControls.DashboardUC;
 using System.Runtime.CompilerServices;
+using LiveCharts.Wpf;
+using LiveCharts;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore;
 
 namespace MyShop.GUI
 {
@@ -40,6 +44,7 @@ namespace MyShop.GUI
         MyShop.BUS.accountsBUS _accountsBUS;
 
         List<MyShop.Classes.Product> _productList;
+        List<MyShop.Classes.ProductSpeedStats> _speedStatsTable;
         MyShop.BUS.productBUS _productBUS;
 
         // Model Implement
@@ -61,10 +66,12 @@ namespace MyShop.GUI
             _productBUS = new MyShop.BUS.productBUS();
             bool checkProductBus = _productBUS.checkProductInSale();
 
+            _myModel.speedStats = new ChartValues<double>();
+
             _orderBUS = new MyShop.BUS.orderBUS();
             bool checkOrderBUS = _orderBUS.checkOrderMonth();
 
-            if(checkAccoutBUS == true)
+            if (checkAccoutBUS == true)
             {
                 var username = accountsDAO.userAccount.username;
                 _myModel.username = username;
@@ -73,10 +80,18 @@ namespace MyShop.GUI
             if (checkProductBus == true)
             {
                 _productList = MyShop.DAO.productDAO.getProductList();
-                _myModel.count_product = _productList.Count();
+                _myModel.count_product = _productList.Count();              
+
+                _speedStatsTable = MyShop.DAO.productDAO.getSpeedStats();
+                _myModel.productInventorySum = MyShop.DAO.productDAO.getProductInventorySum();
+
+                foreach (var speed in _speedStatsTable)
+                {
+                    _myModel.speedStats.Add(Convert.ToDouble(speed.in_num_cat));
+                }
             }
 
-            if(checkOrderBUS == true)
+            if (checkOrderBUS == true)
             {
                 _monthOrderList = MyShop.DAO.orderDAO.getOrderList("month");
                 _myModel.count_order_month = _monthOrderList.Count();
@@ -86,6 +101,7 @@ namespace MyShop.GUI
 
                 _preMonthOrderList = MyShop.DAO.orderDAO.getOrderList("preMonth");
                 _myModel.count_change_order_month = _monthOrderList.Count() - _preMonthOrderList.Count();
+
                 if(_myModel.count_change_order_month < 0) 
                 {
                     _myModel.count_change_order_month = _myModel.count_change_order_month * (-1);
@@ -98,6 +114,7 @@ namespace MyShop.GUI
 
                 _preWeekOrderList = MyShop.DAO.orderDAO.getOrderList("preWeek");
                 _myModel.count_change_order_week = _weekOrderList.Count() - _preWeekOrderList.Count();
+
                 if (_myModel.count_change_order_week < 0)
                 {
                     _myModel.count_change_order_week = _myModel.count_change_order_week * (-1);
@@ -108,7 +125,8 @@ namespace MyShop.GUI
                     _myModel.image_change_order_week = "../assets/icons/increase.png";
                 }
             }
-
+           
+            // DataContext implement
             this.DataContext = _myModel;
         }
 
@@ -164,11 +182,11 @@ namespace MyShop.GUI
                 loginScreen.Show();
                 this.Close();
             }
-        }
-
+        }     
+        
         private void DashboardUC_Loaded(object sender, RoutedEventArgs e)
         {
-
+            Debug.WriteLine("===> DashboardUC_Loaded Check");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LiveCharts;
+using LiveCharts.Wpf;
+
+using static MyShop.Classes.MyModel;
 
 namespace MyShop.UserControls
 {
@@ -23,28 +28,42 @@ namespace MyShop.UserControls
     {
         public DashboardUC()
         {
-            InitializeComponent();
+            InitializeComponent();         
         }
 
-        private void handleDashboardUCSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            // Mobile view
-            if (e.PreviousSize != new Size() && e.PreviousSize.Width < 864)
-            {
-            }
-            else
-            {
-            }
-        }
+        List<MyShop.Classes.ProductSpeedStats> _speedStatsTable;
 
-        private void PieChart_Loaded(object sender, RoutedEventArgs e)
-        {
+        MyShop.Classes.MyModel _myModel = new MyShop.Classes.MyModel();
 
+        private void handleDashboardUCLoaded(object sender, RoutedEventArgs e)
+        {
+            _speedStatsTable = MyShop.DAO.productDAO.getSpeedStats();
+
+            string[] colorList = { "Hotpink", "Turquoise", "Gold" };
+            var colorIndex = 0;
+
+            foreach (var speed in _speedStatsTable)
+            {
+                SolidColorBrush color =
+                    (SolidColorBrush)new BrushConverter()
+                    .ConvertFromString(colorList[colorIndex]);
+
+                myPieChart.Series.Add(new PieSeries
+                {
+                    Title = speed.name.ToString(),
+                    Fill = color,
+                    StrokeThickness = 0,
+                    Values = new ChartValues<double> { Convert.ToDouble(speed.in_num_cat) }
+                });
+                colorIndex++;
+            }
+
+            colorIndex = 0;
         }
 
         private void SearchBoxUC_Loaded(object sender, RoutedEventArgs e)
         {
-
-        }
+            Debug.WriteLine("===> SearchBoxUC_Loaded Check");
+        }       
     }
 }

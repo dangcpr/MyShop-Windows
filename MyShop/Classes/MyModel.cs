@@ -1,9 +1,19 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+
+using CommunityToolkit.Mvvm.ComponentModel;
+using LiveChartsCore;
+using LiveChartsCore.Defaults;
+using LiveChartsCore.SkiaSharpView;
 
 namespace MyShop.Classes
 {
@@ -25,6 +35,16 @@ namespace MyShop.Classes
 
         public string image_change_order_week { get; set; }
 
+        //===== % Product Types Sold Implement
+        public List<MyShop.Classes.ProductSpeedStats> productTypeSold { get; set; }
+
+        //===== SpeedSale Implement
+        public ChartValues<double> speedStats { get; set; }
+
+        public long productInventorySum { get; set; }
+
+
+        //===== PropertyChangedEventHandler
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }
