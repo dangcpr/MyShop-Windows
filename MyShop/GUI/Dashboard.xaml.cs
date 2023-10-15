@@ -63,7 +63,7 @@ namespace MyShop.GUI
             _myModel = new MyShop.Classes.MyModel();
 
             _accountsBUS = new MyShop.BUS.accountsBUS();
-            bool checkAccoutBUS = _accountsBUS.checkAccountsBUS();
+            bool checkAccountBUS = _accountsBUS.checkAccountsBUS();
 
             _productBUS = new MyShop.BUS.productBUS();
             bool checkProductBus = _productBUS.checkProductInSale();
@@ -73,7 +73,7 @@ namespace MyShop.GUI
             _orderBUS = new MyShop.BUS.orderBUS();
             bool checkOrderBUS = _orderBUS.checkOrderMonth();
 
-            if (checkAccoutBUS == true)
+            if (checkAccountBUS == true)
             {
                 var username = accountsDAO.userAccount.username;
                 _myModel.username = username;

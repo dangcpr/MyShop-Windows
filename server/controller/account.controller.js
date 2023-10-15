@@ -1,13 +1,12 @@
 const db = require("../model/db.model.js");
 
-class ProductController {
+class AccountController {
   getAllProducts = async (req, res, next) => {
     try {
-      const productList = await db.getAllProduct();
+      const accountList = await db.getAllAccount();
 
       res.status(200).json({
-        message: "success",
-        data: productList,
+        accountList,
       });
     } catch (error) {
       next(error);
@@ -15,4 +14,4 @@ class ProductController {
   };
 }
 
-module.exports = new ProductController();
+module.exports = new AccountController();

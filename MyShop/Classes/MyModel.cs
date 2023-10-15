@@ -14,6 +14,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
+using System.Net.Http;
 
 namespace MyShop.Classes
 {
@@ -45,6 +46,7 @@ namespace MyShop.Classes
 
         public List<MyShop.Classes.ProductTopLimit> productTopLimit { get; set; }
 
+        public static HttpClient client = new HttpClient();
 
         //===== PropertyChangedEventHandler
         public event PropertyChangedEventHandler? PropertyChanged;

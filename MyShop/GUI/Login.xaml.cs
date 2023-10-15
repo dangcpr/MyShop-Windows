@@ -14,12 +14,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+
 using static MyShop.BUS.connectDatabaseBUS;
 using static MyShop.BUS.accountsBUS;
 
 using static MyShop.DAO.connectDatabaseDAO;
 using static MyShop.DAO.accountsDAO;
+using static MyShop.Classes.Product;
+using static MyShop.Classes.MyModel;
 using MyShop.DAO;
+using MyShop.Classes;
+using System.Security.Policy;
+
+using static MyShop.API.MyShopApi;
+using MyShop.API;
+using System.Collections;
+using System.Text.Json;
 
 namespace MyShop.GUI
 {
@@ -30,6 +43,8 @@ namespace MyShop.GUI
     {
         private MyShop.DAO.connectDatabaseDAO dbDAO;
         private MyShop.DAO.accountsDAO accountsDAO;
+        MyShop.API.MyShopApi api;
+
 
         public Login()
         {
@@ -44,7 +59,24 @@ namespace MyShop.GUI
             {
                 dbDAO = new MyShop.DAO.connectDatabaseDAO();
                 connectDB();
-            }
+            }           
+        }
+
+        private async void handleLoginLoaded(object sender, RoutedEventArgs e)
+        {
+            //string jsonStrRes = await GetAccountData();
+
+            //var options = new JsonSerializerOptions
+            //    {
+            //        PropertyNameCaseInsensitive = true,
+            //    };
+
+            //var res = System.Text.Json.JsonSerializer.Deserialize<RootObject>(jsonStrRes, options);
+
+            //foreach (var acccount in res.accountList)
+            //{
+            //    Debug.WriteLine(acccount.username);
+            //}
         }
 
         private async void handleLoginAccount(object sender, RoutedEventArgs e)
@@ -59,18 +91,35 @@ namespace MyShop.GUI
                 {
                     var username = usernameInput.Text.ToString();
                     var password = passwordInput.Password.ToString();
+                    bool checkLogin = false;
 
-                    bool checkLogin = await accountsDAO.checkLoginAccount(username, password);
+                    // API Calling
+                    string jsonStrRes = await GetAccountData();
+
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                    };
+
+                    var res = System.Text.Json.JsonSerializer.Deserialize<RootObject>(jsonStrRes, options);
+
+                    // Password check
+                    foreach (var acccount in res.accountList)
+                    {
+                        if (acccount.password == password) checkLogin = true;
+                    }
 
                     if (checkLogin == true)
                     {
                         //MessageBox.Show("Login Successfully");
+                        userAccount = new Accounts();
+                        userAccount.username = username;
                         var dashboardScreen = new Dashboard();
                         dashboardScreen.Show();
                         this.Close();
                     }
                     else
-                    {                  
+                    {
                         MessageBox.Show("Login failed", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
@@ -80,5 +129,39 @@ namespace MyShop.GUI
                 MessageBox.Show("Something wrong :(", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        //private async void handleLoginAccount(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        MyShop.BUS.accountsBUS accBUS = new MyShop.BUS.accountsBUS();
+
+        //        var checkAccountsBUS = accBUS.checkAccountsBUS();
+
+        //        if (checkAccountsBUS == true)
+        //        {
+        //            var username = usernameInput.Text.ToString();
+        //            var password = passwordInput.Password.ToString();
+
+        //            bool checkLogin = await accountsDAO.checkLoginAccount(username, password);
+
+        //            if (checkLogin == true)
+        //            {
+        //                //MessageBox.Show("Login Successfully");
+        //                var dashboardScreen = new Dashboard();
+        //                dashboardScreen.Show();
+        //                this.Close();
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("Login failed", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
+        //            }
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        MessageBox.Show("Something wrong :(", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //}      
     }
 }

@@ -1,8 +1,8 @@
 const homeRouter = require("../routes/home.router.js");
-const productRouter = require("../routes/product.router.js");
+const accountRouter = require("./account.router.js");
 
 const route = (app) => {
-  app.use("/product", productRouter);
+  app.use("/account", accountRouter);
   app.use("/", homeRouter);
 };
 

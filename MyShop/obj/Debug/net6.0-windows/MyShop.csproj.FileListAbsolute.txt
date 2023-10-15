@@ -119,3 +119,6 @@ D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\runtimes\win-arm64\
 D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\runtimes\win-x64\native\libSkiaSharp.dll
 D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\runtimes\win-x86\native\libSkiaSharp.dll
 D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\CommunityToolkit.Mvvm.dll
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\System.Net.Http.Formatting.dll
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\Newtonsoft.Json.Bson.dll
