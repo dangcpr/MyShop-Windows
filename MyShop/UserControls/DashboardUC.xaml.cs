@@ -28,7 +28,7 @@ namespace MyShop.UserControls
     {
         public DashboardUC()
         {
-            InitializeComponent();         
+            InitializeComponent();
         }
 
         List<MyShop.Classes.ProductSpeedStats> _speedStatsTable;
@@ -42,10 +42,11 @@ namespace MyShop.UserControls
             string[] colorList = { "Hotpink", "Turquoise", "Gold" };
             var colorIndex = 0;
 
+            myPieChart.Series.Clear();
+
             foreach (var speed in _speedStatsTable)
             {
-                SolidColorBrush color =
-                    (SolidColorBrush)new BrushConverter()
+                SolidColorBrush color = (SolidColorBrush)new BrushConverter()
                     .ConvertFromString(colorList[colorIndex]);
 
                 myPieChart.Series.Add(new PieSeries
@@ -55,10 +56,15 @@ namespace MyShop.UserControls
                     StrokeThickness = 0,
                     Values = new ChartValues<double> { Convert.ToDouble(speed.in_num_cat) }
                 });
+
                 colorIndex++;
             }
 
             colorIndex = 0;
+
+            _myModel.productTopLimit = MyShop.DAO.productDAO.getTopProductLimit(5, 5);
+
+            productTopLimitDatagrid.ItemsSource = _myModel.productTopLimit;
         }
 
         private void SearchBoxUC_Loaded(object sender, RoutedEventArgs e)

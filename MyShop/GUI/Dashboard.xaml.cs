@@ -26,6 +26,7 @@ using LiveCharts.Wpf;
 using LiveCharts;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore;
+using MyShop.Classes;
 
 namespace MyShop.GUI
 {
@@ -45,6 +46,7 @@ namespace MyShop.GUI
 
         List<MyShop.Classes.Product> _productList;
         List<MyShop.Classes.ProductSpeedStats> _speedStatsTable;
+        List<MyShop.Classes.ProductTopLimit> _productTopLimitList;
         MyShop.BUS.productBUS _productBUS;
 
         // Model Implement
@@ -89,6 +91,8 @@ namespace MyShop.GUI
                 {
                     _myModel.speedStats.Add(Convert.ToDouble(speed.in_num_cat));
                 }
+
+                _myModel.productTopLimit = _productTopLimitList;
             }
 
             if (checkOrderBUS == true)

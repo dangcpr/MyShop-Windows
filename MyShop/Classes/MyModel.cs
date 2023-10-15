@@ -43,6 +43,8 @@ namespace MyShop.Classes
 
         public long productInventorySum { get; set; }
 
+        public List<MyShop.Classes.ProductTopLimit> productTopLimit { get; set; }
+
 
         //===== PropertyChangedEventHandler
         public event PropertyChangedEventHandler? PropertyChanged;

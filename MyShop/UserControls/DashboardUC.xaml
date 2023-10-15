@@ -12,7 +12,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"       
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"           
              
-             mc:Ignorable="d" d:DesignWidth="1080" Height="750">
+             mc:Ignorable="d" d:DesignWidth="1080" Height="800">
     <Grid>
         <StackPanel Orientation="Vertical" MinHeight="720">
             <Grid HorizontalAlignment="Center" Margin ="0 20 0 0" Width="900" MinWidth="400">
@@ -155,9 +155,12 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column ="0" CornerRadius="15" Background="White" Margin="30,10,30,10" Grid.ColumnSpan="2">
-                    <StackPanel Height="99">
-                        <TextBlock Margin="14 12 14 0" TextWrapping="Wrap" FontSize="18" Text="Top 5 Products" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
-                        <TextBlock Margin="14 4 14 12" TextWrapping="Wrap" FontSize="20" Text="8" Foreground="#8E8CFF" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                    <StackPanel>
+                        <TextBlock Margin="14 12 14 10" TextWrapping="Wrap" FontSize="18" Text="Top 5 Products" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                        <DataGrid Name="productTopLimitDatagrid" Height="150" CanUserAddRows="False"
+                                  ItemsSource="{Binding productTopList}"
+                                  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  SelectionMode="Extended" SelectionUnit="Cell" />
                     </StackPanel>
                 </Border>
             </Grid>

@@ -44,4 +44,20 @@ namespace MyShop.Classes
 
         public event PropertyChangedEventHandler? PropertyChanged;
     }
+
+	public class ProductTopLimit : INotifyPropertyChanged
+	{
+		public int product_id { get; set; }
+
+		public string name { get; set; }
+
+		public int inventory_number { get; set; }
+
+		public int import_price { get; set; }
+
+		public int price { get; set; }
+
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+    }
 }

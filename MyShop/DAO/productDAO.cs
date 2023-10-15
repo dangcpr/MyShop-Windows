@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Documents;
 using static MyShop.Classes.Product;
 using static MyShop.Classes.ProductSpeedStats;
+using static MyShop.Classes.ProductTopLimit;
 using static MyShop.DAO.connectDatabaseDAO;
 
 namespace MyShop.DAO
@@ -96,6 +97,36 @@ namespace MyShop.DAO
             }
 
             return productInventorySum;
+        }
+
+        public static List<ProductTopLimit> getTopProductLimit(int top, int limit)
+        {
+            // top: Số lượng sản phẩm được cho là sắp hết hàng
+            // limit: lấy số lượng từ danh sách của biến top
+
+            NpgsqlConnection connection = connectDB();
+
+            var queryStr = $@"SELECT product_id, name, inventory_number,
+                import_price, price FROM ""product""
+                WHERE ""inventory_number"" < {top}
+                order by ""inventory_number"" ASC LIMIT {limit};";
+
+
+            var dataTable = getDataTable(connection, queryStr);
+
+            var productTopLimitList = new List<MyShop.Classes.ProductTopLimit>();
+
+            productTopLimitList = (from DataRow dr in dataTable.Rows
+                               select new MyShop.Classes.ProductTopLimit()
+                               {
+                                   product_id = (int)dr["product_id"],
+                                   name = dr["name"].ToString(),
+                                   inventory_number = (int)dr["inventory_number"],
+                                   import_price = (int)dr["import_price"],
+                                   price = (int)dr["price"]
+                               }).ToList();
+
+            return productTopLimitList;
         }
     }
 }
