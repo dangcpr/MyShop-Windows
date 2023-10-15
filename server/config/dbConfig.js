@@ -1,7 +1,5 @@
-// https://stackoverflow.com/questions/33357567/econnrefused-for-postgres-on-nodejs-with-dockers
-
 module.exports = {
-  host: "postgres",
+  host: "localhost",
   port: 5432,
   database: "MyShop",
   user: "postgres",
