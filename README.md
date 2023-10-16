@@ -1,23 +1,57 @@
 > # MyShop Project Documentation
 
-## Main App Config
+## 1. Authors / Contributors
+* [Nguyen Hai Dang (dangcpr)](https://github.com/dangcpr)
+* [Le Minh Tri (minhtrifit)](https://github.com/minhtrifit)
 
-`Go to folder: ./MyShop/DAO/connectDatabaseDAO.cs`
+## 2. Project Material
 
-## Server Config
+* [Github source code](https://github.com/minhtrifit)
+* [Figma UI design](https://github.com/minhtrifit)
+* [Demo video](https://github.com/minhtrifit)
 
-`Go to folder: ./server/config/dbConfig.js`
+## 3. Project Features
 
-## Server Run
+* Login Authentication (Hashed password in database)
+* Dashboard showcase (show sale speed, product stats,...)
+* Nodejs Server API
+
+## 4a. Main App Config
+
+* File path: ./MyShop/DAO/connectDatabaseDAO.cs
+* Change database connect variables `host, port, user, pass, db`
+
+## 4b. Server Config
+
+* File path: ./server/config/dbConfig.js
+* Change database connect variables `host, port, database, user, password`
+
+## 4c. Run Database SQL Script
+
+* Run w-p1.sql script to into project database
+
+## 4c. Server Run
 
 **Run with default command**
 
 ```php
 
-cd server
+cd ./server
 
 npm install
 
 npm run dev
 
 ```
+
+## 5. Project Showcases
+
+> **Login Screen**
+
+![login](./showcase/login.png)
+
+***
+
+> **Dashboard Screen**
+
+![dashboard](./showcase/dashboard.png)
