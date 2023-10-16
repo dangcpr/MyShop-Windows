@@ -129,9 +129,10 @@ namespace MyShop.GUI
                     }
                 }
             }
-            catch
+            catch (Exception error)
             {
-                MessageBox.Show("Something wrong :(", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
+                Debug.WriteLine(error.ToString());
+                MessageBox.Show("Something wrong with API :(", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

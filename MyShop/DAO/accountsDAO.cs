@@ -99,14 +99,15 @@ namespace MyShop.DAO
 
                 //bool isPasswordMatch = BCrypt.Net.BCrypt.Verify("123", hashedPassword);
 
-                string queryStr = $"INSERT INTO account(username, password, fullname, role,avatar, create_at, modify_at)\r\n\tVALUES ('{username}', '{hashedPassword}', '{name}', 'admin', null, '10/15/2023', '10/15/2023');";
+                string queryStr = $"INSERT INTO account(username, password, fullname, role,avatar)\r\n\tVALUES ('{username}', '{hashedPassword}', '{name}', 'admin', null);";
 
                 ExecutePSQLQuery(queryStr);
 
                 return true;
             }
-            catch
+            catch (Exception error)
             {
+                Debug.WriteLine(error.ToString());
                 return false;
             }
         }
