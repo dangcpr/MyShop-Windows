@@ -15,6 +15,7 @@ using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
 using System.Net.Http;
+using System.Data;
 
 namespace MyShop.Classes
 {

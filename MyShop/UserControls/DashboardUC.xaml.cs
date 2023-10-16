@@ -70,6 +70,6 @@ namespace MyShop.UserControls
         private void SearchBoxUC_Loaded(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("===> SearchBoxUC_Loaded Check");
-        }       
+        }
     }
 }

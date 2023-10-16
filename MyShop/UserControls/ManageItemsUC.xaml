@@ -4,9 +4,89 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyShop.UserControls"
+             
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"                   
+             
+             xmlns:uc="clr-namespace:MyShop.UserControls"
+             
+             Loaded="handleManageItemsUCLoaded"
+             
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1080">
-    <Grid Margin="16">
-        <TextBlock FontSize="50px">Manage Items</TextBlock>
+    <Grid>
+        <StackPanel Orientation="Vertical" MinHeight="720">
+            <Grid HorizontalAlignment="Center" Margin ="0 20 0 0" Width="900" MinWidth="400">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Width="200" Orientation="Vertical" HorizontalAlignment="Left">
+                    <TextBlock Text="Manage Items" FontSize="30px" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding username}" Foreground="#79747E" FontSize="20px" d:Text="Nguyễn Văn A"/>
+                </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal"
+                            HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Width="120" Content="Import Data"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            ToolTip="Resource name: MaterialDesignRaisedButton" Click="handleProductImportExcel" />
+                </StackPanel>
+            </Grid>
+
+            <Grid HorizontalAlignment="Center" Margin ="0 20 0 20" Width="900" MinWidth="400">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+             
+                <Border CornerRadius="15" Width="900" Background="White" HorizontalAlignment="Center" Margin="0 5 0 0">
+                    <StackPanel Margin="20 20 20 20" Orientation="Vertical" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock TextWrapping="Wrap" FontSize="15"
+                                       Foreground="#79747E" Text="Manage Products"
+                                       FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold" />
+                            <uc:SearchBoxUC x:Name="productManageSearchBox" Width="230" Margin="40 0 0 15" Loaded="SearchBoxUC_Loaded"/>
+                        </StackPanel>
+                        <DataGrid Name="productManageDataGrid" Width="900" Height="200"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                  CanUserAddRows="False" ItemsSource="{Binding productExcelData}"
+                                  SelectionMode="Extended" SelectionUnit="Cell" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Grid HorizontalAlignment="Center" Margin ="0 0 0 20" Width="900" MinWidth="400">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border CornerRadius="15" Width="900" Background="White" HorizontalAlignment="Center" Margin="0 5 0 10">
+                    <StackPanel Margin="20 20 20 20" Orientation="Vertical" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock TextWrapping="Wrap" FontSize="15"
+                                       Foreground="#79747E" Text="Manage Categories"
+                                       FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold" />
+                            <uc:SearchBoxUC x:Name="categoryManageSearchBox" Width="230" Margin="40 0 0 15" Loaded="SearchBoxUC_Loaded"/>
+                        </StackPanel>
+                        <DataGrid Name="categoryManageDataGrid" Width="900" Height="200"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                  CanUserAddRows="False" ItemsSource="{Binding productExcelData}"
+                                  SelectionMode="Extended" SelectionUnit="Cell" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
     </Grid>
 </UserControl>
