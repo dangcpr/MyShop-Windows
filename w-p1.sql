@@ -195,3 +195,7 @@ SELECT * FROM "order" WHERE EXTRACT('WEEK' FROM "order_date") = EXTRACT('WEEK' F
 SELECT * FROM "order" WHERE EXTRACT('WEEK' FROM "order_date") = EXTRACT('WEEK' FROM NOW()) - 1;
 
 SELECT * FROM "detail_order" ;
+
+DELETE FROM "category_product" WHERE product_id >= 7 and product_id <= 14;
+DELETE FROM "product" WHERE product_id >= 7 and product_id <= 14;
+DELETE FROM "category" WHERE category_id >= 4 and category_id <= 6;
