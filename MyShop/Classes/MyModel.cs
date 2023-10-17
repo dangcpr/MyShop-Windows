@@ -17,6 +17,11 @@ using LiveChartsCore.SkiaSharpView;
 using System.Net.Http;
 using System.Data;
 
+using static MyShop.Classes.Product;
+using static MyShop.Classes.Category;
+using static MyShop.Classes.CategoryProduct;
+
+
 namespace MyShop.Classes
 {
     public class MyModel : INotifyPropertyChanged
@@ -48,6 +53,12 @@ namespace MyShop.Classes
         public List<MyShop.Classes.ProductTopLimit> productTopLimit { get; set; }
 
         public static HttpClient client = new HttpClient();
+
+        public static List<MyShop.Classes.Product> excelProductList { get; set; }
+
+        public static List<MyShop.Classes.Category> excelCategoryList { get; set; }
+
+        public static List<MyShop.Classes.CategoryProduct> excelCategoryProductList { get; set; }
 
         //===== PropertyChangedEventHandler
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -32,7 +32,7 @@ namespace MyShop.Classes
 		public DateTime modify_at { get; set; }
 
 		public event PropertyChangedEventHandler? PropertyChanged;
-	}
+    }
 
 	public class ProductSpeedStats : INotifyPropertyChanged
 	{

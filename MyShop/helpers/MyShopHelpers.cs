@@ -15,17 +15,21 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using OfficeOpenXml.Table;
 
-using static MyShop.Classes.Product;
-using Microsoft.Office.Interop.Excel;
+using static MyShop.Classes.MyModel;
+using static MyShop.DAO.connectDatabaseDAO;
+
 using static Npgsql.Replication.PgOutput.Messages.RelationMessage;
+using Microsoft.Office.Interop.Excel;
+using Npgsql;
 
 namespace MyShop.helpers
 {
     public class MyShopHelpers
     {
         public static System.Data.DataTable productTable { get; set; }
-        public static System.Data.DataTable categoryTable { get; set; }
 
+        public static System.Data.DataTable categoryTable { get; set; }
+     
 
         class ExcelProduct
         {
@@ -96,6 +100,10 @@ namespace MyShop.helpers
                     ExcelWorksheet productWS = package.Workbook.Worksheets[0];
                     ExcelWorksheet productWS2 = package.Workbook.Worksheets[1];
 
+                    excelProductList = new List<Classes.Product>();
+                    excelCategoryList = new List<Classes.Category>();
+                    excelCategoryProductList = new List<Classes.CategoryProduct>();
+
                     // Loop from row 2 (Excel file start from 1)
                     for (var row = productWS.Dimension.Start.Row + 1; row < productWS.Dimension.End.Row + 2; row++)
                     {
@@ -113,10 +121,44 @@ namespace MyShop.helpers
                             string manufacture = productWS.Cells[row, cols++].Value.ToString();
                             string category_id = productWS.Cells[row, cols++].Value.ToString();
 
-                            Debug.WriteLine(category_id);
-
                             dtP.Rows.Add(product_id, name, inventory_number, import_price,
                                 price, image, detail, manufacture, category_id);
+
+                            // product table
+
+                            var newProduct = new MyShop.Classes.Product
+                            {
+                                product_id = Int32.Parse(product_id),
+                                name = name,
+                                inventory_number = Int32.Parse(inventory_number),
+                                import_price = Int32.Parse(import_price),
+                                price = Int32.Parse(price),
+                                image = image,
+                                detail = detail,
+                                manufacture = manufacture,
+                            };
+
+                            excelProductList.Add(newProduct);
+
+                            // Category table
+
+                            var newCategory = new MyShop.Classes.Category
+                            {
+                                category_id = Int32.Parse(category_id),
+                                name = name,
+                            };
+
+                            excelCategoryList.Add(newCategory);
+
+                            // Category_product table
+
+                            var newCategoryProduct = new MyShop.Classes.CategoryProduct
+                            {
+                                category_id = Int32.Parse(category_id),
+                                product_id = Int32.Parse(product_id),
+                            };
+
+                            excelCategoryProductList.Add(newCategoryProduct);
                         }
                     }
 
@@ -129,20 +171,45 @@ namespace MyShop.helpers
                             string category_id = productWS2.Cells[row, cols++].Value.ToString();
                             string name = productWS2.Cells[row, cols++].Value.ToString();
 
-                            Debug.WriteLine(category_id);
-
-                            dtC.Rows.Add(category_id, name);
+                            dtC.Rows.Add(category_id, name);                     
                         }
                     }
 
                     productTable = dtP;
                     categoryTable = dtC;
 
+                    // Save to database
+                    NpgsqlConnection connection = connectDB();
+
+                    foreach (var product in excelProductList)
+                    {
+                        string productStr = $"INSERT INTO product(\r\n\tproduct_id, name, inventory_number, import_price, price, image, detail, manufacture)\r\n\t" +
+                            $"VALUES ({product.product_id}, '{product.name}', {product.inventory_number}, {product.import_price}, {product.price}, '{product.image}', '{product.detail}', '{product.manufacture}');";
+
+                        ExecutePSQLQuery(productStr);
+                    }
+
+                    foreach (var category in excelCategoryList)
+                    {
+                        string cetegoryStr = $"INSERT INTO category(\r\n\tcategory_id, name)\r\n\t" +
+                            $"VALUES ({category.category_id}, '{category.name}');";
+
+                        ExecutePSQLQuery(cetegoryStr);
+                    }
+
+                    foreach (var categoryProduct in excelCategoryProductList)
+                    {
+                        string cetegoryProductStr = $"INSERT INTO category_product(\r\n\tproduct_id, category_id)\r\n\t" +
+                            $"VALUES ({categoryProduct.product_id}, {categoryProduct.category_id});";
+
+                        ExecutePSQLQuery(cetegoryProductStr);
+                    }
+
                     return true;
                 }
                 catch
                 {
-                    MessageBox.Show("Read excel data failed", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Import data failed", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }
             }

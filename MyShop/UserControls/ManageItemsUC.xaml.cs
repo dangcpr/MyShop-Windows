@@ -49,6 +49,8 @@ namespace MyShop.UserControls
             {
                 productManageDataGrid.ItemsSource = productTable.DefaultView;
                 categoryManageDataGrid.ItemsSource = categoryTable.DefaultView;
+
+                MessageBox.Show("Import data successfully!", "Notification", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
