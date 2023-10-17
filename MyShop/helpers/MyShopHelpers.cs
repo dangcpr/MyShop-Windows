@@ -125,7 +125,6 @@ namespace MyShop.helpers
                                 price, image, detail, manufacture, category_id);
 
                             // product table
-
                             var newProduct = new MyShop.Classes.Product
                             {
                                 product_id = Int32.Parse(product_id),
@@ -140,18 +139,7 @@ namespace MyShop.helpers
 
                             excelProductList.Add(newProduct);
 
-                            // Category table
-
-                            var newCategory = new MyShop.Classes.Category
-                            {
-                                category_id = Int32.Parse(category_id),
-                                name = name,
-                            };
-
-                            excelCategoryList.Add(newCategory);
-
                             // Category_product table
-
                             var newCategoryProduct = new MyShop.Classes.CategoryProduct
                             {
                                 category_id = Int32.Parse(category_id),
@@ -171,12 +159,21 @@ namespace MyShop.helpers
                             string category_id = productWS2.Cells[row, cols++].Value.ToString();
                             string name = productWS2.Cells[row, cols++].Value.ToString();
 
-                            dtC.Rows.Add(category_id, name);                     
+                            dtC.Rows.Add(category_id, name);
+
+                            var newCategory = new MyShop.Classes.Category
+                            {
+                                category_id = Int32.Parse(category_id),
+                                name = name,
+                            };
+
+                            excelCategoryList.Add(newCategory);
                         }
                     }
 
                     productTable = dtP;
                     categoryTable = dtC;
+
 
                     // Save to database
                     NpgsqlConnection connection = connectDB();
@@ -213,7 +210,6 @@ namespace MyShop.helpers
                     return false;
                 }
             }
-
             return false;
         }
     }
