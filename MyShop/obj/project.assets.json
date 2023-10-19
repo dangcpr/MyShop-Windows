@@ -559,6 +559,39 @@
           }
         }
       },
+      "Prism.Core/8.1.97": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/Prism.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0/Prism.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Prism.Wpf/8.1.97": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Xaml.Behaviors.Wpf": "1.1.31",
+          "Prism.Core": "8.1.97"
+        },
+        "compile": {
+          "lib/net5.0-windows7.0/Prism.Wpf.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/Prism.Wpf.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
       "PropertyChanged.Fody/4.1.0": {
         "type": "package",
         "dependencies": {
@@ -1801,6 +1834,58 @@
         "postgresql.png"
       ]
     },
+    "Prism.Core/8.1.97": {
+      "sha512": "EP5zrvWddw3eSq25Y7hHnDYdmLZEC2Z/gMrvmHzUuLbitmA1UaS7wQUlSwNr9Km8lzJNCvytFnaGBEFukHgoHg==",
+      "type": "package",
+      "path": "prism.core/8.1.97",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net461/Prism.dll",
+        "lib/net461/Prism.pdb",
+        "lib/net461/Prism.xml",
+        "lib/net47/Prism.dll",
+        "lib/net47/Prism.pdb",
+        "lib/net47/Prism.xml",
+        "lib/net5.0/Prism.dll",
+        "lib/net5.0/Prism.pdb",
+        "lib/net5.0/Prism.xml",
+        "lib/netstandard2.0/Prism.dll",
+        "lib/netstandard2.0/Prism.pdb",
+        "lib/netstandard2.0/Prism.xml",
+        "prism-logo.png",
+        "prism.core.8.1.97.nupkg.sha512",
+        "prism.core.nuspec",
+        "readme.txt"
+      ]
+    },
+    "Prism.Wpf/8.1.97": {
+      "sha512": "ZEa6S1mK35h8/blyb0uR0ed3wkpHtPdhB4eniXINJnTiJMWlGl/As6SVlFFdOPD+qsEdWNYV3xgyQD/ue5cvBA==",
+      "type": "package",
+      "path": "prism.wpf/8.1.97",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net461/Prism.Wpf.dll",
+        "lib/net461/Prism.Wpf.pdb",
+        "lib/net461/Prism.Wpf.xml",
+        "lib/net47/Prism.Wpf.dll",
+        "lib/net47/Prism.Wpf.pdb",
+        "lib/net47/Prism.Wpf.xml",
+        "lib/net5.0-windows7.0/Prism.Wpf.dll",
+        "lib/net5.0-windows7.0/Prism.Wpf.pdb",
+        "lib/net5.0-windows7.0/Prism.Wpf.xml",
+        "lib/netcoreapp3.1/Prism.Wpf.dll",
+        "lib/netcoreapp3.1/Prism.Wpf.pdb",
+        "lib/netcoreapp3.1/Prism.Wpf.xml",
+        "prism-logo.png",
+        "prism.wpf.8.1.97.nupkg.sha512",
+        "prism.wpf.nuspec",
+        "readme.txt"
+      ]
+    },
     "PropertyChanged.Fody/4.1.0": {
       "sha512": "6v+f9cI8YjnZH2WBHuOqWEAo8DFFNGFIdU8xD3AsL6fhV6Y8oAmVWd7XKk49t8DpeUBwhR/X+97+6Epvek0Y3A==",
       "type": "package",
@@ -2476,6 +2561,7 @@
       "Microsoft.Office.Interop.Excel >= 15.0.4795.1001",
       "Newtonsoft.Json >= 13.0.3",
       "Npgsql >= 8.0.0-rc.2",
+      "Prism.Wpf >= 8.1.97",
       "PropertyChanged.Fody >= 4.1.0"
     ]
   },
@@ -2562,6 +2648,10 @@
           "Npgsql": {
             "target": "Package",
             "version": "[8.0.0-rc.2, )"
+          },
+          "Prism.Wpf": {
+            "target": "Package",
+            "version": "[8.1.97, )"
           },
           "PropertyChanged.Fody": {
             "target": "Package",

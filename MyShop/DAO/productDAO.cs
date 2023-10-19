@@ -1,5 +1,8 @@
-﻿using MyShop.Classes;
+﻿using LiveChartsCore.Themes;
+using Microsoft.Office.Interop.Excel;
+using MyShop.Classes;
 using Npgsql;
+using Npgsql.Internal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -127,6 +130,130 @@ namespace MyShop.DAO
                                }).ToList();
 
             return productTopLimitList;
+        }
+
+        public static int getMaxProductID()
+        {
+            int maxProductID = 0;
+
+            NpgsqlConnection connection = connectDB();
+
+            NpgsqlCommand query2 = new NpgsqlCommand("SELECT MAX(product_id) FROM \"product\"", connection);
+
+            var reader2 = query2.ExecuteReader();
+            while (reader2.Read())
+            {
+                maxProductID = (int)reader2.GetValue(0);
+            }
+
+            reader2.Close();
+
+            return maxProductID;
+        }
+
+        public static void insertProduct(Product product, int categoryID)
+        {
+            NpgsqlConnection connection = connectDB();
+
+            string productStr = $"INSERT INTO product(\r\n\tproduct_id, name, inventory_number, import_price, price, image, detail, manufacture)\r\n\t" +
+                            $"VALUES (@id, @name, @in, @ip, @price, @image, @detail, @manu);";
+
+            NpgsqlCommand query = new NpgsqlCommand(productStr, connection);
+            query.Parameters.Add("@id", NpgsqlTypes.NpgsqlDbType.Integer).Value = product.product_id;
+            query.Parameters.Add("@name", NpgsqlTypes.NpgsqlDbType.Varchar, 128).Value = product.name;
+            query.Parameters.Add("@in", NpgsqlTypes.NpgsqlDbType.Integer).Value = product.inventory_number;
+            query.Parameters.Add("@ip", NpgsqlTypes.NpgsqlDbType.Integer).Value = product.import_price;
+            query.Parameters.Add("@price", NpgsqlTypes.NpgsqlDbType.Integer).Value = product.price;
+            query.Parameters.Add("@image", NpgsqlTypes.NpgsqlDbType.Varchar, 512).Value = product.image;
+            query.Parameters.Add("@detail", NpgsqlTypes.NpgsqlDbType.Varchar, 512).Value = product.detail;
+            query.Parameters.Add("@manu", NpgsqlTypes.NpgsqlDbType.Varchar, 128).Value = product.manufacture;
+
+            string cateProStr = $"INSERT INTO public.category_product(\r\n\tproduct_id, category_id)\r\n\tVALUES (@id, @c_id)";
+
+            NpgsqlCommand query2 = new NpgsqlCommand(cateProStr, connection);
+
+            query2.Parameters.Add("@id", NpgsqlTypes.NpgsqlDbType.Integer).Value = product.product_id;
+            query2.Parameters.Add("@c_id", NpgsqlTypes.NpgsqlDbType.Integer).Value = categoryID;
+
+            query.ExecuteNonQuery();
+            query2.ExecuteNonQuery();
+        }
+
+        public static string getCategory(int productID)
+        {
+            NpgsqlConnection connection = connectDB();
+
+            string getCategory = "";
+
+            string getCategoryStr = $"SELECT c.name as category_name FROM public.product p " +
+                $"JOIN public.category_product cp ON p.product_id = cp.product_id " +
+                $"JOIN public.category c ON cp.category_id = c.category_id WHERE p.product_id = @id";
+
+            NpgsqlCommand query = new NpgsqlCommand(getCategoryStr, connection);
+            query.Parameters.Add("@id", NpgsqlTypes.NpgsqlDbType.Integer).Value = productID;
+
+            var reader = query.ExecuteReader();
+            while (reader.Read())
+            {
+                getCategory = (string)reader.GetValue(0);
+            }
+
+            reader.Close();
+
+            return getCategory;
+        }
+
+        public static void updateProduct(Product product, string categoryName)
+        {
+            NpgsqlConnection connection = connectDB();
+
+            string productStr = $"UPDATE public.product SET name=@name, inventory_number = @in, import_price = @ip, " +
+                $"price =@price, image =@image, detail =@detail, manufacture =@manu, status =@status, modify_at = NOW() WHERE product_id = @id; ";
+
+            NpgsqlCommand query = new NpgsqlCommand(productStr, connection);
+            query.Parameters.Add("@name", NpgsqlTypes.NpgsqlDbType.Varchar, 128).Value = product.name;
+            query.Parameters.Add("@in", NpgsqlTypes.NpgsqlDbType.Integer).Value = product.inventory_number;
+            query.Parameters.Add("@ip", NpgsqlTypes.NpgsqlDbType.Integer).Value = product.import_price;
+            query.Parameters.Add("@price", NpgsqlTypes.NpgsqlDbType.Integer).Value = product.price;
+            query.Parameters.Add("@image", NpgsqlTypes.NpgsqlDbType.Varchar, 512).Value = product.image;
+            query.Parameters.Add("@detail", NpgsqlTypes.NpgsqlDbType.Varchar, 512).Value = product.detail;
+            query.Parameters.Add("@manu", NpgsqlTypes.NpgsqlDbType.Varchar, 128).Value = product.manufacture;
+            query.Parameters.Add("@status", NpgsqlTypes.NpgsqlDbType.Varchar, 128).Value = product.status;
+            query.Parameters.Add("@id", NpgsqlTypes.NpgsqlDbType.Integer).Value = product.product_id;
+
+            NpgsqlCommand query2 = new NpgsqlCommand("SELECT category_id FROM \"category\" where name = @name", connection);
+            query2.Parameters.Add("@name", NpgsqlTypes.NpgsqlDbType.Varchar, 128).Value = categoryName;
+
+            var reader2 = query2.ExecuteReader();
+            int categoryID = 1;
+
+            while (reader2.Read())
+            {
+                categoryID = (int)reader2.GetValue(0);
+            }
+
+            reader2.Close();
+
+            string cateProStr = $"UPDATE public.category_product\r\n\tSET category_id=@c_id\r\n\tWHERE product_id=@p_id";
+            NpgsqlCommand query3 = new NpgsqlCommand(cateProStr, connection);
+
+            query3.Parameters.Add("@c_id", NpgsqlTypes.NpgsqlDbType.Integer).Value = categoryID;
+            query3.Parameters.Add("@p_id", NpgsqlTypes.NpgsqlDbType.Integer).Value = product.product_id;
+
+            query.ExecuteNonQuery();
+            query3.ExecuteNonQuery();
+        }
+
+        public static void deleteProduct(int productID)
+        {
+            NpgsqlConnection connection = connectDB();
+
+            string productStr = $"DELETE FROM public.product WHERE product_id = @id";
+
+            NpgsqlCommand query = new NpgsqlCommand(productStr, connection);
+            query.Parameters.Add("@id", NpgsqlTypes.NpgsqlDbType.Integer).Value = productID;
+
+            query.ExecuteNonQuery();
         }
     }
 }

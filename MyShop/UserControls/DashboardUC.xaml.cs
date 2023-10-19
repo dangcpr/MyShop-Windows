@@ -39,7 +39,7 @@ namespace MyShop.UserControls
         {
             _speedStatsTable = MyShop.DAO.productDAO.getSpeedStats();
 
-            string[] colorList = { "Hotpink", "Turquoise", "Gold" };
+            string[] colorList = { "Hotpink", "Turquoise", "Gold", "Chartreuse", "Brown", "Darkkhaki", "chocolate", "darkolivegreen", "darkslateblue", "firebrick", "indianred" };
             var colorIndex = 0;
 
             myPieChart.Series.Clear();

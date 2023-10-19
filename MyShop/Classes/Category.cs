@@ -13,6 +13,10 @@ namespace MyShop.Classes
 
         public string name { get; set; }
 
+        public DateTime create_at { get; set; }
+
+        public DateTime modify_at { get; set; }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
     }

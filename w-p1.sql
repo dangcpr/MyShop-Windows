@@ -101,38 +101,38 @@ CREATE TABLE IF NOT EXISTS "discount" (
 ALTER TABLE "order" 
 ADD CONSTRAINT "FK_order_customer" 
 FOREIGN KEY ("customer_id") 
-REFERENCES "customer" ("customer_id");
+REFERENCES "customer" ("customer_id") ON DELETE CASCADE;
 
 ALTER TABLE "detail_order" 
 ADD CONSTRAINT "FK_detail_order_order" 
 FOREIGN KEY ("order_id") 
-REFERENCES "order" ("order_id");
+REFERENCES "order" ("order_id") ON DELETE CASCADE;
 
 ALTER TABLE "detail_order" 
 ADD CONSTRAINT "FK_detail_order_product" 
 FOREIGN KEY ("product_id") 
-REFERENCES "product" ("product_id");
+REFERENCES "product" ("product_id") ON DELETE CASCADE;
 
 ALTER TABLE "category_product" 
 ADD CONSTRAINT "FK_category_product_product" 
 FOREIGN KEY ("product_id") 
-REFERENCES "product" ("product_id");
+REFERENCES "product" ("product_id") ON DELETE CASCADE;
 
 
 ALTER TABLE "category_product" 
 ADD CONSTRAINT "FK_category_product_category" 
 FOREIGN KEY ("category_id") 
-REFERENCES "category" ("category_id");
+REFERENCES "category" ("category_id") ON DELETE CASCADE;
 
 ALTER TABLE "discount" 
 ADD CONSTRAINT "FK_discount_product" 
 FOREIGN KEY ("product_id") 
-REFERENCES "product" ("product_id");
+REFERENCES "product" ("product_id") ON DELETE CASCADE;
 
 ALTER TABLE "detail_order" 
 ADD CONSTRAINT "FK_detail_order_discount" 
 FOREIGN KEY ("discount_id") 
-REFERENCES "discount" ("discount_id");
+REFERENCES "discount" ("discount_id") ON DELETE CASCADE;
 
 INSERT INTO "account" ("username", "password", "fullname")
 VALUES 
@@ -194,8 +194,21 @@ SELECT * FROM "order" WHERE EXTRACT('MONTH' FROM "order_date") = EXTRACT('MONTH'
 SELECT * FROM "order" WHERE EXTRACT('WEEK' FROM "order_date") = EXTRACT('WEEK' FROM NOW());
 SELECT * FROM "order" WHERE EXTRACT('WEEK' FROM "order_date") = EXTRACT('WEEK' FROM NOW()) - 1;
 
+INSERT INTO "category_product" 
+VALUES
+	(1, 2),
+	(2, 1),
+	(3, 3),
+	(4, 3),
+	(5, 2),
+	(6, 2);
+--DELETE FROM "category_product"
+
 SELECT * FROM "detail_order" ;
 
-DELETE FROM "category_product" WHERE product_id >= 7 and product_id <= 14;
-DELETE FROM "product" WHERE product_id >= 7 and product_id <= 14;
-DELETE FROM "category" WHERE category_id >= 4 and category_id <= 6;
+SELECT SUM("inventory_number") FROM "product";
+
+SELECT c."category_id", c."name", SUM(p."inventory_number") as "in_num_cat" FROM "category_product" ct
+JOIN "product" p ON ct.product_id = p.product_id
+JOIN "category" c ON ct."category_id" = c."category_id"
+GROUP BY c."category_id";

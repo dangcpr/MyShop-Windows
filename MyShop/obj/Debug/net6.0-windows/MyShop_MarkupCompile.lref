@@ -1,11 +1,15 @@
-﻿D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
+﻿
 FD:\Windows\MyShop-windows\MyShop\App.xaml;;
+FD:\Windows\MyShop-windows\MyShop\GUI\AddProduct.xaml;;
 FD:\Windows\MyShop-windows\MyShop\GUI\Dashboard.xaml;;
 FD:\Windows\MyShop-windows\MyShop\GUI\Login.xaml;;
+FD:\Windows\MyShop-windows\MyShop\GUI\UpdateProduct.xaml;;
 FD:\Windows\MyShop-windows\MyShop\MainWindow.xaml;;
 FD:\Windows\MyShop-windows\MyShop\UserControls\DashboardUC.xaml;;
 FD:\Windows\MyShop-windows\MyShop\UserControls\ManageItemsUC.xaml;;
 FD:\Windows\MyShop-windows\MyShop\UserControls\OrdersUC.xaml;;
 FD:\Windows\MyShop-windows\MyShop\UserControls\ReportsUC.xaml;;
 FD:\Windows\MyShop-windows\MyShop\UserControls\SearchBoxUC.xaml;;
+FD:\Windows\MyShop-windows\MyShop\GUI\AddCategory.xaml;;
+FD:\Windows\MyShop-windows\MyShop\GUI\UpdateCategory.xaml;;
 

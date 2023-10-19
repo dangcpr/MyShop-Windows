@@ -174,3 +174,13 @@ D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\Microsoft.IO.Recyclabl
 D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\Microsoft.Office.Interop.Excel.dll
 D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\System.Security.Cryptography.Pkcs.dll
 D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
+D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\AddProduct.g.cs
+D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\AddProduct.baml
+D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateProduct.g.cs
+D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateProduct.baml
+D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\Prism.dll
+D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\Prism.Wpf.dll
+D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\AddCategory.g.cs
+D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateCategory.g.cs
+D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\AddCategory.baml
+D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateCategory.baml

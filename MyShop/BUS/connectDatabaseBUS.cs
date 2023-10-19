@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyShop.BUS
 {
-    class connectDatabaseBUS
+    public class connectDatabaseBUS
     {
         public bool checkConnectDatabase()
         {

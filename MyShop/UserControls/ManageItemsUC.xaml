@@ -53,12 +53,15 @@
                                        Foreground="#79747E" Text="Manage Products"
                                        FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold" />
                             <uc:SearchBoxUC x:Name="productManageSearchBox" Width="230" Margin="40 0 0 15" Loaded="SearchBoxUC_Loaded"/>
+                            <Button Margin="10 0 0 15" Content="Add" Click="AddProductButton_OnPressed"/>
+                            <Button Margin="10 0 0 15" Content="Remove" Click="RemoveProductButton_OnPressed"/>
+                            <Button Margin="10 0 0 15" Content="Update" Click="UpdateProductButton_OnPressed"/>
                         </StackPanel>
                         <DataGrid Name="productManageDataGrid" Width="900" Height="200"
                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                   CanUserAddRows="False" ItemsSource="{Binding productExcelData}"
-                                  SelectionMode="Extended" SelectionUnit="Cell" />
+                                  SelectionMode="Extended" SelectionUnit="Cell" SelectedCellsChanged="productManageDataGrid_SelectedCellsChanged"/>
                     </StackPanel>
                 </Border>
             </Grid>
@@ -78,12 +81,15 @@
                                        Foreground="#79747E" Text="Manage Categories"
                                        FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold" />
                             <uc:SearchBoxUC x:Name="categoryManageSearchBox" Width="230" Margin="40 0 0 15" Loaded="SearchBoxUC_Loaded"/>
+                            <Button Margin="10 0 0 15" Content="Add" Click="AddCategoryButton_OnPressed"/>
+                            <Button Margin="10 0 0 15" Content="Remove" Click="RemoveCategoryButton_OnPressed"/>
+                            <Button Margin="10 0 0 15" Content="Update" Click="UpdateCategoryButton_OnPressed"/>
                         </StackPanel>
                         <DataGrid Name="categoryManageDataGrid" Width="900" Height="200"
                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                   CanUserAddRows="False" ItemsSource="{Binding productExcelData}"
-                                  SelectionMode="Extended" SelectionUnit="Cell" />
+                                  SelectionMode="Extended" SelectionUnit="Cell" SelectedCellsChanged="categoryManageDataGrid_SelectedCellsChanged"/>
                     </StackPanel>
                 </Border>
             </Grid>
