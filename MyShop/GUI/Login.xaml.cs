@@ -35,6 +35,7 @@ using static MyShop.API.MyShopApi;
 using MyShop.API;
 using System.Collections;
 using System.Text.Json;
+using System.Configuration;
 
 namespace MyShop.GUI
 {
@@ -46,7 +47,6 @@ namespace MyShop.GUI
         private MyShop.DAO.connectDatabaseDAO dbDAO;
         private MyShop.DAO.accountsDAO accountsDAO;
         MyShop.API.MyShopApi api;
-
 
         public Login()
         {
@@ -64,7 +64,7 @@ namespace MyShop.GUI
             }           
         }
 
-        private void handleLoginLoaded(object sender, RoutedEventArgs e)
+        private async void handleLoginLoaded(object sender, RoutedEventArgs e)
         {
             MyShop.BUS.accountsBUS accBUS = new MyShop.BUS.accountsBUS();
 
@@ -73,12 +73,44 @@ namespace MyShop.GUI
             if (checkAccountsBUS == true)
             {
                 bool isExist = checkExistAccount("minhtrifit");
+                bool isExist2 = checkExistAccount("dangcpr");
 
-                Debug.WriteLine(isExist);
 
                 // Auto create account with hashed password
-                if (isExist == false) createAccount("minhtrifit", "123", "Lê Minh Trí");
-            }           
+                if (isExist == false && isExist2 == false)
+                {
+                    createAccount("minhtrifit", "123", "Lê Minh Trí");
+                    createAccount("dangcpr", "456", "Nguyễn Hải Đăng");
+                }
+
+                // Check user is login already
+                var usernameSave = ConfigurationManager.AppSettings["Username"];
+                var passwordSave = ConfigurationManager.AppSettings["Password"];
+
+
+                // API Calling
+                string jsonStrRes = await GetAccountData();
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                };
+
+                var res = System.Text.Json.JsonSerializer.Deserialize<RootObject>(jsonStrRes, options);
+
+                // Password check
+                foreach (var account in res.accountList)
+                {
+                    if (account.username == usernameSave)
+                    {
+                        userAccount = new Accounts();
+                        userAccount.username = usernameSave;
+                        var dashboardScreen = new Dashboard();
+                        dashboardScreen.Show();
+                        this.Close();
+                    }
+                }
+            }
         }
 
         private async void handleLoginAccount(object sender, RoutedEventArgs e)
@@ -93,6 +125,7 @@ namespace MyShop.GUI
                 {
                     var username = usernameInput.Text.ToString();
                     var password = passwordInput.Password.ToString();
+                    MyShop.Classes.Accounts targetAccount = new MyShop.Classes.Accounts();
                     bool checkLogin = false;
 
                     // API Calling
@@ -106,11 +139,13 @@ namespace MyShop.GUI
                     var res = System.Text.Json.JsonSerializer.Deserialize<RootObject>(jsonStrRes, options);
 
                     // Password check
-                    foreach (var acccount in res.accountList)
+                    foreach (var account in res.accountList)
                     {
-                        if (acccount.username == username && BCrypt.Net.BCrypt.Verify(password, acccount.password))
+                        if (account.username == username && BCrypt.Net.BCrypt.Verify(password, account.password))
                         {
                             checkLogin = true;
+                            targetAccount.username = account.username;
+                            targetAccount.password = account.password;
                         }
                     }
 
@@ -122,6 +157,15 @@ namespace MyShop.GUI
                         var dashboardScreen = new Dashboard();
                         dashboardScreen.Show();
                         this.Close();
+
+                        var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                        config.AppSettings.Settings["Username"].Value = targetAccount.username;
+                        config.AppSettings.Settings["Password"].Value = targetAccount.password;
+
+                        config.Save(ConfigurationSaveMode.Minimal);
+
+                        ConfigurationManager.RefreshSection("appSettings");
                     }
                     else
                     {

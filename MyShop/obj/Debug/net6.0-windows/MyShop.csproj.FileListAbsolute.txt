@@ -184,3 +184,14 @@ D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\AddCategory.g.cs
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateCategory.g.cs
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\AddCategory.baml
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateCategory.baml
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\Prism.dll
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\Prism.Wpf.dll
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\AddCategory.g.cs
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\AddProduct.g.cs
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateCategory.g.cs
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateProduct.g.cs
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\AddCategory.baml
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\AddProduct.baml
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateCategory.baml
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateProduct.baml
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\MyShop.dll.config
