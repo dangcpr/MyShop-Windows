@@ -24,5 +24,25 @@ namespace MyShop.UserControls
         {
             InitializeComponent();
         }
+
+        private void handleOrdersUCLoaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void orderManageDataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+
+        }
+
+        private void handlePrevDataGrid(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void handleNextDataGrid(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
