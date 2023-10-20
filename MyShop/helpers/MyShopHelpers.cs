@@ -21,6 +21,9 @@ using static MyShop.DAO.connectDatabaseDAO;
 using static Npgsql.Replication.PgOutput.Messages.RelationMessage;
 using Microsoft.Office.Interop.Excel;
 using Npgsql;
+using System.Windows.Media.Imaging;
+using LiveChartsCore.Measure;
+using System.Reflection.Metadata;
 
 namespace MyShop.helpers
 {
@@ -211,6 +214,47 @@ namespace MyShop.helpers
                 }
             }
             return false;
+        }
+
+        public static void uploadProductImage(Image productImage)
+        {
+            // B1: Lưu hình vào trong folder /assets/products
+            // B2: Set actions của ảnh
+
+            // <StackPanel Orientation = "Vertical" Margin = "0 100 0 0" >
+            // <Button Width = "80" Content = "Open" Click = "handlePrevDataGrid" />
+            // <Image Name = "productImage" Width = "200" Margin = "0 100 0 0"
+            //           Source = "{Binding testProductUrl}"
+            //           d: Source = "/assets/products/1.jpg" />
+            // </StackPanel>
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files|*.bmp;*.jpg;*.png";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                var imgUrl = openFileDialog.FileName;
+                string[] arrListStr = imgUrl.Split('\\');
+                int imgFolderIndex = -1;
+
+                string productUrl = ""; // IMAGE URL
+
+                for (var i = 0; i < arrListStr.Length; i++)
+                {
+                    if (arrListStr[i] == "assets") imgFolderIndex = i;
+                }
+
+                for (var j = imgFolderIndex; j < arrListStr.Length; j++)
+                {
+                    productUrl += $"/{arrListStr[j]}";
+                }
+
+                // Biến để lưu ảnh vào database
+                testProductUrl = productUrl;
+
+                // Biến để hiển thị khi chạy
+                productImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            }
         }
     }
 }

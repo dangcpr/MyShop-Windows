@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
+using static MyShop.Classes.MyModel;
 
 namespace MyShop.UserControls
 {
@@ -37,7 +41,7 @@ namespace MyShop.UserControls
 
         private void handlePrevDataGrid(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void handleNextDataGrid(object sender, RoutedEventArgs e)

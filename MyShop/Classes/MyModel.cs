@@ -60,6 +60,8 @@ namespace MyShop.Classes
 
         public static List<MyShop.Classes.CategoryProduct> excelCategoryProductList { get; set; }
 
+        public static string testProductUrl { get; set; }
+
         //===== PropertyChangedEventHandler
         public event PropertyChangedEventHandler? PropertyChanged;
     }
