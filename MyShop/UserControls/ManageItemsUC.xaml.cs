@@ -22,6 +22,7 @@ using static MyShop.GUI.AddProduct;
 using MyShop.DAO;
 using MyShop.BUS;
 using MyShop.GUI;
+using MyShop.Classes;
 
 namespace MyShop.UserControls
 {
@@ -69,8 +70,11 @@ namespace MyShop.UserControls
 
             if (checkOpenExcelData == true)
             {
-                productManageDataGrid.ItemsSource = productTable.DefaultView;
-                categoryManageDataGrid.ItemsSource = categoryTable.DefaultView;
+                products = productDAO.getProductList();
+                productManageDataGrid.ItemsSource = products;
+
+                categories = categoryDAO.listCategories();
+                categoryManageDataGrid.ItemsSource = categories;
 
                 MessageBox.Show("Import data successfully!", "Notification", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -223,20 +227,44 @@ namespace MyShop.UserControls
 
         private void categoryManageDataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            IList<DataGridCellInfo> selectedcells = e.AddedCells;
-
-            foreach (DataGridCellInfo di in selectedcells)
+            try
             {
-                //Cast the DataGridCellInfo.Item to the source object type
-                //In this case the ItemsSource is a DataTable and individual items are DataRows
-                MyShop.Classes.Category dvr = (MyShop.Classes.Category)di.Item;
+                IList<DataGridCellInfo> selectedcells = e.AddedCells;
 
-                category.category_id = dvr.category_id;
-                categorySelected = dvr.category_id;
-                category.name = dvr.name;
+                foreach (DataGridCellInfo di in selectedcells)
+                {
+                    //Cast the DataGridCellInfo.Item to the source object type
+                    //In this case the ItemsSource is a DataTable and individual items are DataRows
+                    MyShop.Classes.Category dvr = (MyShop.Classes.Category)di.Item;
+
+                    category.category_id = dvr.category_id;
+                    categorySelected = dvr.category_id;
+                    category.name = dvr.name;
+                }
+
+                Debug.WriteLine(categorySelected.ToString());
+            } catch
+            {
+                categorySelected = -1;
             }
+        }
 
-            Debug.WriteLine(categorySelected.ToString());
+        string searchProductPattern = "";
+
+        private void searchProductButton_OnPressed(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                searchProductPattern = SearchProductTextBox.Text;
+                List<Product> productSearch = new List<Product>();
+                productSearch = productDAO.getProductListSearch(searchProductPattern);
+
+                productManageDataGrid.ItemsSource = productSearch;
+            }
+            catch
+            {
+                return;
+            }
         }
     }
 }

@@ -21,6 +21,9 @@ using static MyShop.DAO.connectDatabaseDAO;
 using static Npgsql.Replication.PgOutput.Messages.RelationMessage;
 using Microsoft.Office.Interop.Excel;
 using Npgsql;
+using MyShop.DAO;
+using MyShop.Classes;
+using MyShop.UserControls;
 
 namespace MyShop.helpers
 {

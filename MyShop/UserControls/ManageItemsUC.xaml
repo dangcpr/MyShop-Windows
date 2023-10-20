@@ -52,7 +52,24 @@
                             <TextBlock TextWrapping="Wrap" FontSize="15"
                                        Foreground="#79747E" Text="Manage Products"
                                        FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold" />
-                            <uc:SearchBoxUC x:Name="productManageSearchBox" Width="230" Margin="40 0 0 15" Loaded="SearchBoxUC_Loaded"/>
+                            <TextBox
+                                 Margin="40 0 0 15"
+                                 Width="230"
+                                 Height="50"
+                                 VerticalAlignment="Top"
+                                 Background="White"
+                                 AcceptsReturn="True"
+                                 materialDesign:HintAssist.Hint = "Search Something..."
+                                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                 materialDesign:TextFieldAssist.LeadingIcon="ChevronTripleDown"
+                                 materialDesign:TextFieldAssist.HasTrailingIcon="True"
+                                 materialDesign:TextFieldAssist.TrailingIcon="Search"
+                                 materialDesign:HintAssist.IsFloating="False"
+                                 IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 Name="SearchProductTextBox"
+                            />
+                            <Button Margin="10 0 50 15" Content="Search" Click="searchProductButton_OnPressed" Background="Purple"/>
                             <Button Margin="10 0 0 15" Content="Add" Click="AddProductButton_OnPressed"/>
                             <Button Margin="10 0 0 15" Content="Remove" Click="RemoveProductButton_OnPressed"/>
                             <Button Margin="10 0 0 15" Content="Update" Click="UpdateProductButton_OnPressed"/>
@@ -60,8 +77,8 @@
                         <DataGrid Name="productManageDataGrid" Width="900" Height="200"
                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                  CanUserAddRows="False" ItemsSource="{Binding productExcelData}"
-                                  SelectionMode="Extended" SelectionUnit="Cell" SelectedCellsChanged="productManageDataGrid_SelectedCellsChanged"/>
+                                  ItemsSource="{Binding productExcelData}"
+                                  CanUserDeleteRows ="True" CanUserAddRows="False" SelectionMode="Extended" SelectionUnit="Cell" SelectedCellsChanged="productManageDataGrid_SelectedCellsChanged"/>
                     </StackPanel>
                 </Border>
             </Grid>
@@ -88,8 +105,8 @@
                         <DataGrid Name="categoryManageDataGrid" Width="900" Height="200"
                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                  CanUserAddRows="False" ItemsSource="{Binding productExcelData}"
-                                  SelectionMode="Extended" SelectionUnit="Cell" SelectedCellsChanged="categoryManageDataGrid_SelectedCellsChanged"/>
+                                  ItemsSource="{Binding productExcelData}"
+                                  CanUserDeleteRows ="True" CanUserAddRows="False"  SelectionMode="Extended" SelectionUnit="Cell" SelectedCellsChanged="categoryManageDataGrid_SelectedCellsChanged"/>
                     </StackPanel>
                 </Border>
             </Grid>

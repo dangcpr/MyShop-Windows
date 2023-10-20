@@ -4,6 +4,7 @@ using MyShop.Classes;
 using Npgsql;
 using Npgsql.Internal;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -254,6 +255,38 @@ namespace MyShop.DAO
             query.Parameters.Add("@id", NpgsqlTypes.NpgsqlDbType.Integer).Value = productID;
 
             query.ExecuteNonQuery();
+        }
+
+        public static List<Product> getProductListSearch(string searchString)
+        {
+            List<MyShop.Classes.Product> listProductSearch = new List<Classes.Product>();
+
+            NpgsqlConnection npgsqlConnection = MyShop.DAO.connectDatabaseDAO.connectDB();
+
+            NpgsqlCommand query1 = new NpgsqlCommand("SELECT * FROM \"product\" WHERE name LIKE @searchPattern", npgsqlConnection);
+            query1.Parameters.Add("@searchPattern", NpgsqlTypes.NpgsqlDbType.Varchar, 128).Value = '%' + searchString + '%';
+
+            var reader1 = query1.ExecuteReader();
+            while (reader1.Read())
+            {
+                listProductSearch.Add(new Classes.Product
+                {
+                    product_id = (int)reader1.GetValue(0),
+                    name = (string)reader1.GetValue(1),
+                    inventory_number = (int)reader1.GetValue(2),
+                    import_price = (int)reader1.GetValue(3),
+                    price = (int)reader1.GetValue(4),
+                    image = (string)reader1.GetValue(5),
+                    detail = (string)reader1.GetValue(6),
+                    manufacture = (string)reader1.GetValue(7),
+                    status = (string)reader1.GetValue(8),
+                    create_at = (DateTime)reader1.GetValue(9),
+                    modify_at = (DateTime)reader1.GetValue(10),
+                });
+            }
+            reader1.Close();
+
+            return listProductSearch;
         }
     }
 }
