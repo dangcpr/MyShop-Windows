@@ -20,7 +20,8 @@ using System.Data;
 using static MyShop.Classes.Product;
 using static MyShop.Classes.Category;
 using static MyShop.Classes.CategoryProduct;
-
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace MyShop.Classes
 {
@@ -62,7 +63,10 @@ namespace MyShop.Classes
 
         public static string testProductUrl { get; set; }
 
-        //===== PropertyChangedEventHandler
+        public int recentOrderProductPage { get; set; }
+
+        public static int orderProductPageCount { get; set; }
+
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

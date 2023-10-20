@@ -256,5 +256,25 @@ namespace MyShop.helpers
                 productImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
             }
         }
+
+        public static List<Classes.OrderProduct> getOrderProductListPerPage(
+            List<MyShop.Classes.OrderProduct> orderProductList, int n, int x)
+        {
+            List<MyShop.Classes.OrderProduct> result = new List<Classes.OrderProduct>();
+
+            // n page, x items per page
+            int begin = (n - 1) * x;
+            int end = (n - 1) * x + x;
+
+            for (var i = 0; i <= orderProductList.Count() - 1; i++)
+            {
+                if (begin <= i && i < end)
+                {
+                    result.Add(orderProductList[i]);
+                }
+            }
+
+            return result;
+        }
     }
 }

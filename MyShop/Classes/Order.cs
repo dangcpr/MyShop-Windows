@@ -25,4 +25,26 @@ namespace MyShop.Classes
 
         public event PropertyChangedEventHandler? PropertyChanged;
     }
+
+	public class OrderProduct : INotifyPropertyChanged
+	{
+        public int order_id { get; set; }
+
+        public int customer_id { get; set; }
+
+        public string customer_name { get; set; }
+
+        public int price { get; set; }
+
+        public string deliver_address { get; set; }
+
+        public string status { get; set; }
+
+        public DateTime order_date { get; set; }
+
+        public DateTime modify_at { get; set; }
+
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+    }
 }
