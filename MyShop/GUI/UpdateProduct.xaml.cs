@@ -1,11 +1,16 @@
-﻿using MyShop.DAO;
+﻿using Microsoft.VisualBasic;
+using Microsoft.Win32;
+using MyShop.DAO;
 using MyShop.UserControls;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,9 +36,14 @@ namespace MyShop.GUI
         MyShop.BUS.connectDatabaseBUS dbBUS = new MyShop.BUS.connectDatabaseBUS();
         List<MyShop.Classes.Category> categories;
         MyShop.Classes.Product product = new Classes.Product();
+        string startupPath;
+        OpenFileDialog openFileDialog;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            startupPath = Environment.CurrentDirectory;
+            Debug.WriteLine(startupPath);
+
             if (dbBUS.checkConnectDatabase() == true)
             {
                 categories = MyShop.DAO.categoryDAO.listCategories();
@@ -54,9 +64,19 @@ namespace MyShop.GUI
             manufactureTextBox.Text = ManageItemsUC.product.manufacture;
             statusComboBox.Text = ManageItemsUC.product.status;
             detailTextBox.Text = ManageItemsUC.product.detail;
+
+            string pathImageProduct = $"{startupPath}/products/{ManageItemsUC.product.image}";
+            if (File.Exists(pathImageProduct))
+            {
+                BitmapImage image = new BitmapImage(new Uri($"{startupPath}/products/{ManageItemsUC.product.image}",
+                                             UriKind.Absolute));
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.Freeze();
+                imageProduct.Source = image;
+            }
         }
 
-        private void SumbitButtonUpdate_OnPressed(object sender, RoutedEventArgs e)
+        private async void SumbitButtonUpdate_OnPressed(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -80,6 +100,22 @@ namespace MyShop.GUI
 
                 MyShop.DAO.productDAO.updateProduct(product, categoryComboBox.Text);
 
+                string path = $"{startupPath}/products/{product.image}";
+
+                if (System.IO.File.Exists(path))
+                {
+                    using (var lockFile = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    {
+                        lockFile.Close();
+                        System.IO.File.Delete(path);
+                    }
+                }
+
+                if (openFileDialog != null && openFileDialog.FileName != null && openFileDialog.FileName != "")
+                {   
+                    File.Copy(openFileDialog.FileName, path, true);
+                }
+                
                 MessageBox.Show("Update thành công");
                 this.Close();
 
@@ -87,6 +123,18 @@ namespace MyShop.GUI
             } catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void UploadImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files|*.bmp;*.jpg;*.png";
+            openFileDialog.FilterIndex = 1;
+            if (openFileDialog.ShowDialog() == true)
+            {
+                imageProduct.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+
             }
         }
     }

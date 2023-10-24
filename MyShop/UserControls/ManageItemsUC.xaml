@@ -48,37 +48,59 @@
              
                 <Border CornerRadius="15" Width="900" Background="White" HorizontalAlignment="Center" Margin="0 5 0 0">
                     <StackPanel Margin="20 20 20 20" Orientation="Vertical" HorizontalAlignment="Center">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock TextWrapping="Wrap" FontSize="15"
-                                       Foreground="#79747E" Text="Manage Products"
-                                       FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold" />
-                            <TextBox
-                                 Margin="40 0 0 15"
-                                 Width="230"
-                                 Height="50"
-                                 VerticalAlignment="Top"
-                                 Background="White"
-                                 AcceptsReturn="True"
-                                 materialDesign:HintAssist.Hint = "Search Something..."
-                                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                                 materialDesign:TextFieldAssist.LeadingIcon="ChevronTripleDown"
-                                 materialDesign:TextFieldAssist.HasTrailingIcon="True"
-                                 materialDesign:TextFieldAssist.TrailingIcon="Search"
-                                 materialDesign:HintAssist.IsFloating="False"
-                                 IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                 Name="SearchProductTextBox"
-                            />
-                            <Button Margin="10 0 50 15" Content="Search" Click="searchProductButton_OnPressed" Background="Purple"/>
-                            <Button Margin="10 0 0 15" Content="Add" Click="AddProductButton_OnPressed"/>
-                            <Button Margin="10 0 0 15" Content="Remove" Click="RemoveProductButton_OnPressed"/>
-                            <Button Margin="10 0 0 15" Content="Update" Click="UpdateProductButton_OnPressed"/>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock TextWrapping="Wrap" FontSize="15"
+                                           Foreground="#79747E" Text="Manage Products"
+                                           FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold" />
+                                <TextBox
+                                     Margin="40 0 0 15"
+                                     Width="230"
+                                     Height="50"
+                                     VerticalAlignment="Top"
+                                     Background="White"
+                                     AcceptsReturn="True"
+                                     materialDesign:HintAssist.Hint = "Search Something..."
+                                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                     materialDesign:TextFieldAssist.LeadingIcon="ChevronTripleDown"
+                                     materialDesign:TextFieldAssist.HasTrailingIcon="True"
+                                     materialDesign:TextFieldAssist.TrailingIcon="Search"
+                                     materialDesign:HintAssist.IsFloating="False"
+                                     IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
+                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     Name="SearchProductTextBox"
+                                />
+                                <Button Margin="10 0 50 15" Content="Search" Click="searchProductButton_OnPressed" Background="Purple"/>
+                                <Button Margin="10 0 0 15" Content="Add" Click="AddProductButton_OnPressed"/>
+                                <Button Margin="10 0 0 15" Content="Remove" Click="RemoveProductButton_OnPressed"/>
+                                <Button Margin="10 0 0 15" Content="Update" Click="UpdateProductButton_OnPressed"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock TextWrapping="Wrap" FontSize="13"
+                                           Foreground="#79747E" Text="Tìm kiếm khoảng giá"
+                                           FontFamily="Segoe UI Variable Small" FontWeight="Normal" VerticalAlignment="Center" Margin="0 0 50 0"/>
+                                <TextBox materialDesign:HintAssist.Hint="Từ" Name="searchFromPriceTextBox" Width="100" Margin="0 0 20 0" VerticalAlignment="Bottom"/>
+                                <TextBox materialDesign:HintAssist.Hint="Tới" Name="searchToPriceTextBox" Width="100" VerticalAlignment="Bottom" />
+                                <Button Margin="15 0 0 0" Content="Search" Click="searchPriceButton_OnPressed" Background="Purple" />
+                                <Button Margin="10 0 0 0" Content="Remove Day" Click="removePriceButton_OnPressed" Background="Purple" />
+                            </StackPanel>
+                            <DataGrid Name="productManageDataGrid" Width="900" Height="200"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      ItemsSource="{Binding productExcelData}"
+                                      CanUserDeleteRows ="True" CanUserAddRows="False" SelectionMode="Extended" SelectionUnit="Cell" SelectedCellsChanged="productManageDataGrid_SelectedCellsChanged"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Trang" FontSize="14" Margin="0 0 20 0" VerticalAlignment="Center"/>
+                                <TextBox Name ="pageNumProductTextBox" d:Text="1" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center" TextChanged="pageNumProductTextBox_TextChanged"/>
+                                <TextBlock Text=" / " VerticalAlignment="Center" />
+                                <TextBlock Name="numberPageProductText" d:Text="28" VerticalAlignment="Center"/>
+                                <Button Name ="setPageNumProduct" Content="Set" Click="setPageNumProduct_Click" Margin="15 0 0 0" Background="Purple"/>
+                                <TextBlock Text="Số dòng mỗi trang" FontSize="14" Margin="50 0 20 0" VerticalAlignment="Center"/>
+                                <TextBox Name ="numOfPerPageProductTextBox" d:Text="1" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Button Name ="setProductPerOfPage" Content="Set" Click="setProductPerOfPage_Click" Margin="15 0 0 0"/>
+                            </StackPanel>
                         </StackPanel>
-                        <DataGrid Name="productManageDataGrid" Width="900" Height="200"
-                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                  ItemsSource="{Binding productExcelData}"
-                                  CanUserDeleteRows ="True" CanUserAddRows="False" SelectionMode="Extended" SelectionUnit="Cell" SelectedCellsChanged="productManageDataGrid_SelectedCellsChanged"/>
+
                     </StackPanel>
                 </Border>
             </Grid>
@@ -102,7 +124,7 @@
                             <Button Margin="10 0 0 15" Content="Remove" Click="RemoveCategoryButton_OnPressed"/>
                             <Button Margin="10 0 0 15" Content="Update" Click="UpdateCategoryButton_OnPressed"/>
                         </StackPanel>
-                        <DataGrid Name="categoryManageDataGrid" Width="900" Height="200"
+                        <DataGrid Name="categoryManageDataGrid" Width="900" Height="130"
                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                   ItemsSource="{Binding productExcelData}"

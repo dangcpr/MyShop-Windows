@@ -23,6 +23,8 @@ using MyShop.DAO;
 using MyShop.BUS;
 using MyShop.GUI;
 using MyShop.Classes;
+using Microsoft.Win32;
+using System.IO;
 
 namespace MyShop.UserControls
 {
@@ -38,18 +40,27 @@ namespace MyShop.UserControls
 
         List<MyShop.Classes.Product> products;
         List<MyShop.Classes.Category> categories;
+        int maxPageNumber = 1;
+        int numProductOfPerPage = 0;
         public static DataGrid dtProduct = new DataGrid();
         public static DataGrid dtCategory = new DataGrid();
+        string startupPath;
 
         private void handleManageItemsUCLoaded(object sender, RoutedEventArgs e)
         {
             products = productDAO.getProductList();
             productManageDataGrid.ItemsSource = products;
             dtProduct = productManageDataGrid;
+            numProductOfPerPage = products.Count();
+            numOfPerPageProductTextBox.Text = products.Count().ToString();
+            numberPageProductText.Text = "1";
+            pageNumProductTextBox.Text = "1";
 
             categories = categoryDAO.listCategories();
             categoryManageDataGrid.ItemsSource = categories;
             dtCategory = categoryManageDataGrid;
+
+            startupPath = Environment.CurrentDirectory;
         }
 
         private void handleSheetSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -132,6 +143,13 @@ namespace MyShop.UserControls
                     if(productBUS.checkProductInSale() == true)
                     {
                         productDAO.deleteProduct(productSelected);
+
+                        string pathImageProduct = $"{startupPath}/products/{productSelected}.jpg";
+
+                        if (System.IO.File.Exists(pathImageProduct))
+                        {
+                            System.IO.File.Delete(pathImageProduct);
+                        }
 
                         MessageBox.Show("Xóa thành công");
 
@@ -260,8 +278,126 @@ namespace MyShop.UserControls
                 productSearch = productDAO.getProductListSearch(searchProductPattern);
 
                 productManageDataGrid.ItemsSource = productSearch;
+                numProductOfPerPage = products.Count();
+                numOfPerPageProductTextBox.Text = products.Count().ToString();
+                numberPageProductText.Text = "1";
+                pageNumProductTextBox.Text = "1";
             }
             catch
+            {
+                return;
+            }
+        }        
+        
+        private void searchPriceButton_OnPressed(object sender, RoutedEventArgs e)
+        {
+            int fromPrice = 0;
+            int toPrice = 0;
+
+            bool fromPriceisNumeric = int.TryParse(searchFromPriceTextBox.Text, out fromPrice);
+            bool toPriceisNumeric = int.TryParse(searchToPriceTextBox.Text, out toPrice);
+
+            if(!fromPriceisNumeric || !toPriceisNumeric)
+            {
+                MessageBox.Show("Vui lòng nhập giá là số nguyên"); return;
+            }
+
+            if(fromPrice > toPrice)
+            {
+                MessageBox.Show("Vui lòng nhập giá từ nhỏ hơn giá đến"); return;
+            }
+
+            if (productBUS.checkProductInSale())
+            {
+                products = productDAO.getProductListPrice(fromPrice, toPrice);
+                productManageDataGrid.ItemsSource = products;
+                dtProduct = productManageDataGrid;
+                numProductOfPerPage = products.Count();
+                numOfPerPageProductTextBox.Text = products.Count().ToString();
+                numberPageProductText.Text = "1";
+                pageNumProductTextBox.Text = "1";
+            }
+        }
+
+        private void removePriceButton_OnPressed(object sender, RoutedEventArgs e)
+        {
+            searchFromPriceTextBox.Text = "";
+            searchToPriceTextBox.Text = "";
+
+            if(productBUS.checkProductInSale())
+            {
+                products = productDAO.getProductList();
+                productManageDataGrid.ItemsSource = products;
+                dtProduct = productManageDataGrid;
+                numProductOfPerPage = products.Count();
+                numOfPerPageProductTextBox.Text = products.Count().ToString();
+                numberPageProductText.Text = "1";
+                pageNumProductTextBox.Text = "1";
+            }
+        }
+        
+        List<Product> productPerPage = new List<Product>();
+
+        private void pageNumProductTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            
+        }
+
+        private void setProductPerOfPage_Click(object sender, RoutedEventArgs e)
+        {
+            numProductOfPerPage = 0;
+            bool numProductOfPerPageIsNum = int.TryParse(numOfPerPageProductTextBox.Text, out numProductOfPerPage);
+
+            if (numProductOfPerPageIsNum)
+            {
+                productPerPage.Clear();
+                maxPageNumber = (products.Count() % numProductOfPerPage == 0) ? products.Count() / numProductOfPerPage : products.Count() / numProductOfPerPage + 1;
+                numberPageProductText.Text = maxPageNumber.ToString();
+                pageNumProductTextBox.Text = "1";
+                int temp = Math.Min(numProductOfPerPage, products.Count());
+                productPerPage.Clear();
+
+                for (int i = 0; i < temp; i++)
+                {
+                    productPerPage.Add(products[i]);
+                }
+
+                productManageDataGrid.ItemsSource = productPerPage;
+                dtProduct = productManageDataGrid;
+                productManageDataGrid.Items.Refresh();
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void setPageNumProduct_Click(object sender, RoutedEventArgs e)
+        {
+            int pageProduct = 0;
+            int offSet = 0;
+            int offSetEnd = 0;
+
+            bool pageProductIsNum = int.TryParse(pageNumProductTextBox.Text, out pageProduct);
+
+            if (pageProductIsNum && pageProduct <= maxPageNumber && pageProduct >= 1)
+            {
+                productPerPage.Clear();
+                offSet = (pageProduct - 1) * numProductOfPerPage;
+                offSetEnd = offSet + numProductOfPerPage;
+                int temp = Math.Min(offSetEnd, products.Count());
+
+                for (int i = offSet; i < temp; i++)
+                {
+                    productPerPage.Add(products[i]);
+                }
+
+                productManageDataGrid.ItemsSource = productPerPage;
+                dtProduct = productManageDataGrid;
+                productManageDataGrid.Items.Refresh();
+            }
+            else
             {
                 return;
             }

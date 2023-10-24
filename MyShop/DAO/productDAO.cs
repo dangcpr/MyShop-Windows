@@ -37,7 +37,7 @@ namespace MyShop.DAO
         {
             NpgsqlConnection connection = connectDB();
 
-            var dataTable = getDataTable(connection, "select * from \"product\"");
+            var dataTable = getDataTable(connection, "select * from \"product\" ORDER BY product_id ASC");
 
             var productList = new List<MyShop.Classes.Product>();
 
@@ -263,7 +263,7 @@ namespace MyShop.DAO
 
             NpgsqlConnection npgsqlConnection = MyShop.DAO.connectDatabaseDAO.connectDB();
 
-            NpgsqlCommand query1 = new NpgsqlCommand("SELECT * FROM \"product\" WHERE name LIKE @searchPattern", npgsqlConnection);
+            NpgsqlCommand query1 = new NpgsqlCommand("SELECT * FROM \"product\" WHERE name LIKE @searchPattern ORDER BY product_id ASC", npgsqlConnection);
             query1.Parameters.Add("@searchPattern", NpgsqlTypes.NpgsqlDbType.Varchar, 128).Value = '%' + searchString + '%';
 
             var reader1 = query1.ExecuteReader();
@@ -287,6 +287,43 @@ namespace MyShop.DAO
             reader1.Close();
 
             return listProductSearch;
+        }
+
+        public static List<Product> getProductListPrice(int fromPrice, int toPrice)
+        {
+            NpgsqlConnection connection = connectDB();
+
+            string getCategoryStr = $"SELECT * from \"product\" where \"price\" >= @fromPrice and \"price\" <= @toPrice ORDER BY product_id ASC";
+
+            NpgsqlCommand query = new NpgsqlCommand(getCategoryStr, connection);
+            query.Parameters.Add("@fromPrice", NpgsqlTypes.NpgsqlDbType.Integer).Value = fromPrice;
+            query.Parameters.Add("@toPrice", NpgsqlTypes.NpgsqlDbType.Integer).Value = toPrice;
+
+            var reader = query.ExecuteReader();
+ 
+            List<Product> listProducts = new List<Product>();
+
+            while (reader.Read())
+            {
+                listProducts.Add(new Classes.Product
+                {
+                    product_id = (int)reader.GetValue(0),
+                    name = (string)reader.GetValue(1),
+                    inventory_number = (int)reader.GetValue(2),
+                    import_price = (int)reader.GetValue(3),
+                    price = (int)reader.GetValue(4),
+                    image = (string)reader.GetValue(5),
+                    detail = (string)reader.GetValue(6),
+                    manufacture = (string)reader.GetValue(7),
+                    status = (string)reader.GetValue(8),
+                    create_at = (DateTime)reader.GetValue(9),
+                    modify_at = (DateTime)reader.GetValue(10),
+                });
+            }
+
+            reader.Close();
+
+            return listProducts;
         }
     }
 }

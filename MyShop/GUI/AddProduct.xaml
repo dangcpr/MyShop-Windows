@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:MyShop.GUI"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"       
         mc:Ignorable="d"
-        Title="AddProduct" Height="550" Width="800" Loaded="Window_Loaded">
+        Title="AddProduct" Height="700" Width="800" Loaded="Window_Loaded">
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <TextBlock Text="Add Item" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0 0 0 15"/>
-            <Grid Height="350">
+            <Grid Height="450">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -22,29 +22,33 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
+                    <RowDefinition Height="80"/>
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Product ID" FontSize="14" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
-                <TextBox IsReadOnly="True" x:Name="ProductIDTextBox" Grid.Column="1" Grid.Row="0" Width="160" HorizontalAlignment="left" Margin="0 0 30 10"/>
+                <TextBox IsReadOnly="True" x:Name="ProductIDTextBox" Grid.Column="1" Grid.Row="0" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom"/>
                 <TextBlock Text="Name" FontSize="14" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
-                <TextBox x:Name="nameProductTextBox" Grid.Column="1" Grid.Row="1" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" />
-                <TextBlock Text="Inventory Number" FontSize="14" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
-                <TextBox x:Name="inventoryNumberProductTextBox" Grid.Column="1" Grid.Row="2" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" />
+                <TextBox x:Name="nameProductTextBox" Grid.Column="1" Grid.Row="1" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom"/>
+                <TextBlock Text="Inventory Number" FontSize="14" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10" />
+                <TextBox x:Name="inventoryNumberProductTextBox" Grid.Column="1" Grid.Row="2" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom"/>
                 <TextBlock Text="Import Price" FontSize="14" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
-                <TextBox x:Name="importPriceProductTextBox" Grid.Column="1" Grid.Row="3" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" />
+                <TextBox x:Name="importPriceProductTextBox" Grid.Column="1" Grid.Row="3" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom"/>
                 <TextBlock Text="Price" FontSize="14" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
-                <TextBox x:Name="priceProductTextBox" Grid.Column="1" Grid.Row="4" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" />
-                <TextBlock Text="Image" FontSize="14" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
-                <TextBox x:Name="imageTextBox" Grid.Column="1" Grid.Row="5" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" />
+                <TextBox x:Name="priceProductTextBox" Grid.Column="1" Grid.Row="4" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom" />
+                <TextBlock Text="Image Name FIle" FontSize="14" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
+                <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal">
+                    <TextBox x:Name="imageTextBox" Width="80" HorizontalAlignment="left" Margin="0 0 10 10" VerticalAlignment="Bottom" IsReadOnly="True"/>
+                    <Button Content="Upload" Click="UploadImageButton_Click" VerticalAlignment="Bottom" Margin="0 0 10 10" />
+                    <Image x:Name="imageProduct" Source="../assets/user.png" Height="80" Margin="0 0 10 10" />
+                </StackPanel>
                 <TextBlock Text="Category" FontSize="14" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
-                <ComboBox Name="categoryComboBox" materialDesign:HintAssist.Hint="Category" Grid.Column="1" HorizontalAlignment="left" Grid.Row="6" Width="160" Margin="0 0 30 10"/>
+                <ComboBox Name="categoryComboBox" materialDesign:HintAssist.Hint="Category" Grid.Column="1" HorizontalAlignment="left" Grid.Row="6" Width="160" Margin="0 0 30 10" VerticalAlignment="Bottom"/>
                 <TextBlock Text="Manufacture" FontSize="14" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
-                <TextBox x:Name="manufactureTextBox" Grid.Column="1" Grid.Row="7" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" />
+                <TextBox x:Name="manufactureTextBox" Grid.Column="1" Grid.Row="7" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom"/>
                 <TextBlock Text="Detail" FontSize="14" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 0"/>
-                <TextBox x:Name="detailTextBox" Grid.Column="1" Grid.Row="8" Width="230" HorizontalAlignment="left" Margin="0 0 30 0" TextWrapping="Wrap" Height="60" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                <TextBox x:Name="detailTextBox" Grid.Column="1" Grid.Row="8" Width="230" HorizontalAlignment="left" Margin="0 0 30 0" TextWrapping="Wrap" Height="60" Style="{StaticResource MaterialDesignOutlinedTextBox}" VerticalAlignment="Bottom"/>
             </Grid>
             <Button Content="Submit" Click="SumbitButtonAdd_OnPressed" Width="100" Margin="0 20 0 0"/>
         </StackPanel>
