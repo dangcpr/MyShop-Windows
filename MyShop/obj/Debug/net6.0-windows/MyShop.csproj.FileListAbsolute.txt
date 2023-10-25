@@ -164,6 +164,7 @@ D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\AddProduct.baml
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\Dashboard.baml
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\Login.baml
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateCategory.baml
+<<<<<<< HEAD
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateProduct.baml
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\MainWindow.baml
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\UserControls\DashboardUC.baml
@@ -184,3 +185,16 @@ D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\refint\MyShop.dll
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\MyShop.pdb
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\MyShop.genruntimeconfig.cache
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\ref\MyShop.dll
+=======
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\Prism.dll
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\Prism.Wpf.dll
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\AddCategory.g.cs
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\AddProduct.g.cs
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateCategory.g.cs
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateProduct.g.cs
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\AddCategory.baml
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\AddProduct.baml
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateCategory.baml
+D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateProduct.baml
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\MyShop.dll.config
+>>>>>>> origin/minhtri

@@ -4,9 +4,117 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyShop.UserControls"
+             
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"               
+             
+             Loaded="handleOrdersUCLoaded"           
+             
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1080">
     <Grid Margin="16">
-        <TextBlock FontSize="50px">Orders</TextBlock>
+        <StackPanel Orientation="Vertical" MinHeight="720">
+            <Grid HorizontalAlignment="Center" Margin ="0 20 0 0" Width="900" MinWidth="400">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Width="200" Orientation="Vertical" HorizontalAlignment="Left" Margin="30 0 0 0">
+                    <TextBlock Text="Orders" FontSize="30px" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding username}" Foreground="#79747E" FontSize="20px" d:Text="Nguyễn Văn A"/>
+                </StackPanel>
+            </Grid>
+            <Grid HorizontalAlignment="Center" Margin ="0 30 0 0" Width="900" MinWidth="400">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Width="900" Orientation="Vertical" HorizontalAlignment="Left" Margin="30 0 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Manage orders:" FontSize="20" Foreground="#79747E" Margin="0 0 20 0"/>
+                        <Button Width="120" Content="Add" Margin="30 0 0 0"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            ToolTip="Resource name: MaterialDesignRaisedButton" Click="handleAddOrder"/>
+                        <Button Width="120" Content="Edit" Margin="30 0 0 0"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            ToolTip="Resource name: MaterialDesignRaisedButton" Click="handleEditOrder"/>
+                        <Button Width="120" Content="Delete" Margin="30 0 0 0"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            ToolTip="Resource name: MaterialDesignRaisedButton" Click="handleDeleteOrder"/>
+                        <Button Width="120" Content="View Detail" Margin="30 0 0 0"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            ToolTip="Resource name: MaterialDesignRaisedButton" Click="handleViewDetailOrder"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Grid.Column="0" Width="900" Orientation="Vertical" HorizontalAlignment="Left" Margin="30 30 0 30">
+                    <StackPanel Name="sortOders" Orientation="Vertical">
+                        <TextBlock Text="Sort Orders By Date:" FontSize="20"
+                           FontWeight="Bold" Margin="0 20 0 20"/>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="From:" VerticalAlignment="Center" Margin="0 0 15 0"/>
+                                <DatePicker Name="orderFromDatePicker" Width="100"></DatePicker>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
+                                <TextBlock Text="To:" VerticalAlignment="Center" Margin="0 0 15 0"/>
+                                <DatePicker Name="orderToDatePicker" Width="100"></DatePicker>
+                            </StackPanel>
+                            <Button Width="120" Content="Sort" Margin="30 0 0 0"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                ToolTip="Resource name: MaterialDesignRaisedButton" Click="handleSortDate"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Grid.Column="0" Width="900" Orientation="Vertical" HorizontalAlignment="Left" Margin="30 30 0 30">
+                    <StackPanel>
+                        <DataGrid Name="orderManageDataGrid" Width="900" Height="200"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                          CanUserAddRows="False" ItemsSource="{Binding dtOrder}"
+                          SelectionMode="Extended" SelectionUnit="Cell" SelectedCellsChanged="orderManageDataGrid_SelectedCellsChanged"/>
+                        <Grid Name="orderDataGridPag" Width="300" Margin="0 30 0 30">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.8*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Width="80" Content="Prev" Grid.Row="0" Grid.Column="0"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                ToolTip="Resource name: MaterialDesignRaisedButton" Click="handlePrevDataGrid"/>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding recentOrderProductPage, Mode=OneWay}" FontSize="20" FontWeight="Bold"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="/" FontSize="20" FontWeight="Bold" Margin="5 0 5 0"/>
+                                <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding orderProductPageCount}" FontSize="20" FontWeight="Bold"/>
+                            </StackPanel>
+                            <Button Width="80" Content="Next" Grid.Row="0" Grid.Column="2"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            ToolTip="Resource name: MaterialDesignRaisedButton" Click="handleNextDataGrid"/>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
     </Grid>
 </UserControl>

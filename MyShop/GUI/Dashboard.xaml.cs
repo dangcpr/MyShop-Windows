@@ -27,6 +27,7 @@ using LiveCharts;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore;
 using MyShop.Classes;
+using System.Configuration;
 
 namespace MyShop.GUI
 {
@@ -181,7 +182,17 @@ namespace MyShop.GUI
 
             if (confirm == MessageBoxResult.Yes)
             {
-                _user = null;
+                _user = null;               
+
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                config.AppSettings.Settings["Username"].Value = "";
+                config.AppSettings.Settings["Password"].Value = "";
+
+                config.Save(ConfigurationSaveMode.Minimal);
+
+                ConfigurationManager.RefreshSection("appSettings");
+
                 var loginScreen = new Login();
                 loginScreen.Show();
                 this.Close();

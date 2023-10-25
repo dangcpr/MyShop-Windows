@@ -14,6 +14,12 @@
     <None Remove="assets\login-cover.png" />
     <None Remove="assets\logo-mobile.png" />
     <None Remove="assets\logo.png" />
+    <None Remove="assets\products\1.jpg" />
+    <None Remove="assets\products\2.jpg" />
+    <None Remove="assets\products\3.jpg" />
+    <None Remove="assets\products\4.jpg" />
+    <None Remove="assets\products\5.jpg" />
+    <None Remove="assets\products\6.jpg" />
     <None Remove="assets\user.png" />
   </ItemGroup>
 
@@ -39,11 +45,13 @@
     <Resource Include="assets\login-cover.png" />
     <Resource Include="assets\logo-mobile.png" />
     <Resource Include="assets\logo.png" />
+    <Resource Include="assets\products\1.jpg" />
+    <Resource Include="assets\products\2.jpg" />
+    <Resource Include="assets\products\3.jpg" />
+    <Resource Include="assets\products\4.jpg" />
+    <Resource Include="assets\products\5.jpg" />
+    <Resource Include="assets\products\6.jpg" />
     <Resource Include="assets\user.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="assets\products\" />
   </ItemGroup>
 
 </Project>
