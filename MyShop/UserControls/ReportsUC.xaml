@@ -7,6 +7,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1080">
     <Grid Margin="16">
-        <TextBlock FontSize="50px">Reports</TextBlock>
+        <StackPanel Orientation="Vertical" MinHeight="720">
+            <Grid HorizontalAlignment="Center" Margin ="0 20 0 0" Width="900" MinWidth="400">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Width="200" Orientation="Vertical" HorizontalAlignment="Left">
+                    <TextBlock Text="Reports" FontSize="30px" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding username}" Foreground="#79747E" FontSize="20px" d:Text="Nguyễn Văn A"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
     </Grid>
 </UserControl>
