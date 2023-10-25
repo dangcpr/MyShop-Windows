@@ -21,16 +21,14 @@ using static MyShop.DAO.connectDatabaseDAO;
 using static Npgsql.Replication.PgOutput.Messages.RelationMessage;
 using Microsoft.Office.Interop.Excel;
 using Npgsql;
-<<<<<<< HEAD
+
 using MyShop.DAO;
 using MyShop.Classes;
 using MyShop.UserControls;
-=======
 using System.Windows.Media.Imaging;
+
 using LiveChartsCore.Measure;
 using System.Reflection.Metadata;
->>>>>>> origin/minhtri
-
 namespace MyShop.helpers
 {
     public class MyShopHelpers
@@ -222,7 +220,7 @@ namespace MyShop.helpers
             return false;
         }
 
-<<<<<<< HEAD
+
         public virtual bool IsFileLocked(FileInfo file)
         {
             try
@@ -243,7 +241,7 @@ namespace MyShop.helpers
 
             //file is not locked
             return false;
-=======
+        }
         public static void uploadProductImage(Image productImage)
         {
             // B1: Lưu hình vào trong folder /assets/products
@@ -303,7 +301,6 @@ namespace MyShop.helpers
             }
 
             return result;
->>>>>>> origin/minhtri
         }
     }
 }
