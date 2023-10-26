@@ -2,6 +2,7 @@
 using MyShop.Classes;
 using Npgsql;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -40,6 +41,267 @@ namespace MyShop.DAO
             reader1.Close();
 
             return listCategories;
+        }
+
+        public static List<String> listNameCategories()
+        {
+            List<String> listCategories = new List<String>();
+
+            NpgsqlConnection npgsqlConnection = MyShop.DAO.connectDatabaseDAO.connectDB();
+
+            NpgsqlCommand query1 = new NpgsqlCommand("SELECT * FROM \"category\" ORDER BY category_id;", npgsqlConnection);
+
+            var reader1 = query1.ExecuteReader();
+            while (reader1.Read())
+            {
+                listCategories.Add((string)reader1.GetValue(1));
+            }
+            reader1.Close();
+
+            return listCategories;
+        }
+
+        public static List<long> revenueCategories()
+        {
+            List<long> listRevenueCategories = new List<long>();
+
+            NpgsqlConnection npgsqlConnection = MyShop.DAO.connectDatabaseDAO.connectDB();
+
+            NpgsqlCommand query1 = new NpgsqlCommand("SELECT c.category_id, c.name, COALESCE(sum(dor.after_price * dor.quantity),0) " +
+                "as \"doanh_thu\" FROM \"order\" o\r\nJOIN \"detail_order\" dor ON o.order_id = dor.order_id\r\n" +
+                "LEFT JOIN \"category_product\" cp ON cp.product_id = dor.product_id \r\n" +
+                "RIGHT JOIN \"category\" c ON c.category_id = cp.category_id\r\n" +
+                "GROUP BY c.category_id, c.name\r\n" +
+                "ORDER BY c.category_id;", npgsqlConnection);
+
+            var reader1 = query1.ExecuteReader();
+
+            while (reader1.Read())
+            {
+                listRevenueCategories.Add((long)reader1.GetValue(2));
+            }
+            reader1.Close();
+
+            return listRevenueCategories;
+        }
+
+        public static List<long> revenueDayCategories(DateTime from, DateTime to)
+        {
+            List<long> listRevenueCategories = new List<long>();
+
+            NpgsqlConnection npgsqlConnection = MyShop.DAO.connectDatabaseDAO.connectDB();
+
+            NpgsqlCommand query1 = new NpgsqlCommand("SELECT c.category_id, c.name, COALESCE(sum(dor.after_price * dor.quantity),0) " +
+                "as \"doanh_thu\" FROM \"order\" o\r\nJOIN \"detail_order\" dor ON o.order_id = dor.order_id and (o.order_date BETWEEN @from AND @to)\r\n" +
+                "LEFT JOIN \"category_product\" cp ON cp.product_id = dor.product_id \r\n" +
+                "RIGHT JOIN \"category\" c ON c.category_id = cp.category_id\r\n" +
+                "GROUP BY c.category_id, c.name\r\n" +
+                "ORDER BY c.category_id;", npgsqlConnection);
+            query1.Parameters.Add("@from", NpgsqlTypes.NpgsqlDbType.Timestamp).Value = from;
+            query1.Parameters.Add("@to", NpgsqlTypes.NpgsqlDbType.Timestamp).Value = to;
+
+            var reader1 = query1.ExecuteReader();
+
+            while (reader1.Read())
+            {
+                listRevenueCategories.Add((long)reader1.GetValue(2));
+            }
+            reader1.Close();
+
+            return listRevenueCategories;
+        }
+
+        public static List<long> revenueWeekCategories(int week, int year)
+        {
+            List<long> listRevenueCategories = new List<long>();
+
+            NpgsqlConnection npgsqlConnection = MyShop.DAO.connectDatabaseDAO.connectDB();
+
+            NpgsqlCommand query1 = new NpgsqlCommand("SELECT c.category_id, c.name, COALESCE(sum(dor.after_price * dor.quantity),0) " +
+                "as \"doanh_thu\" FROM \"order\" o\r\nJOIN \"detail_order\" dor ON EXTRACT('WEEK' FROM order_date) = @week AND EXTRACT('YEAR' FROM order_date) = @year\r\n" +
+                "LEFT JOIN \"category_product\" cp ON cp.product_id = dor.product_id \r\n" +
+                "RIGHT JOIN \"category\" c ON c.category_id = cp.category_id\r\n" +
+                "GROUP BY c.category_id, c.name\r\n" +
+                "ORDER BY c.category_id;", npgsqlConnection);
+            query1.Parameters.Add("@week", NpgsqlTypes.NpgsqlDbType.Integer).Value = week;
+            query1.Parameters.Add("@year", NpgsqlTypes.NpgsqlDbType.Integer).Value = year;
+
+            var reader1 = query1.ExecuteReader();
+
+            while (reader1.Read())
+            {
+                listRevenueCategories.Add((long)reader1.GetValue(2));
+            }
+            reader1.Close();
+
+            return listRevenueCategories;
+        }
+
+        public static List<long> revenueMonthCategories(int month, int year)
+        {
+            List<long> listRevenueCategories = new List<long>();
+
+            NpgsqlConnection npgsqlConnection = MyShop.DAO.connectDatabaseDAO.connectDB();
+
+            NpgsqlCommand query1 = new NpgsqlCommand("SELECT c.category_id, c.name, COALESCE(sum(dor.after_price * dor.quantity),0) as \"doanh_thu\" FROM \"order\" o\r\n" +
+                "JOIN \"detail_order\" dor ON o.order_id = dor.order_id and EXTRACT('MONTH' FROM order_date) = @month AND EXTRACT('YEAR' FROM order_date) = @year\r\n" +
+                "LEFT JOIN \"category_product\" cp ON cp.product_id = dor.product_id \r\nRIGHT JOIN \"category\" c ON c.category_id = cp.category_id\r\n" +
+                "GROUP BY c.category_id, c.name\r\n" +
+                "ORDER BY c.category_id", npgsqlConnection);
+            query1.Parameters.Add("@month", NpgsqlTypes.NpgsqlDbType.Integer).Value = month;
+            query1.Parameters.Add("@year", NpgsqlTypes.NpgsqlDbType.Integer).Value = year;
+
+            var reader1 = query1.ExecuteReader();
+
+            while (reader1.Read())
+            {
+                listRevenueCategories.Add((long)reader1.GetValue(2));
+            }
+            reader1.Close();
+
+            return listRevenueCategories;
+        }
+
+        public static List<long> revenueYearCategories(int year)
+        {
+            List<long> listRevenueCategories = new List<long>();
+
+            NpgsqlConnection npgsqlConnection = MyShop.DAO.connectDatabaseDAO.connectDB();
+
+            NpgsqlCommand query1 = new NpgsqlCommand("SELECT c.category_id, c.name, COALESCE(sum(dor.after_price * dor.quantity),0) as \"doanh_thu\" FROM \"order\" o\r\n" +
+                "JOIN \"detail_order\" dor ON o.order_id = dor.order_id AND EXTRACT('YEAR' FROM order_date) = @year\r\n" +
+                "LEFT JOIN \"category_product\" cp ON cp.product_id = dor.product_id \r\nRIGHT JOIN \"category\" c ON c.category_id = cp.category_id\r\n" +
+                "GROUP BY c.category_id, c.name\r\n" +
+                "ORDER BY c.category_id", npgsqlConnection);
+            query1.Parameters.Add("@year", NpgsqlTypes.NpgsqlDbType.Integer).Value = year;
+
+            var reader1 = query1.ExecuteReader();
+
+            while (reader1.Read())
+            {
+                listRevenueCategories.Add((long)reader1.GetValue(2));
+            }
+            reader1.Close();
+
+            return listRevenueCategories;
+        }
+
+        public static List<long> profitCategories()
+        {
+            List<long> listProfitCategories = new List<long>();
+
+            NpgsqlConnection npgsqlConnection = MyShop.DAO.connectDatabaseDAO.connectDB();
+
+            NpgsqlCommand query1 = new NpgsqlCommand("SELECT c.category_id, c.name, COALESCE(sum((dor.after_price - pr.import_price) * dor.quantity),0) as \"doanh_thu\" FROM \"order\" o\r\n" +
+                "JOIN \"detail_order\" dor ON o.order_id = dor.order_id\r\n" +
+                "LEFT JOIN \"category_product\" cp ON cp.product_id = dor.product_id \r\nLEFT JOIN \"product\" pr ON dor.product_id = pr.product_id\r\n" +
+                "RIGHT JOIN \"category\" c ON c.category_id = cp.category_id\r\nGROUP BY c.category_id, c.name\r\nORDER BY c.category_id;", npgsqlConnection);
+
+
+            var reader1 = query1.ExecuteReader();
+
+            while (reader1.Read())
+            {
+                listProfitCategories.Add((long)reader1.GetValue(2));
+            }
+            reader1.Close();
+
+            return listProfitCategories;
+        }
+
+        public static List<long> profitDayCategories(DateTime from, DateTime to)
+        {
+            List<long> listProfitCategories = new List<long>();
+
+            NpgsqlConnection npgsqlConnection = MyShop.DAO.connectDatabaseDAO.connectDB();
+
+            NpgsqlCommand query1 = new NpgsqlCommand("SELECT c.category_id, c.name, COALESCE(sum((dor.after_price - pr.import_price) * dor.quantity),0) as \"doanh_thu\" FROM \"order\" o\r\n" +
+                "JOIN \"detail_order\" dor ON o.order_id = dor.order_id  and (o.order_date BETWEEN @from AND @to)\r\n" +
+                "LEFT JOIN \"category_product\" cp ON cp.product_id = dor.product_id \r\nLEFT JOIN \"product\" pr ON dor.product_id = pr.product_id\r\n" +
+                "RIGHT JOIN \"category\" c ON c.category_id = cp.category_id\r\nGROUP BY c.category_id, c.name\r\nORDER BY c.category_id;", npgsqlConnection);
+            query1.Parameters.Add("@from", NpgsqlTypes.NpgsqlDbType.Timestamp).Value = from;
+            query1.Parameters.Add("@to", NpgsqlTypes.NpgsqlDbType.Timestamp).Value = to;
+
+            var reader1 = query1.ExecuteReader();
+
+            while (reader1.Read())
+            {
+                listProfitCategories.Add((long)reader1.GetValue(2));
+            }
+            reader1.Close();
+
+            return listProfitCategories;
+        }
+
+        public static List<long> profitWeekCategories(int week, int year)
+        {
+            List<long> listProfitCategories = new List<long>();
+
+            NpgsqlConnection npgsqlConnection = MyShop.DAO.connectDatabaseDAO.connectDB();
+
+            NpgsqlCommand query1 = new NpgsqlCommand("SELECT c.category_id, c.name, COALESCE(sum((dor.after_price - pr.import_price) * dor.quantity),0) as \"doanh_thu\" FROM \"order\" o\r\n" +
+                "JOIN \"detail_order\" dor ON o.order_id = dor.order_id  and EXTRACT('WEEK' FROM order_date) = @week AND EXTRACT('YEAR' FROM order_date) = @year\r\n" +
+                "LEFT JOIN \"category_product\" cp ON cp.product_id = dor.product_id \r\nLEFT JOIN \"product\" pr ON dor.product_id = pr.product_id\r\n" +
+                "RIGHT JOIN \"category\" c ON c.category_id = cp.category_id\r\nGROUP BY c.category_id, c.name\r\nORDER BY c.category_id;", npgsqlConnection);
+            query1.Parameters.Add("@week", NpgsqlTypes.NpgsqlDbType.Integer).Value = week;
+            query1.Parameters.Add("@year", NpgsqlTypes.NpgsqlDbType.Integer).Value = year;
+
+            var reader1 = query1.ExecuteReader();
+
+            while (reader1.Read())
+            {
+                listProfitCategories.Add((long)reader1.GetValue(2));
+            }
+            reader1.Close();
+
+            return listProfitCategories;
+        }
+
+        public static List<long> profitMonthCategories(int month, int year)
+        {
+            List<long> listProfitCategories = new List<long>();
+
+            NpgsqlConnection npgsqlConnection = MyShop.DAO.connectDatabaseDAO.connectDB();
+
+            NpgsqlCommand query1 = new NpgsqlCommand("SELECT c.category_id, c.name, COALESCE(sum((dor.after_price - pr.import_price) * dor.quantity),0) as \"doanh_thu\" FROM \"order\" o\r\n" +
+                "JOIN \"detail_order\" dor ON o.order_id = dor.order_id  and EXTRACT('MONTH' FROM order_date) = @month AND EXTRACT('YEAR' FROM order_date) = @year\r\n" +
+                "LEFT JOIN \"category_product\" cp ON cp.product_id = dor.product_id \r\nLEFT JOIN \"product\" pr ON dor.product_id = pr.product_id\r\n" +
+                "RIGHT JOIN \"category\" c ON c.category_id = cp.category_id\r\nGROUP BY c.category_id, c.name\r\nORDER BY c.category_id;", npgsqlConnection);
+            query1.Parameters.Add("@month", NpgsqlTypes.NpgsqlDbType.Integer).Value = month;
+            query1.Parameters.Add("@year", NpgsqlTypes.NpgsqlDbType.Integer).Value = year;
+
+            var reader1 = query1.ExecuteReader();
+
+            while (reader1.Read())
+            {
+                listProfitCategories.Add((long)reader1.GetValue(2));
+            }
+            reader1.Close();
+
+            return listProfitCategories;
+        }
+
+        public static List<long> profitYearCategories(int year)
+        {
+            List<long> listProfitCategories = new List<long>();
+
+            NpgsqlConnection npgsqlConnection = MyShop.DAO.connectDatabaseDAO.connectDB();
+
+            NpgsqlCommand query1 = new NpgsqlCommand("SELECT c.category_id, c.name, COALESCE(sum((dor.after_price - pr.import_price) * dor.quantity),0) as \"doanh_thu\" FROM \"order\" o\r\n" +
+                "JOIN \"detail_order\" dor ON o.order_id = dor.order_id AND EXTRACT('YEAR' FROM order_date) = @year\r\n" +
+                "LEFT JOIN \"category_product\" cp ON cp.product_id = dor.product_id \r\nLEFT JOIN \"product\" pr ON dor.product_id = pr.product_id\r\n" +
+                "RIGHT JOIN \"category\" c ON c.category_id = cp.category_id\r\nGROUP BY c.category_id, c.name\r\nORDER BY c.category_id;", npgsqlConnection);
+            query1.Parameters.Add("@year", NpgsqlTypes.NpgsqlDbType.Integer).Value = year;
+
+            var reader1 = query1.ExecuteReader();
+
+            while (reader1.Read())
+            {
+                listProfitCategories.Add((long)reader1.GetValue(2));
+            }
+            reader1.Close();
+
+            return listProfitCategories;
         }
 
         public static void insertCategory(Category category)

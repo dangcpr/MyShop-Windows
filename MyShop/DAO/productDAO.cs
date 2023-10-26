@@ -325,5 +325,158 @@ namespace MyShop.DAO
 
             return listProducts;
         }
+
+        public List<String> getListNameProduct()
+        {
+            NpgsqlConnection connection = connectDB();
+
+            List<String> listNameProduct = new List<String>();
+
+            NpgsqlCommand query = new NpgsqlCommand("SELECT * FROM \"product\" ORDER BY product_id", connection);
+
+            var reader = query.ExecuteReader();
+            while (reader.Read())
+            {
+                listNameProduct.Add((string)reader.GetValue(1));
+            }
+
+            reader.Close();
+
+            return listNameProduct;
+        }
+
+        public List<long> getListQuantityProduct()
+        {
+            NpgsqlConnection connection = connectDB();
+
+            List<long> istQuantityProduct = new List<long>();
+
+            NpgsqlCommand query = new NpgsqlCommand("SELECT pr.product_id, pr.name, COALESCE(SUM(dor.quantity),0) FROM \"detail_order\" dor \r\n" +
+                "RIGHT JOIN  \"product\" pr ON dor.product_id = pr.product_id\r\n" +
+                "GROUP BY pr.product_id, pr.name\r\n" +
+                "ORDER BY pr.product_id;", connection);
+
+            var reader = query.ExecuteReader();
+            while (reader.Read())
+            {
+                istQuantityProduct.Add((long)reader.GetValue(2));
+            }
+
+            reader.Close();
+
+            return istQuantityProduct;
+        }
+
+        public List<long> getListQuantityDayProduct(DateTime from, DateTime to)
+        {
+            NpgsqlConnection connection = connectDB();
+
+            List<long> istQuantityProduct = new List<long>();
+
+            NpgsqlCommand query;
+
+            query = new NpgsqlCommand("SELECT pr.product_id, pr.name, COALESCE(SUM(dor.quantity),0) FROM \"detail_order\" dor \r\n" +
+                    "JOIN \"order\" o ON dor.order_id = o.order_id AND (o.order_date BETWEEN @from AND @to)\r\n" +
+                    "RIGHT JOIN  \"product\" pr ON dor.product_id = pr.product_id\r\n" +
+                    "GROUP BY pr.product_id, pr.name\r\n" +
+                    "ORDER BY coalesce DESC;", connection);
+
+
+            query.Parameters.Add("@from", NpgsqlTypes.NpgsqlDbType.Timestamp).Value = from;
+            query.Parameters.Add("@to", NpgsqlTypes.NpgsqlDbType.Timestamp).Value = to;
+
+            var reader = query.ExecuteReader();
+            while (reader.Read())
+            {
+                istQuantityProduct.Add((long)reader.GetValue(2));
+            }
+
+            reader.Close();
+
+            return istQuantityProduct;
+        }
+
+        public List<long> getListQuantityWeekProduct(int week, int year)
+        {
+            NpgsqlConnection connection = connectDB();
+
+            List<long> istQuantityProduct = new List<long>();
+
+            NpgsqlCommand query;
+
+
+            query = new NpgsqlCommand("SELECT pr.product_id, pr.name, COALESCE(SUM(dor.quantity),0) FROM \"detail_order\" dor \r\n" +
+                    "JOIN \"order\" o ON dor.order_id = o.order_id and EXTRACT('WEEK' FROM order_date) = @week AND EXTRACT('YEAR' FROM order_date) = @year\r\n" +
+                    "RIGHT JOIN  \"product\" pr ON dor.product_id = pr.product_id\r\n" +
+                    "GROUP BY pr.product_id, pr.name\r\n" +
+                    "ORDER BY pr.product_id;", connection);
+            query.Parameters.Add("@week", NpgsqlTypes.NpgsqlDbType.Integer).Value = week;
+            query.Parameters.Add("@year", NpgsqlTypes.NpgsqlDbType.Integer).Value = year;
+
+            var reader = query.ExecuteReader();
+            while (reader.Read())
+            {
+                istQuantityProduct.Add((long)reader.GetValue(2));
+            }
+
+            reader.Close();
+
+            return istQuantityProduct;
+        }
+
+        public List<long> getListQuantityMonthProduct(int month, int year)
+        {
+            NpgsqlConnection connection = connectDB();
+
+            List<long> istQuantityProduct = new List<long>();
+
+            NpgsqlCommand query;
+
+
+            query = new NpgsqlCommand("SELECT pr.product_id, pr.name, COALESCE(SUM(dor.quantity),0) FROM \"detail_order\" dor \r\n" +
+                    "JOIN \"order\" o ON dor.order_id = o.order_id and EXTRACT('MONTH' FROM order_date) = @month AND EXTRACT('YEAR' FROM order_date) = @year\r\n" +
+                    "RIGHT JOIN  \"product\" pr ON dor.product_id = pr.product_id\r\n" +
+                    "GROUP BY pr.product_id, pr.name\r\n" +
+                    "ORDER BY pr.product_id;", connection);
+            query.Parameters.Add("@month", NpgsqlTypes.NpgsqlDbType.Integer).Value = month;
+            query.Parameters.Add("@year", NpgsqlTypes.NpgsqlDbType.Integer).Value = year;
+
+            var reader = query.ExecuteReader();
+            while (reader.Read())
+            {
+                istQuantityProduct.Add((long)reader.GetValue(2));
+            }
+
+            reader.Close();
+
+            return istQuantityProduct;
+        }
+
+        public List<long> getListQuantityYearProduct(int year)
+        {
+            NpgsqlConnection connection = connectDB();
+
+            List<long> istQuantityProduct = new List<long>();
+
+            NpgsqlCommand query;
+
+
+            query = new NpgsqlCommand("SELECT pr.product_id, pr.name, COALESCE(SUM(dor.quantity),0) FROM \"detail_order\" dor \r\n" +
+                    "JOIN \"order\" o ON dor.order_id = o.order_id and EXTRACT('YEAR' FROM order_date) = @year\r\n" +
+                    "RIGHT JOIN  \"product\" pr ON dor.product_id = pr.product_id\r\n" +
+                    "GROUP BY pr.product_id, pr.name\r\n" +
+                    "ORDER BY pr.product_id;", connection);
+            query.Parameters.Add("@year", NpgsqlTypes.NpgsqlDbType.Integer).Value = year;
+
+            var reader = query.ExecuteReader();
+            while (reader.Read())
+            {
+                istQuantityProduct.Add((long)reader.GetValue(2));
+            }
+
+            reader.Close();
+
+            return istQuantityProduct;
+        }
     }
 }

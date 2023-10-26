@@ -4,24 +4,102 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyShop.UserControls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"    
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"           
+             d:DataContext="{d:DesignInstance local:ReportsUC}"
+             Loaded="UserControlReport_Loaded"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="1080">
-    <Grid Margin="16">
+             d:DesignHeight="800" d:DesignWidth="1080">
+    <Grid Margin="12">
         <StackPanel Orientation="Vertical" MinHeight="720">
-            <Grid HorizontalAlignment="Center" Margin ="0 20 0 0" Width="900" MinWidth="400">
+            <Grid HorizontalAlignment="Center" Margin ="0 0 0 0" Width="900" MinWidth="400">
                 <Grid.RowDefinitions>
+                    <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Row="0" Grid.Column="0" Width="200" Orientation="Vertical" HorizontalAlignment="Left">
                     <TextBlock Text="Reports" FontSize="30px" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding username}" Foreground="#79747E" FontSize="20px" d:Text="Nguyễn Văn A"/>
+                    <TextBlock Text="{Binding username}" Foreground="#79747E" FontSize="16px" d:Text="Nguyễn Văn A"/>
                 </StackPanel>
+                <Border CornerRadius="15" Background="White" Margin="0 12 0 0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <StackPanel MinHeight="320">
+                        <TextBlock Margin="14 12 14 10" TextWrapping="Wrap" FontSize="18"
+                                   Text="Biểu đồ doanh thu của từng loại mặt hàng" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Tìm kiếm theo ngày" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                            <DatePicker Name="RevenueFromDayTextBox" Margin="50 0 0 0" Width="100" materialDesign:HintAssist.Hint="From"/>
+                            <DatePicker Name="RevenueToDayTextBox" Margin="50 0 0 0" Width="100" materialDesign:HintAssist.Hint="To"/>
+                            <Button Name="searchDayRevenueButton" Content="Search" Margin="50 0 0 0" Height="25" Click="searchDayRevenueButton_Click"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                            <TextBlock Text="Tìm kiếm theo tuần" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                            <TextBox Name="RevenueWeekTextBox" Margin="50 0 0 0" Width="100" materialDesign:HintAssist.Hint="Week" VerticalAlignment="Center"/>
+                            <TextBox Name="RevenueYearWeekTextBox" Margin="50 0 0 0" Width="100" materialDesign:HintAssist.Hint="Year" VerticalAlignment="Center"/>
+                            <Button Name ="searchWeekRevenueButton" Click="searchWeekRevenueButton_Click" Content="Search" Margin="50 0 0 0" VerticalAlignment="Center" Background="Red" Height="25"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                            <TextBlock Text="Tìm kiếm theo tháng" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                            <TextBox Name="RevenueMonthTextBox" Margin="44 0 0 0" Width="100" materialDesign:HintAssist.Hint="Month" VerticalAlignment="Center"/>
+                            <TextBox Name="RevenueYearMonthTextBox" Margin="50 0 0 0" Width="100" materialDesign:HintAssist.Hint="Year" VerticalAlignment="Center"/>
+                            <Button Name="searchMonthRevenueButton" Click="searchMonthRevenueButton_Click" Content="Search" Margin="50 0 0 0" VerticalAlignment="Center" Background="Orange" Height="25"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                            <TextBlock Text="Tìm kiếm theo năm" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                            <TextBox Name="RevenueYearTextBox" Margin="50 0 0 0" Width="100" materialDesign:HintAssist.Hint="Year" VerticalAlignment="Center"/>
+                            <Button Name="searchYearRevenueButton" Click="searchYearRevenueButton_Click"  Content="Search" Margin="200 0 0 0" VerticalAlignment="Center" Background="Black" Height="25"/>
+                        </StackPanel>
+                        <lvc:CartesianChart Series="{Binding RevenueSeriesCollection}" LegendLocation="Bottom" Margin="5 5 5 5" Height="154"  >
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Category" Labels="{Binding RevenueLabels}"></lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Price" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </StackPanel>
+                </Border>
+                <Border CornerRadius="15" Background="White" Grid.Row="2" Grid.ColumnSpan="2" Margin="0 10 0 0">
+                    <StackPanel MinHeight="320">
+                        <TextBlock Margin="14 12 14 10" TextWrapping="Wrap" FontSize="18"
+                   Text="Biểu đồ số lượng bán ra của từng loại mặt hàng" FontFamily="Segoe UI Variable Small Semibold" FontWeight="Bold"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Tìm kiếm theo ngày" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                            <DatePicker Name="QuantityFromDayTextBox" Margin="50 0 0 0" Width="100" materialDesign:HintAssist.Hint="From"/>
+                            <DatePicker Name="QuantityToDayTextBox" Margin="50 0 0 0" Width="100" materialDesign:HintAssist.Hint="To"/>
+                            <Button Name="searchDayQuantityButton" Content="Search" Margin="50 0 0 0" Height="25" Click="searchDayQuantityButton_Click"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                            <TextBlock Text="Tìm kiếm theo tuần" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                            <TextBox Name="QuantityWeekTextBox" Margin="50 0 0 0" Width="100" materialDesign:HintAssist.Hint="Week" VerticalAlignment="Center"/>
+                            <TextBox Name="QuantityYearWeekTextBox" Margin="50 0 0 0" Width="100" materialDesign:HintAssist.Hint="Year" VerticalAlignment="Center"/>
+                            <Button Name="searchWeekQuantityButton" Click="searchWeekQuantityButton_Click" Content="Search" Margin="50 0 0 0" VerticalAlignment="Center" Background="Red" Height="25"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                            <TextBlock Text="Tìm kiếm theo tháng" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                            <TextBox Name="QuantityMonthTextBox" Margin="44 0 0 0" Width="100" materialDesign:HintAssist.Hint="Month" VerticalAlignment="Center"/>
+                            <TextBox Name="QuantityYearMonthTextBox" Margin="50 0 0 0" Width="100" materialDesign:HintAssist.Hint="Year" VerticalAlignment="Center"/>
+                            <Button Name="searchMonthQunatityButton" Click="searchMonthQunatityButton_Click" Content="Search" Margin="50 0 0 0" VerticalAlignment="Center" Background="Orange"  Height="25"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                            <TextBlock Text="Tìm kiếm theo năm" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                            <TextBox Name="QuantityYearTextBox" Margin="50 0 0 0" Width="100" materialDesign:HintAssist.Hint="Year" VerticalAlignment="Center"/>
+                            <Button Name="searchYearQunatityButton" Click="searchYearQunatityButton_Click"  Content="Search" Margin="200 0 0 0" VerticalAlignment="Center" Background="Black"  Height="25"/>
+                        </StackPanel>
+                        <lvc:CartesianChart Series="{Binding CountSeriesCollection}" LegendLocation="Bottom" Margin="5 5 5 5" Height="154"  >
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Product" Labels="{Binding CountLabels}"></lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Ouantity" LabelFormatter="{Binding CountFormatter}"></lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </StackPanel>
+                </Border>
             </Grid>
         </StackPanel>
     </Grid>

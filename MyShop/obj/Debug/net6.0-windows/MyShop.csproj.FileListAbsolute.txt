@@ -3,7 +3,6 @@ D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\MyShop.dll.config
 D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\MyShop.deps.json
 D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\MyShop.runtimeconfig.json
 D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\MyShop.dll
-D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\MyShop.pdb
 D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\BCrypt.Net-Next.dll
 D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\CommunityToolkit.Mvvm.dll
 D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\EPPlus.dll
@@ -96,4 +95,5 @@ D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\MyShop.dll
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\refint\MyShop.dll
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\MyShop.pdb
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\MyShop.genruntimeconfig.cache
+D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\MyShop.pdb
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\ref\MyShop.dll
