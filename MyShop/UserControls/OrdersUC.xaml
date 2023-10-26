@@ -87,6 +87,7 @@
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                           ScrollViewer.HorizontalScrollBarVisibility="Auto"
                           CanUserAddRows="False" ItemsSource="{Binding dtOrder}"
+                          SelectionChanged="orderManageDataGrid_SelectionChanged"
                           SelectionMode="Extended" SelectionUnit="Cell" SelectedCellsChanged="orderManageDataGrid_SelectedCellsChanged"/>
                         <Grid Name="orderDataGridPag" Width="300" Margin="0 30 0 30">
                             <Grid.RowDefinitions>

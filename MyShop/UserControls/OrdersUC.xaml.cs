@@ -25,6 +25,8 @@ using System.Windows.Shapes;
 
 using static MyShop.Classes.MyModel;
 using static MyShop.helpers.MyShopHelpers;
+using static MyShop.Classes.DetailOrderProduct;
+using System.Data;
 
 namespace MyShop.UserControls
 {
@@ -44,7 +46,7 @@ namespace MyShop.UserControls
         public static DataGrid dtOrder = new DataGrid();
         public static int recentPage = 1;
         public static int orderIdSelected = -1;
-
+        public static int _orderIdSelected = -1;
 
         private void handleOrdersUCLoaded(object sender, RoutedEventArgs e)
         {
@@ -136,6 +138,7 @@ namespace MyShop.UserControls
                 //In this case the ItemsSource is a DataTable and individual items are DataRows
                 MyShop.Classes.OrderProduct dvr = (MyShop.Classes.OrderProduct)di.Item;
                 orderIdSelected = (int)dvr.order_id;
+                _orderIdSelected = (int)dvr.order_id;
             }
         }
 
@@ -205,7 +208,19 @@ namespace MyShop.UserControls
 
         private void handleViewDetailOrder(object sender, RoutedEventArgs e)
         {
+            if (orderIdSelected < 0)
+            {
+                MessageBox.Show("Vui lòng chọn ít nhất 1 dòng dữ liệu");
+                return;
+            }
 
-        }      
+            var screen = new DetailOrder();
+            screen.Show();
+        }
+
+        private void orderManageDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

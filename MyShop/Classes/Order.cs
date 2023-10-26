@@ -47,4 +47,22 @@ namespace MyShop.Classes
 
         public event PropertyChangedEventHandler? PropertyChanged;
     }
+
+    public class DetailOrderProduct : INotifyPropertyChanged
+    {
+        public int order_id { get; set; }
+
+        public int customer_id { get; set; }
+
+        public string name { get; set; }
+
+        public int quantity { get; set; }
+
+        public int discount_id { get; set; }
+
+        public int after_price { get; set; }
+
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+    }
 }

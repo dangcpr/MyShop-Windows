@@ -137,5 +137,28 @@ namespace MyShop.DAO
 
             query.ExecuteNonQuery();
         }
+
+        public static List<DetailOrderProduct> getDetailOrder(int order_id)
+        {
+            NpgsqlConnection connection = connectDB();
+
+            var queryStr = $"SELECT deo.order_id, deo.product_id, p.name, deo.quantity, deo.discount_id, deo.after_price\r\n\tFROM public.detail_order deo JOIN \"product\" p ON deo.product_id = p.product_id WHERE deo.order_id = {order_id};";
+
+            var dataTable = getDataTable(connection, queryStr);
+
+            var detailOrderList = new List<MyShop.Classes.DetailOrderProduct>();
+
+            detailOrderList = (from DataRow dr in dataTable.Rows
+                                select new MyShop.Classes.DetailOrderProduct()
+                                {
+                                    order_id = (int)dr["order_id"],
+                                    customer_id = (int)dr["customer_id"],
+                                    name = dr["name"].ToString(),
+                                    quantity = (int)dr["quantity"],
+                                    after_price = (int)dr["after_price"],
+                                }).ToList();
+
+            return detailOrderList;
+        }
     }
 }
