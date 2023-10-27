@@ -41,15 +41,10 @@ namespace MyShop.API
     {
         [JsonProperty(PropertyName = "customerList")]
         public int customer_id { get; set; }
-
         public string name { get; set; }
-
         public string address { get; set; }
-
         public string phone { get; set; }
-
         public DateTime create_at { get; set; }
-
         public DateTime modify_at { get; set; }
     }
 

@@ -3,10 +3,10 @@ const db = require("../model/db.model.js");
 class CustomerController {
   getAllCustomer = async (req, res, next) => {
     try {
-      const accountList = await db.getAllCustomer();
+      const customerList = await db.getAllCustomer();
 
       res.status(200).json({
-        accountList,
+        customerList,
       });
     } catch (error) {
       next(error);
