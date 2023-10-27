@@ -37,6 +37,7 @@ namespace MyShop.GUI
         List<MyShop.Classes.CustomerQuery> customersQuery = new List<Classes.CustomerQuery>();
         public static MyShop.Classes.CustomerQuery customer = new MyShop.Classes.CustomerQuery();
         public static int customerSelected = -1;
+        public MyShop.Classes.Customer editCustomer = new Classes.Customer();
 
         public MyShop.BUS.customerBUS customerBUS = new BUS.customerBUS();
 
@@ -103,6 +104,19 @@ namespace MyShop.GUI
             }
 
             Debug.WriteLine(customerSelected.ToString() + ' ' + customer.customer_id);
+
+            var targetCustomerId = customer.customer_id;
+
+            editCustomer = MyShop.DAO.customerDAO.getCustomerById(targetCustomerId);
+
+            if (editCustomer != null)
+            {
+                Debug.WriteLine(editCustomer.name);
+                CustomerIDTextBox.Text = editCustomer.customer_id.ToString();
+                CustomerNameTextBox.Text = editCustomer.name;
+                CustomerAddressTextBox.Text = editCustomer.address;
+                CustomerPhoneTextBox.Text = editCustomer.phone;
+            }
         }
 
         private async void handleAddCustomer(object sender, RoutedEventArgs e)
@@ -194,11 +208,52 @@ namespace MyShop.GUI
             }
         }
 
-        private void handleEditCustomer(object sender, RoutedEventArgs e)
+        private async void handleEditCustomer(object sender, RoutedEventArgs e)
         {
             if (customerSelected < 0)
             {
                 MessageBox.Show("Vui lòng chọn ít nhất 1 dòng dữ liệu");
+                return;
+            }
+
+            bool checkCustomerBUS = customerBUS.checkCustomerBUS();
+
+            if (checkCustomerBUS == true)
+            {
+                customerDAO.editCustomer(editCustomer.customer_id, CustomerNameTextBox.Text, CustomerAddressTextBox.Text, CustomerPhoneTextBox.Text);
+
+                MessageBox.Show("Edit Customer Successfully", "Notification", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                };
+
+                var strCustomerRefresh = await GetCustomerData();
+
+                // Refresh Datagrid
+                string responseString = await GetCustomerQueryData();
+
+                var res2 = System.Text.Json.JsonSerializer.Deserialize<RootObject>(responseString, options);
+
+                customersQuery.Clear();
+                foreach (var customer in res2.customers)
+                {
+                    MyShop.Classes.CustomerQuery newCustomer = new MyShop.Classes.CustomerQuery();
+
+                    newCustomer.customer_id = customer.customer_id;
+                    newCustomer.name = customer.name;
+                    newCustomer.address = customer.address;
+                    newCustomer.phone = customer.phone;
+                    newCustomer.create_at = customer.create_at;
+                    newCustomer.modify_at = customer.modify_at;
+
+                    customersQuery.Add(newCustomer);
+                }
+
+                CustomerDataGrid.ItemsSource = customersQuery;
+                CustomerDataGrid.Items.Refresh();
+
                 return;
             }
         }
