@@ -8,6 +8,11 @@ namespace MyShop.BUS
 {
     public class orderBUS
     {
+        public bool checkOrder()
+        {
+            return true;
+        }
+
         public bool checkOrderMonth()
         {
             return true;

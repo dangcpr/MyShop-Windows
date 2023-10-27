@@ -67,6 +67,10 @@ namespace MyShop.Classes
 
         public static int orderProductPageCount { get; set; }
 
+        public List<MyShop.Classes.DetailOrderProduct> detailOrderProduct { get; set; }
+
+        public static int _orderIdSelected { get; set; }
+
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

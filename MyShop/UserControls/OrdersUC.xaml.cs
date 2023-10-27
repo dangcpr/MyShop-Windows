@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
+using MyShop.BUS;
 using MyShop.Classes;
 using MyShop.DAO;
+using MyShop.GUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +25,8 @@ using System.Windows.Shapes;
 
 using static MyShop.Classes.MyModel;
 using static MyShop.helpers.MyShopHelpers;
+using static MyShop.Classes.DetailOrderProduct;
+using System.Data;
 
 namespace MyShop.UserControls
 {
@@ -41,6 +45,8 @@ namespace MyShop.UserControls
 
         public static DataGrid dtOrder = new DataGrid();
         public static int recentPage = 1;
+        public static int orderIdSelected = -1;
+        public static int _orderIdSelected = -1;
 
         private void handleOrdersUCLoaded(object sender, RoutedEventArgs e)
         {
@@ -124,12 +130,22 @@ namespace MyShop.UserControls
 
         private void orderManageDataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
+            IList<DataGridCellInfo> selectedcells = e.AddedCells;
 
+            foreach (DataGridCellInfo di in selectedcells)
+            {
+                //Cast the DataGridCellInfo.Item to the source object type
+                //In this case the ItemsSource is a DataTable and individual items are DataRows
+                MyShop.Classes.OrderProduct dvr = (MyShop.Classes.OrderProduct)di.Item;
+                orderIdSelected = (int)dvr.order_id;
+                _orderIdSelected = (int)dvr.order_id;
+            }
         }
 
         private void handleAddOrder(object sender, RoutedEventArgs e)
         {
-
+            var scren = new AddOrder();
+            scren.Show();
         }
 
         private void handleEditOrder(object sender, RoutedEventArgs e)
@@ -139,12 +155,72 @@ namespace MyShop.UserControls
 
         private void handleDeleteOrder(object sender, RoutedEventArgs e)
         {
+            if (orderIdSelected < 0)
+            {
+                MessageBox.Show("Vui lòng chọn ít nhất 1 dòng dữ liệu");
+                return;
+            }
 
+            Debug.WriteLine("OrderID" + orderIdSelected.ToString());
+
+            MessageBoxResult result = MessageBox.Show("Do you want to remove " + orderIdSelected, "Confirmation", MessageBoxButton.YesNoCancel);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    if (categoryBUS.checkCategoryBUS() == true)
+                    {
+                        orderDAO.deleteOrderProduct(orderIdSelected.ToString());
+
+                        MessageBox.Show("Xóa thành công");
+
+                        orderProductList = orderDAO.getOrderProductList();
+
+                        _myModel.recentOrderProductPage = 1;
+
+                        // Calulate total page
+                        orderProductPageCount = (orderProductList.Count() + 4 - 1) / 4;
+
+                        // Get product list per page
+                        var listPerPage = getOrderProductListPerPage(orderProductList, _myModel.recentOrderProductPage, 4);
+
+                        orderManageDataGrid.ItemsSource = listPerPage;
+                        dtOrder = orderManageDataGrid;
+
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+            }
+            else if (result == MessageBoxResult.No)
+            {
+                return;
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void handleViewDetailOrder(object sender, RoutedEventArgs e)
         {
+            if (orderIdSelected < 0)
+            {
+                MessageBox.Show("Vui lòng chọn ít nhất 1 dòng dữ liệu");
+                return;
+            }
 
-        }      
+            var screen = new DetailOrder();
+            screen.Show();
+        }
+
+        private void orderManageDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
