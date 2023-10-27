@@ -16,7 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
-
+using MyShop.GUI;
 using static MyShop.Classes.MyModel;
 
 namespace MyShop.UserControls
@@ -70,6 +70,12 @@ namespace MyShop.UserControls
         private void SearchBoxUC_Loaded(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("===> SearchBoxUC_Loaded Check");
+        }
+
+        private void handleOpenCustomer(object sender, RoutedEventArgs e)
+        {
+            var screen = new CustomerManagement();
+            screen.Show();
         }
     }
 }

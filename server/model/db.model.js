@@ -15,7 +15,15 @@ const getAllAccount = async () => {
   return rs;
 };
 
+const getAllCustomer = async () => {
+  const rs = await db.any(
+    'select * from "customer" ORDER BY "customer_id" ASC'
+  );
+  return rs;
+};
+
 module.exports = {
   getAllProduct,
   getAllAccount,
+  getAllCustomer,
 };

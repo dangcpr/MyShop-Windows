@@ -1,0 +1,64 @@
+﻿<Window x:Class="MyShop.GUI.CustomerManagement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyShop.GUI"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"             
+        
+        mc:Ignorable="d"
+        Loaded="CustomerMangementLoaded"
+        Title="CustomerManagement" Height="450" Width="900">
+    <Grid>
+        <Grid HorizontalAlignment="Center" Width="800">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="2.0*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="0" Width="250" Orientation="Vertical" HorizontalAlignment="Center">
+                <StackPanel VerticalAlignment="Center" Margin="0 30 0 0">
+                    <TextBlock Text="Customer Management" FontSize="20px" FontWeight="Bold" TextAlignment="Center"/>
+
+                    <StackPanel Orientation="Vertical" Margin="0 20 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Customer ID" FontSize="14" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" Margin="0 0 30 10"/>
+                            <TextBox IsReadOnly="True" x:Name="CustomerIDTextBox" Grid.Column="1" Grid.Row="0" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Name" FontSize="14" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" Margin="0 0 30 10"/>
+                            <TextBox IsReadOnly="True" x:Name="CustomerNameTextBox" Grid.Column="1" Grid.Row="0" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Address" FontSize="14" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" Margin="0 0 30 10"/>
+                            <TextBox IsReadOnly="True" x:Name="CustomerAddressTextBox" Grid.Column="1" Grid.Row="0" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Phone" FontSize="14" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" Margin="0 0 30 10"/>
+                            <TextBox IsReadOnly="True" x:Name="CustomerPhoneTextBox" Grid.Column="1" Grid.Row="0" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                            <Button Content="Add" Margin="0 0 10 0"/>
+                            <Button Content="Edit" Margin="0 0 10 0"/>
+                            <Button Content="Remove"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="0 0 30 0"
+                HorizontalAlignment="Right" VerticalAlignment="Center">
+                <DataGrid x:Name="CustomerDataGrid" Width="400" Height="150"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                          ItemsSource="{Binding productExcelData}"
+                          CanUserDeleteRows ="True" CanUserAddRows="False"
+                          SelectionMode="Extended" SelectionUnit="Cell"
+                          SelectedCellsChanged="CustomerDataGrid_SelectedCellsChanged_1"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

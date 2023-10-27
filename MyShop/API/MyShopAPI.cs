@@ -23,6 +23,8 @@ namespace MyShop.API
     public class RootObject
     {
         public List<Account> accountList { get; set; }
+
+        public List<Customer> customerList { get; set; }
     }
 
     public class Account
@@ -35,12 +37,30 @@ namespace MyShop.API
         public string created { get; set; }
     }
 
+    public class Customer
+    {
+        [JsonProperty(PropertyName = "customerList")]
+        public int customer_id { get; set; }
+
+        public string name { get; set; }
+
+        public string address { get; set; }
+
+        public string phone { get; set; }
+
+        public DateTime create_at { get; set; }
+
+        public DateTime modify_at { get; set; }
+    }
+
 
     public class MyShopApi: INotifyPropertyChanged
     {
         public static string baseUrl = "http://localhost:5000/";
 
         public static List<Account> apiAccountList { get; set; }
+
+        public static List<Customer> apiCustomerList { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -68,6 +88,19 @@ namespace MyShop.API
 
                 return jsonStrRes;
             }
+
+            return "";
+        }
+
+        public static async Task<String> GetCustomerData()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(baseUrl);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            string jsonStrRes = await client.GetStringAsync($"{baseUrl}customer");
+
+            if (jsonStrRes != "") return jsonStrRes;
 
             return "";
         }
