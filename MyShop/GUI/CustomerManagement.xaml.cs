@@ -32,35 +32,54 @@ namespace MyShop.GUI
         }
 
         List<MyShop.Classes.Customer> customers = new List<Classes.Customer>();
+        List<MyShop.Classes.CustomerQuery> customersQuery = new List<Classes.CustomerQuery>();
 
         private async void CustomerMangementLoaded(object sender, RoutedEventArgs e)
         {
-            // API Calling
-            string jsonStrRes = await GetCustomerData();
-
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
             };
 
-            var res = System.Text.Json.JsonSerializer.Deserialize<RootObject>(jsonStrRes, options);
+            // API Calling
+            //string jsonStrRes = await GetCustomerData();
 
-            customers.Clear();
-            foreach (var cusomter in res.customerList)
+            //var res = System.Text.Json.JsonSerializer.Deserialize<RootObject>(jsonStrRes, options);
+
+            //customers.Clear();
+            //foreach (var customer in res.customerList)
+            //{
+            //    MyShop.Classes.Customer newCustomer = new MyShop.Classes.Customer();
+
+            //    newCustomer.customer_id = customer.customer_id;
+            //    newCustomer.name = customer.name;
+            //    newCustomer.address = customer.address;
+            //    newCustomer.phone = customer.phone;
+            //    newCustomer.create_at = customer.create_at;
+            //    newCustomer.modify_at = customer.modify_at;
+
+            //    customers.Add(newCustomer);
+            //}
+
+            // GraphQl query
+            string responseString = await GetCustomerQueryData();
+
+            var res2 = System.Text.Json.JsonSerializer.Deserialize<RootObject>(responseString, options);
+
+            customersQuery.Clear();
+            foreach (var customer in res2.customers)
             {
-                MyShop.Classes.Customer newCustomer = new MyShop.Classes.Customer();
+                MyShop.Classes.CustomerQuery newCustomer = new MyShop.Classes.CustomerQuery();
 
-                newCustomer.customer_id = cusomter.customer_id;
-                newCustomer.name = cusomter.name;
-                newCustomer.address = cusomter.address;
-                newCustomer.phone = cusomter.phone;
-                newCustomer.create_at = cusomter.create_at;
-                newCustomer.modify_at = cusomter.modify_at;
+                newCustomer.customer_id = customer.customer_id;
+                newCustomer.name = customer.name;
+                newCustomer.address = customer.address;
+                newCustomer.phone = customer.phone;
 
-                customers.Add(newCustomer);
+                customersQuery.Add(newCustomer);
             }
 
-            CustomerDataGrid.ItemsSource = customers;
+            CustomerDataGrid.ItemsSource = customersQuery;
         }
 
         private void CustomerDataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)

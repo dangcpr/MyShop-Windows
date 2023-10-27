@@ -3,6 +3,7 @@ FD:\VS_project\MyShop-Windows\MyShop\App.xaml;;
 FD:\VS_project\MyShop-Windows\MyShop\GUI\AddCategory.xaml;;
 FD:\VS_project\MyShop-Windows\MyShop\GUI\AddOrder.xaml;;
 FD:\VS_project\MyShop-Windows\MyShop\GUI\AddProduct.xaml;;
+FD:\VS_project\MyShop-Windows\MyShop\GUI\CustomerManagement.xaml;;
 FD:\VS_project\MyShop-Windows\MyShop\GUI\Dashboard.xaml;;
 FD:\VS_project\MyShop-Windows\MyShop\GUI\DetailOrder.xaml;;
 FD:\VS_project\MyShop-Windows\MyShop\GUI\Login.xaml;;
@@ -14,5 +15,4 @@ FD:\VS_project\MyShop-Windows\MyShop\UserControls\ManageItemsUC.xaml;;
 FD:\VS_project\MyShop-Windows\MyShop\UserControls\OrdersUC.xaml;;
 FD:\VS_project\MyShop-Windows\MyShop\UserControls\ReportsUC.xaml;;
 FD:\VS_project\MyShop-Windows\MyShop\UserControls\SearchBoxUC.xaml;;
-FD:\VS_project\MyShop-Windows\MyShop\GUI\CustomerManagement.xaml;;
 

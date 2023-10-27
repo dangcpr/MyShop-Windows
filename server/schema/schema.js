@@ -2,7 +2,7 @@ const { gql } = require("apollo-server");
 
 const typeDefs = gql`
   type Customer {
-    customer_id: ID!
+    customer_id: Int!
     name: String!
     address: String!
     phone: String!

@@ -103,3 +103,12 @@ D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\MyShop.genruntimeco
 D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\ref\MyShop.dll
 D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\CustomerManagement.g.cs
 D:\VS_project\MyShop-Windows\MyShop\obj\Debug\net6.0-windows\GUI\CustomerManagement.baml
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\GraphQL.dll
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\GraphQLParser.dll
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\GraphQL.Client.dll
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\GraphQL.Client.Abstractions.dll
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\GraphQL.Client.Abstractions.Websocket.dll
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\GraphQL.NewtonsoftJson.dll
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\GraphQL.Primitives.dll
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\System.Reactive.dll
+D:\VS_project\MyShop-Windows\MyShop\bin\Debug\net6.0-windows\GraphQL.Client.Serializer.Newtonsoft.dll

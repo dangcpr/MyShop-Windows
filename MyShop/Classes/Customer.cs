@@ -21,4 +21,15 @@ namespace MyShop.Classes
 
         public DateTime modify_at { get; set; }
     }
+
+    public class CustomerQuery
+    {
+        public int customer_id { get; set; }
+
+        public string name { get; set; }
+
+        public string address { get; set; }
+
+        public string phone { get; set; }
+    }
 }
