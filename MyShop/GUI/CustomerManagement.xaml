@@ -49,15 +49,16 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="0 0 50 0"
-                HorizontalAlignment="Right" VerticalAlignment="Center">
-                <DataGrid x:Name="CustomerDataGrid" Width="700" Height="250"
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" Margin="0 0 70 0"
+                HorizontalAlignment="Right" VerticalAlignment="Top">
+                <TextBlock Text="Customer List" Foreground="#79747E" FontSize="20px" FontWeight="Bold" Margin="0 30 0 0" d:Text="Customer List"/>
+                <DataGrid x:Name="CustomerDataGrid" Width="700" Height="250" Margin="0 30 0 0"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                           ScrollViewer.HorizontalScrollBarVisibility="Auto"
                           ItemsSource="{Binding customerData}"
                           CanUserDeleteRows ="True" CanUserAddRows="False"
                           SelectionMode="Extended" SelectionUnit="Cell"
-                          SelectedCellsChanged="CustomerDataGrid_SelectedCellsChanged_1"/>
+                          SelectedCellsChanged="CustomerDataGrid_SelectedCellsChanged"/>
             </StackPanel>
         </Grid>
     </Grid>

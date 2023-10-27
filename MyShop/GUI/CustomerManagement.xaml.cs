@@ -33,6 +33,8 @@ namespace MyShop.GUI
 
         List<MyShop.Classes.Customer> customers = new List<Classes.Customer>();
         List<MyShop.Classes.CustomerQuery> customersQuery = new List<Classes.CustomerQuery>();
+        public static MyShop.Classes.CustomerQuery customer = new MyShop.Classes.CustomerQuery();
+        public static int customerSelected = -1;
 
         private async void CustomerMangementLoaded(object sender, RoutedEventArgs e)
         {
@@ -64,6 +66,8 @@ namespace MyShop.GUI
             // GraphQl query
             string responseString = await GetCustomerQueryData();
 
+            Debug.WriteLine(responseString);
+
             var res2 = System.Text.Json.JsonSerializer.Deserialize<RootObject>(responseString, options);
 
             customersQuery.Clear();
@@ -84,12 +88,18 @@ namespace MyShop.GUI
 
         private void CustomerDataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
+            IList<DataGridCellInfo> selectedcells = e.AddedCells;
 
-        }
+            foreach (DataGridCellInfo di in selectedcells)
+            {
+                MyShop.Classes.CustomerQuery dvr = (MyShop.Classes.CustomerQuery)di.Item;
 
-        private void CustomerDataGrid_SelectedCellsChanged_1(object sender, SelectedCellsChangedEventArgs e)
-        {
+                customer.customer_id = dvr.customer_id;
+                customerSelected = dvr.customer_id;
 
+            }
+
+            Debug.WriteLine(customerSelected.ToString() + ' ' + customer.customer_id);
         }
     }
 }

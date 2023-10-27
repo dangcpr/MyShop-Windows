@@ -80,6 +80,9 @@ namespace MyShop.API
         public string name { get; set; }
         public string address { get; set; }
         public string phone { get; set; }
+        public DateTime create_at { get; set; }
+        public DateTime modify_at { get; set; }
+
     }
 
     public class MyShopApi: INotifyPropertyChanged
@@ -153,6 +156,8 @@ namespace MyShop.API
                             name
                             address
                             phone
+                            create_at
+                            modify_at
                           }
                         }",
             };

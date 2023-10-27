@@ -31,5 +31,9 @@ namespace MyShop.Classes
         public string address { get; set; }
 
         public string phone { get; set; }
+
+        public DateTime create_at { get; set; }
+
+        public DateTime modify_at { get; set; }
     }
 }
