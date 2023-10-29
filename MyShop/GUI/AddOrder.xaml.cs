@@ -1,5 +1,8 @@
-﻿using System;
+﻿using MyShop.Classes;
+using MyShop.DAO;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
@@ -30,36 +33,40 @@ namespace MyShop.GUI
         public MyShop.BUS.orderBUS orderBUS = new MyShop.BUS.orderBUS();
         public List<int> customerIdList = new List<int>();
         public List<MyShop.Classes.OrderProduct> sortOrderList = new List<MyShop.Classes.OrderProduct>();
-        public List<MyShop.Classes.OrderProduct> orderProductList = new List<Classes.OrderProduct>();
+        public List<int> orderProductList = new List<int>();
+        public List<int> ProductList = new List<int>();
+        int selected = -1;
         public List<MyShop.Classes.Discount> discountList = new List<Classes.Discount>();
 
         private void handleLoadAddOrder(object sender, RoutedEventArgs e)
         {
+            //productOrderDataGrid.AddingNewItem()
             bool checkOrderBUS = orderBUS.checkOrder();
 
             if (checkOrderBUS == true)
             {
-                orderProductList = MyShop.DAO.orderDAO.getOrderProductList();
+                //customerIdList.Clear();
+                //customerIdCombobox.Items.Clear();
 
-                var lastOrder = orderProductList[orderProductList.Count - 1];
-                var newOrderId = lastOrder.order_id + 1;
-                ProductIDTextBox.Text = newOrderId.ToString();
+                customerIdList = customerDAO.getListCustomerID();
 
-                customerIdList.Clear();
-                for (var i = 0; i < orderProductList.Count(); i++)
+                ProductList = productDAO.getListProductID();
+
+                OrderIDTextBox.Text = (orderDAO.getMaxOrderID() + 1).ToString();
+
+                foreach (var customer in customerIdList)
                 {
-                    if (!customerIdList.Contains(orderProductList[i].customer_id))
-                    {
-                        customerIdList.Add(orderProductList[i].customer_id);
-                        sortOrderList.Add(orderProductList[i]);
-                    }
+                    customerIdCombobox.Items.Add(customer.ToString());
                 }
 
-                customerIdCombobox.ItemsSource = sortOrderList;
+                foreach (var product in ProductList)
+                {
+                    productIDTextBox.Items.Add(product.ToString());
+                }
 
                 // Get discount list
-                discountList = MyShop.DAO.discountDAO.GetDiscountList();
-                discountCombobox.ItemsSource = discountList;
+                //discountList = MyShop.DAO.discountDAO.GetDiscountList();
+                //discountCombobox.ItemsSource = discountList;
             }
         }
 
@@ -67,32 +74,24 @@ namespace MyShop.GUI
         {
             bool checkOrderBUS = orderBUS.checkOrder();
 
+            if(customerIdCombobox.Text.Length == 0 || nameDeliverAddressTextBox.Text.Length == 0)
+            {
+                MessageBox.Show("Không được bỏ trống Customer ID và Address");
+                return;
+            }
+
             if (checkOrderBUS == true)
             {
-                var order_id_new = ProductIDTextBox.Text;
-
-                int customerIdChoose = customerIdCombobox.SelectedIndex;
-                var customer_id = sortOrderList[customerIdChoose].customer_id;
-
-                var deliver_address = nameDeliverAddressTextBox.Text;
-
-                int discountChoose = discountCombobox.SelectedIndex;
-                var discount_id = discountList[discountChoose].discount_id;
-                var product_id = discountList[discountChoose].product_id;
-
-                var quantity = nameQuanityTextBox.Text;
-
                 try
                 {
-                    MyShop.DAO.orderDAO.addOrderProduct(order_id_new, customer_id.ToString(),
-                        deliver_address, discount_id.ToString(), product_id.ToString(), quantity);
+                    MyShop.DAO.orderDAO.addOrderProduct(Int32.Parse(OrderIDTextBox.Text), Int32.Parse(customerIdCombobox.Text), nameDeliverAddressTextBox.Text, addOrders);
 
-                    MessageBox.Show("Thêm sản phẩm thành công");
+                    MessageBox.Show("Thêm đơn hàng thành công");
 
                     // Reset
-                    ProductIDTextBox.Text = "";
-                    nameDeliverAddressTextBox.Text = "";
-                    nameQuanityTextBox.Text = "";
+                    this.Close();
+                    
+                    //nameQuanityTextBox.Text = "";
                 }
                 catch (Exception er)
                 {
@@ -100,6 +99,92 @@ namespace MyShop.GUI
                     Debug.WriteLine(er);
                 }
             }
+        }
+
+        private void productOrderDataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+
+            IList<DataGridCellInfo> selectedcells = e.AddedCells;
+
+            productIDTextBox.Text = String.Empty;
+            quantityIDTextBox.Text = String.Empty;
+            discountCombobox.Text = String.Empty;
+
+            selected = productOrderDataGrid.SelectedIndex;
+            Debug.WriteLine(selected);
+
+            foreach (DataGridCellInfo di in selectedcells)
+            {
+                //Cast the DataGridCellInfo.Item to the source object type
+                //In this case the ItemsSource is a DataTable and individual items are DataRows
+                MyShop.Classes.addOrder dvr = (MyShop.Classes.addOrder)di.Item;
+
+                productIDTextBox.Text = dvr.productID.ToString();
+                quantityIDTextBox.Text = dvr.quantity.ToString();
+                discountIDTextBox.Text = dvr.discountID.ToString();
+            }
+        }
+
+        List<addOrder> addOrders = new List<addOrder>();
+        private void AddProductButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(productIDTextBox.Text.Length == 0 || quantityIDTextBox.Text.Length == 0)
+            {
+                MessageBox.Show("Không được bỏ trống Product ID và Quantity");
+                return;
+            }
+            addOrder addOrderC = new addOrder();
+            addOrderC.productID = Int32.Parse(productIDTextBox.Text);
+            addOrderC.quantity = Int32.Parse(quantityIDTextBox.Text);
+
+            int x = 0;
+
+            bool isDiscountID = Int32.TryParse(discountIDTextBox.Text, out x);
+
+            addOrderC.discountID = isDiscountID ? Int32.Parse(discountIDTextBox.Text) : null;
+
+            addOrders.Add(addOrderC);
+
+            productOrderDataGrid.ItemsSource = addOrders;
+            productOrderDataGrid.Items.Refresh();
+
+            productIDTextBox.Text = String.Empty;
+            quantityIDTextBox.Text = String.Empty;
+            discountIDTextBox.Text = String.Empty;
+        }
+
+        private void RemoveProductButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(selected == -1)
+            {
+                MessageBox.Show("Vui lòng chọn 1 dòng để xóa");
+                return;
+            } else
+            {
+                addOrders.RemoveAt(selected);
+                productOrderDataGrid.ItemsSource = addOrders;
+                productOrderDataGrid.Items.Refresh();
+            }
+        }
+
+        private void DeleteDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            discountIDTextBox.Text = String.Empty;
+            productIDTextBox.Text = String.Empty;
+            quantityIDTextBox.Text = String.Empty;
+        }
+
+        private void productIDTextBox_DropDownClosed(object sender, EventArgs e)
+        {
+            List<int> listDiscountID = new List<int>();
+
+            int x = 0;
+
+            Int32.TryParse(productIDTextBox.Text, out x);
+
+            listDiscountID = discountDAO.getListDiscountID(x);
+
+            discountIDTextBox.ItemsSource = listDiscountID;
         }
     }
 }

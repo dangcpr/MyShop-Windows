@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 using static MyShop.DAO.connectDatabaseDAO;
 using static MyShop.Classes.Discount;
+using System.Collections;
 
 namespace MyShop.DAO
 {
@@ -38,6 +39,26 @@ namespace MyShop.DAO
                                 }).ToList();
 
             return discountList;
+        }
+
+        public static List<int> getListDiscountID(int productID)
+        {
+            List<int> listDiscountID = new List<int>();
+
+            NpgsqlConnection connection = connectDB();
+
+            NpgsqlCommand query2 = new NpgsqlCommand("SELECT discount_id FROM \"discount\" where product_id = @productID order by discount_id ASC", connection);
+            query2.Parameters.Add("@productID", NpgsqlTypes.NpgsqlDbType.Integer).Value = productID;
+
+            var reader2 = query2.ExecuteReader();
+            while (reader2.Read())
+            {
+                listDiscountID.Add((int)reader2.GetValue(0));
+            }
+
+            reader2.Close();
+
+            return listDiscountID;
         }
     }
 }

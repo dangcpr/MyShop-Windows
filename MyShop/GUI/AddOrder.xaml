@@ -12,7 +12,7 @@
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <TextBlock Text="Add Order" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0 0 0 15"/>
-            <Grid Margin="0 0 0 20">
+            <Grid Margin="0 0 0 20" Height="116">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -22,29 +22,21 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
+                    <RowDefinition Height="0"/>
+                    <RowDefinition Height="0"/>
                 </Grid.RowDefinitions>
                 
                 <TextBlock Text="Order ID" FontSize="14" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
-                <TextBox IsReadOnly="True" x:Name="ProductIDTextBox" Grid.Column="1" Grid.Row="0" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom"/>
+                <TextBox IsReadOnly="True" x:Name="OrderIDTextBox" Grid.Column="1" Grid.Row="0" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom"/>
                 
                 <TextBlock Text="Customer ID" FontSize="14" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
-                <ComboBox x:Name="customerIdCombobox"  Grid.Column="1" Grid.Row="1" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding customer_id}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                
+                <ComboBox x:Name="customerIdCombobox"  Grid.Column="1" Grid.Row="1" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom" Foreground="Black"/>
+
                 <TextBlock Text="Deliver Address" FontSize="14" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
                 <TextBox x:Name="nameDeliverAddressTextBox" Grid.Column="1" Grid.Row="2" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom"/>
-                
-                <TextBlock Text="Discount" FontSize="14" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
-                <ComboBox x:Name="discountCombobox"  Grid.Column="1" Grid.Row="3" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom">
+
+                <TextBlock Visibility="Hidden" Text="Discount" FontSize="14" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
+                <ComboBox Visibility="Hidden" x:Name="discountCombobox"  Grid.Column="1" Grid.Row="3" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -57,10 +49,25 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                
-                <TextBlock Text="Quantity" FontSize="14" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
-                <TextBox IsReadOnly="True" x:Name="nameQuanityTextBox" Text="1" Grid.Column="1" Grid.Row="4" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom"/>
+
+                <TextBlock Visibility="Hidden" Text="Quantity" FontSize="14" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 10"/>
+                <TextBox Visibility="Hidden" x:Name="nameQuanityTextBox" Grid.Column="1" Grid.Row="4" Width="160" HorizontalAlignment="left" Margin="0 0 30 10" VerticalAlignment="Bottom"/>
+
             </Grid>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <DataGrid Name="productOrderDataGrid" Grid.Column="1" Grid.Row="4" Width="300" Height="152" Margin="0 0 30 10" VerticalAlignment="Center" IsReadOnly="True" SelectedCellsChanged="productOrderDataGrid_SelectedCellsChanged" CanUserReorderColumns="False">
+                </DataGrid>
+                <StackPanel Orientation="Vertical" Width="331">
+                    <ComboBox materialDesign:HintAssist.Hint="Product ID" Name="productIDTextBox" DropDownClosed="productIDTextBox_DropDownClosed"/>
+                    <TextBox materialDesign:HintAssist.Hint="Quantity" Name="quantityIDTextBox"/>
+                    <ComboBox materialDesign:HintAssist.Hint="Discount ID (if have)" Name="discountIDTextBox"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="Delete Data" Margin="5" Name="DeleteDataButton" Click="DeleteDataButton_Click" Background="Red"/>
+                        <Button Content="Add" Margin="5" Name="AddProductButton" Click="AddProductButton_Click"/>
+                        <Button Content="Remove" Background="Black" Margin="5" Name="RemoveProductButton" Click="RemoveProductButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
             <Button Content="Submit" Click="SubmitAddOrder" Width="100" Margin="0 20 0 0"/>
         </StackPanel>
     </Grid>

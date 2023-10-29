@@ -10,7 +10,6 @@
 //------------------------------------------------------------------------------
 
 using MyShop.GUI;
-using MyShop.UserControls;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -62,7 +61,7 @@ namespace MyShop.GUI {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MyShop;V1.0.0.0;component/gui/detailorder.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/MyShop;component/gui/detailorder.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\GUI\DetailOrder.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

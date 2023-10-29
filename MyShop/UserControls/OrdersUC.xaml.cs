@@ -47,6 +47,7 @@ namespace MyShop.UserControls
         public static int recentPage = 1;
         public static int orderIdSelected = -1;
         public static int _orderIdSelected = -1;
+        public static Order orderChoose = new Order();
 
         private void handleOrdersUCLoaded(object sender, RoutedEventArgs e)
         {
@@ -138,7 +139,10 @@ namespace MyShop.UserControls
                 //In this case the ItemsSource is a DataTable and individual items are DataRows
                 MyShop.Classes.OrderProduct dvr = (MyShop.Classes.OrderProduct)di.Item;
                 orderIdSelected = (int)dvr.order_id;
-                _orderIdSelected = (int)dvr.order_id;
+                orderChoose.order_id = (int)dvr.order_id;
+                orderChoose.customer_id = (int)dvr.customer_id;
+                orderChoose.deliver_address = (string)dvr.deliver_address;
+                orderChoose.status = (string)dvr.status;
             }
         }
 
@@ -150,7 +154,13 @@ namespace MyShop.UserControls
 
         private void handleEditOrder(object sender, RoutedEventArgs e)
         {
-
+            if (orderIdSelected < 0)
+            {
+                MessageBox.Show("Vui lòng chọn 1 đơn hàng để xem");
+                return;
+            }
+            UpdateOrder updateOrder = new UpdateOrder();
+            updateOrder.Show();
         }
 
         private void handleDeleteOrder(object sender, RoutedEventArgs e)
@@ -170,7 +180,7 @@ namespace MyShop.UserControls
                 {
                     if (categoryBUS.checkCategoryBUS() == true)
                     {
-                        orderDAO.deleteOrderProduct(orderIdSelected.ToString());
+                        orderDAO.deleteOrderProduct(orderIdSelected);
 
                         MessageBox.Show("Xóa thành công");
 
@@ -214,7 +224,7 @@ namespace MyShop.UserControls
                 return;
             }
 
-            var screen = new DetailOrder();
+            var screen = new ViewDetailOrder();
             screen.Show();
         }
 

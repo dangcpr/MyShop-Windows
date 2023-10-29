@@ -478,5 +478,24 @@ namespace MyShop.DAO
 
             return istQuantityProduct;
         }
+
+        public static List<int> getListProductID()
+        {
+            List<int> listProductID = new List<int>();
+
+            NpgsqlConnection connection = connectDB();
+
+            NpgsqlCommand query2 = new NpgsqlCommand("SELECT product_id FROM \"product\" order by product_id ASC ", connection);
+
+            var reader2 = query2.ExecuteReader();
+            while (reader2.Read())
+            {
+                listProductID.Add((int)reader2.GetValue(0));
+            }
+
+            reader2.Close();
+
+            return listProductID;
+        }
     }
 }
