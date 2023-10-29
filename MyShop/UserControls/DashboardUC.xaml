@@ -22,15 +22,21 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.15*"/>
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Row="0" Grid.Column="0" Width="200" Orientation="Vertical" HorizontalAlignment="Left" Margin="30 0 0 0">
                     <TextBlock Text="Dashboard" FontSize="30px" FontWeight="Bold"/>
                     <TextBlock Text="{Binding username}" Foreground="#79747E" FontSize="20px" d:Text="Nguyễn Văn A"/>
                 </StackPanel>
-                <uc:SearchBoxUC x:Name="dashboardSearchBox" Grid.Row="0" Grid.Column="1" Width="300" Margin="0 0 40 0"
-                                VerticalAlignment="Center" HorizontalAlignment="Right" Loaded="SearchBoxUC_Loaded"/>
+                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                    <uc:SearchBoxUC x:Name="dashboardSearchBox" Width="300" Margin="0 0 20 0" 
+                                    VerticalAlignment="Center" HorizontalAlignment="Right" Loaded="SearchBoxUC_Loaded"/>
+                    <Button Width="120" Content="Customer" Height="45"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            ToolTip="Resource name: MaterialDesignRaisedButton" Click="handleOpenCustomer" />
+                </StackPanel>
             </Grid>
             
             <Grid MaxWidth="{Binding ActualWidth, ElementName=myStackPanel}" HorizontalAlignment="Center"

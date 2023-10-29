@@ -56,7 +56,7 @@ namespace MyShop.UserControls {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MyShop;component/usercontrols/searchboxuc.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/MyShop;V1.0.0.0;component/usercontrols/searchboxuc.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\UserControls\SearchBoxUC.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

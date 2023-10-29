@@ -60,6 +60,43 @@
         }
       },
       "Fody/6.6.4": {},
+      "GraphQL/7.6.1": {
+        "dependencies": {
+          "GraphQL-Parser": "8.4.0"
+        }
+      },
+      "GraphQL-Parser/8.4.0": {},
+      "GraphQL.Client/6.0.1": {
+        "dependencies": {
+          "GraphQL.Client.Abstractions": "6.0.1",
+          "GraphQL.Client.Abstractions.Websocket": "6.0.1",
+          "System.Reactive": "5.0.0"
+        }
+      },
+      "GraphQL.Client.Abstractions/6.0.1": {
+        "dependencies": {
+          "GraphQL.Primitives": "6.0.1"
+        }
+      },
+      "GraphQL.Client.Abstractions.Websocket/6.0.1": {
+        "dependencies": {
+          "GraphQL.Client.Abstractions": "6.0.1"
+        }
+      },
+      "GraphQL.Client.Serializer.Newtonsoft/6.0.1": {
+        "dependencies": {
+          "GraphQL.Client.Abstractions.Websocket": "6.0.1",
+          "Newtonsoft.Json": "13.0.3"
+        }
+      },
+      "GraphQL.NewtonsoftJson/7.6.1": {
+        "dependencies": {
+          "GraphQL": "7.6.1",
+          "Newtonsoft.Json": "13.0.3",
+          "System.Buffers": "4.5.1"
+        }
+      },
+      "GraphQL.Primitives/6.0.1": {},
       "HarfBuzzSharp/7.3.0": {
         "dependencies": {
           "HarfBuzzSharp.NativeAssets.Win32": "7.3.0",
@@ -397,12 +434,6 @@
       "PropertyChanged.Fody/4.1.0": {
         "dependencies": {
           "Fody": "6.6.4"
-        },
-        "runtime": {
-          "lib/netstandard2.1/PropertyChanged.dll": {
-            "assemblyVersion": "4.1.0.0",
-            "fileVersion": "4.1.0.0"
-          }
         }
       },
       "SkiaSharp/2.88.6": {
@@ -481,6 +512,7 @@
           }
         }
       },
+      "System.Buffers/4.5.1": {},
       "System.ComponentModel.Annotations/5.0.0": {
         "runtime": {
           "lib/netstandard2.1/System.ComponentModel.Annotations.dll": {
@@ -534,6 +566,7 @@
         }
       },
       "System.Memory/4.5.5": {},
+      "System.Reactive/5.0.0": {},
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
         "runtime": {
           "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
@@ -656,6 +689,62 @@
       "sha512": "sha512-vLZS+oa+ndUHYPlx/8n9bBTT3dHkCF0riml4paKq4D663+cZd47x1uagQo32D/gKFZ/sfmV1oqKaLmH0elxq4A==",
       "path": "fody/6.6.4",
       "hashPath": "fody.6.6.4.nupkg.sha512"
+    },
+    "GraphQL/7.6.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-16UOuR01WG0APHArtNkenSsOivRxZ3Ikdf4zG4GLlvnYuB9g/1MGI2HlZJ3ufa8rVUpdSS/WGpI9ifi779OBjQ==",
+      "path": "graphql/7.6.1",
+      "hashPath": "graphql.7.6.1.nupkg.sha512"
+    },
+    "GraphQL-Parser/8.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FwDgsaOPEoa7sAACRl9wjQl+J8Z0x9C8HcBWRCzRVRvrvBZsBLX8fnL+6pDnUhn0audU05Cjod4uqJe4cB9OFw==",
+      "path": "graphql-parser/8.4.0",
+      "hashPath": "graphql-parser.8.4.0.nupkg.sha512"
+    },
+    "GraphQL.Client/6.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-u5ltdKAxo557BBQIX9sz7mjMgWXMB6/10K9d7tr3UPWL7DijGRShc639w9d7kOGLq7iE3w9/7nRFmA1M5dfccw==",
+      "path": "graphql.client/6.0.1",
+      "hashPath": "graphql.client.6.0.1.nupkg.sha512"
+    },
+    "GraphQL.Client.Abstractions/6.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-c4PhxkrcNrLgXuS6TWZNHNix7wG6KPiVEmLOFhEIvNXR5yzsV2U0icLh1sxlHNBgutYel/+WtWBlAOEQ1w21wg==",
+      "path": "graphql.client.abstractions/6.0.1",
+      "hashPath": "graphql.client.abstractions.6.0.1.nupkg.sha512"
+    },
+    "GraphQL.Client.Abstractions.Websocket/6.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Aa+ZmWID29BrzZFciltErVg29uVSzCNInRoWbhCupCoLSuyysOkxLau6O/B7001K5N/+/1Bme+IoSPzo5gUucQ==",
+      "path": "graphql.client.abstractions.websocket/6.0.1",
+      "hashPath": "graphql.client.abstractions.websocket.6.0.1.nupkg.sha512"
+    },
+    "GraphQL.Client.Serializer.Newtonsoft/6.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+ihnPSxIo8yQeNKqpQoyBrEw8dVcHVMWUMZlRUPjZrLtUNtVmpmQVIjHLnljW9ykeV6L6cgusbe+uI5sMm7J0Q==",
+      "path": "graphql.client.serializer.newtonsoft/6.0.1",
+      "hashPath": "graphql.client.serializer.newtonsoft.6.0.1.nupkg.sha512"
+    },
+    "GraphQL.NewtonsoftJson/7.6.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3/FUeHbQrTpnX4jDGyHJ5PwTyy7LlseuoXRZGjdPLOP3LZml7F0XIC2W9sdWfViuQrEL7LC7XmuMGRgzuKOnug==",
+      "path": "graphql.newtonsoftjson/7.6.1",
+      "hashPath": "graphql.newtonsoftjson.7.6.1.nupkg.sha512"
+    },
+    "GraphQL.Primitives/6.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PR4kBsd5QlIknX4M8dAHXBSPRReSf+9X8i6to7o1bUDQU/LVD0a0q9sWtPcwFviXUYZ5uKVOo647pg9jk7RnHA==",
+      "path": "graphql.primitives/6.0.1",
+      "hashPath": "graphql.primitives.6.0.1.nupkg.sha512"
     },
     "HarfBuzzSharp/7.3.0": {
       "type": "package",
@@ -916,6 +1005,13 @@
       "path": "skiasharp.views.wpf/2.88.6",
       "hashPath": "skiasharp.views.wpf.2.88.6.nupkg.sha512"
     },
+    "System.Buffers/4.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg==",
+      "path": "system.buffers/4.5.1",
+      "hashPath": "system.buffers.4.5.1.nupkg.sha512"
+    },
     "System.ComponentModel.Annotations/5.0.0": {
       "type": "package",
       "serviceable": true,
@@ -950,6 +1046,13 @@
       "sha512": "sha512-XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
       "path": "system.memory/4.5.5",
       "hashPath": "system.memory.4.5.5.nupkg.sha512"
+    },
+    "System.Reactive/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-erBZjkQHWL9jpasCE/0qKAryzVBJFxGHVBAvgRN1bzM0q2s1S4oYREEEL0Vb+1kA/6BKb5FjUZMp5VXmy+gzkQ==",
+      "path": "system.reactive/5.0.0",
+      "hashPath": "system.reactive.5.0.0.nupkg.sha512"
     },
     "System.Runtime.CompilerServices.Unsafe/6.0.0": {
       "type": "package",

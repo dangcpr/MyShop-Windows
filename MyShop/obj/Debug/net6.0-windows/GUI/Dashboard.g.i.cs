@@ -177,7 +177,7 @@ namespace MyShop.GUI {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MyShop;component/gui/dashboard.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/MyShop;V1.0.0.0;component/gui/dashboard.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\GUI\Dashboard.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
