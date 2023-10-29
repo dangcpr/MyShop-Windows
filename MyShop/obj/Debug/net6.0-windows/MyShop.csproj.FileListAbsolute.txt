@@ -103,3 +103,14 @@ D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateOrder.g.cs
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\UpdateOrder.baml
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\ViewDetailOrder.g.cs
 D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\ViewDetailOrder.baml
+D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\GraphQL.dll
+D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\GraphQLParser.dll
+D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\GraphQL.Client.dll
+D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\GraphQL.Client.Abstractions.dll
+D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\GraphQL.Client.Abstractions.Websocket.dll
+D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\GraphQL.Client.Serializer.Newtonsoft.dll
+D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\GraphQL.NewtonsoftJson.dll
+D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\GraphQL.Primitives.dll
+D:\Windows\MyShop-windows\MyShop\bin\Debug\net6.0-windows\System.Reactive.dll
+D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\CustomerManagement.g.cs
+D:\Windows\MyShop-windows\MyShop\obj\Debug\net6.0-windows\GUI\CustomerManagement.baml
