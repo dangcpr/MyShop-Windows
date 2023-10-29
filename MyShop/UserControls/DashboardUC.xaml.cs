@@ -38,11 +38,12 @@ namespace MyShop.UserControls
 
         private void handleDashboardUCLoaded(object sender, RoutedEventArgs e)
         {
+            /*
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             config.AppSettings.Settings["LastScreen"].Value = "1";
             config.Save(ConfigurationSaveMode.Minimal);
             ConfigurationManager.RefreshSection("appSettings");
-
+            */
             _speedStatsTable = MyShop.DAO.productDAO.getSpeedStats();
 
             string[] colorList = { "Hotpink", "Turquoise", "Gold", "Chartreuse", "Brown", "Darkkhaki", "chocolate", "darkolivegreen", "darkslateblue", "firebrick", "indianred" };

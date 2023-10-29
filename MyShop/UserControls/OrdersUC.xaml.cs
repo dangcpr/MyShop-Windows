@@ -50,13 +50,22 @@ namespace MyShop.UserControls
         public static int _orderIdSelected = -1;
         public static Order orderChoose = new Order();
 
-        private void handleOrdersUCLoaded(object sender, RoutedEventArgs e)
+        private void saveScreen()
         {
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             config.AppSettings.Settings["LastScreen"].Value = "3";
             config.Save(ConfigurationSaveMode.Minimal);
             ConfigurationManager.RefreshSection("appSettings");
+        }
 
+        private void handleOrdersUCLoaded(object sender, RoutedEventArgs e)
+        {
+            /*
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["LastScreen"].Value = "3";
+            config.Save(ConfigurationSaveMode.Minimal);
+            ConfigurationManager.RefreshSection("appSettings");
+            */
             _myModel = new MyShop.Classes.MyModel();
 
             orderProductList = new List<MyShop.Classes.OrderProduct>();

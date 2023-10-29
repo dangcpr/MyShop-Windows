@@ -40,7 +40,8 @@ namespace MyShop.GUI
     {
         public Dashboard()
         {
-            InitializeComponent();      
+            InitializeComponent();
+            tab1.IsSelected = false;
         }
         
         // BUS Implement
@@ -65,17 +66,18 @@ namespace MyShop.GUI
             //Load màn hình cuối cùng trước khi tắt
             var lastScreenSave = ConfigurationManager.AppSettings["LastScreen"];
 
-            if(lastScreenSave == "")
+            if (lastScreenSave == "")
             {
                 tab1.Focus();
-            } else
+            }
+            else
             {
-                switch(lastScreenSave)
+                switch (lastScreenSave)
                 {
-                    case "1": tab1.Focus();break;
-                    case "2": tab2.Focus(); break;
-                    case "3": tab3.Focus(); break;
-                    case "4": tab4.Focus(); break;
+                    case "1": tab1.IsSelected = true; break;
+                    case "2": tab2.IsSelected = true; break;
+                    case "3": tab3.IsSelected = true; break;
+                    case "4": tab4.IsSelected = true; break;
                 }
             }
 
@@ -221,6 +223,42 @@ namespace MyShop.GUI
         private void DashboardUC_Loaded(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("===> DashboardUC_Loaded Check");
+        }
+
+        private void tab1_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["LastScreen"].Value = "1";
+            config.Save(ConfigurationSaveMode.Minimal);
+            ConfigurationManager.RefreshSection("appSettings");
+            Debug.WriteLine("11111");
+        }
+
+        private void tab2_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["LastScreen"].Value = "2";
+            config.Save(ConfigurationSaveMode.Minimal);
+            ConfigurationManager.RefreshSection("appSettings");
+            Debug.WriteLine("22222");
+        }
+
+        private void tab3_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["LastScreen"].Value = "3";
+            config.Save(ConfigurationSaveMode.Minimal);
+            ConfigurationManager.RefreshSection("appSettings");
+            Debug.WriteLine("33333");
+        }
+
+        private void tab4_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["LastScreen"].Value = "4";
+            config.Save(ConfigurationSaveMode.Minimal);
+            ConfigurationManager.RefreshSection("appSettings");
+            Debug.WriteLine("44444");
         }
     }
 }
