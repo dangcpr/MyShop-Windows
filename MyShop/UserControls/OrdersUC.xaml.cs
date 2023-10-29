@@ -27,6 +27,7 @@ using static MyShop.Classes.MyModel;
 using static MyShop.helpers.MyShopHelpers;
 using static MyShop.Classes.DetailOrderProduct;
 using System.Data;
+using System.Configuration;
 
 namespace MyShop.UserControls
 {
@@ -51,6 +52,11 @@ namespace MyShop.UserControls
 
         private void handleOrdersUCLoaded(object sender, RoutedEventArgs e)
         {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["LastScreen"].Value = "3";
+            config.Save(ConfigurationSaveMode.Minimal);
+            ConfigurationManager.RefreshSection("appSettings");
+
             _myModel = new MyShop.Classes.MyModel();
 
             orderProductList = new List<MyShop.Classes.OrderProduct>();

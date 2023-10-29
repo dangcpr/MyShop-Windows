@@ -28,6 +28,8 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore;
 using MyShop.Classes;
 using System.Configuration;
+using MaterialDesignThemes.Wpf;
+using MyShop.UserControls;
 
 namespace MyShop.GUI
 {
@@ -60,6 +62,23 @@ namespace MyShop.GUI
 
         private void handleDashboardLoaded(object sender, RoutedEventArgs e)
         {
+            //Load màn hình cuối cùng trước khi tắt
+            var lastScreenSave = ConfigurationManager.AppSettings["LastScreen"];
+
+            if(lastScreenSave == "")
+            {
+                tab1.Focus();
+            } else
+            {
+                switch(lastScreenSave)
+                {
+                    case "1": tab1.Focus();break;
+                    case "2": tab2.Focus(); break;
+                    case "3": tab3.Focus(); break;
+                    case "4": tab4.Focus(); break;
+                }
+            }
+
             //var _myModel = new MyShop.Classes.MyModel();
             _myModel = new MyShop.Classes.MyModel();
 

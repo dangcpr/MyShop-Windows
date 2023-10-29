@@ -25,6 +25,7 @@ using MyShop.GUI;
 using MyShop.Classes;
 using Microsoft.Win32;
 using System.IO;
+using System.Configuration;
 
 namespace MyShop.UserControls
 {
@@ -48,6 +49,11 @@ namespace MyShop.UserControls
 
         private void handleManageItemsUCLoaded(object sender, RoutedEventArgs e)
         {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["LastScreen"].Value = "2";
+            config.Save(ConfigurationSaveMode.Minimal);
+            ConfigurationManager.RefreshSection("appSettings");
+
             products = productDAO.getProductList();
             productManageDataGrid.ItemsSource = products;
             dtProduct = productManageDataGrid;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -53,6 +54,11 @@ namespace MyShop.UserControls
 
         private void UserControlReport_Loaded(object sender, RoutedEventArgs e)
         {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["LastScreen"].Value = "4";
+            config.Save(ConfigurationSaveMode.Minimal);
+            ConfigurationManager.RefreshSection("appSettings");
+
             listRevenueChart.Clear();
             listProfitChart.Clear();
             listQuantityProductChart.Clear();
